@@ -10,9 +10,9 @@ Table 51058 "CshMgt PV Process Road"
 
             trigger OnValidate()
             begin
-                PVSteps.Reset;
-                PVSteps.Get("From Status Code");
-                "From Status Description" := PVSteps."Account Name";
+                // PVSteps.Reset;
+                // PVSteps.Get("From Status Code");
+                // "From Status Description" := PVSteps."Account Name";
             end;
         }
         field(2; "From Status Description"; Text[30])
@@ -24,9 +24,9 @@ Table 51058 "CshMgt PV Process Road"
 
             trigger OnValidate()
             begin
-                PVSteps.Reset;
-                PVSteps.Get("To Status Code");
-                "To Status Description" := PVSteps."Account Name";
+                // PVSteps.Reset;
+                // PVSteps.Get("To Status Code");
+                // "To Status Description" := PVSteps."Account Name";
             end;
         }
         field(4; "To Status Description"; Text[30])
@@ -56,6 +56,6 @@ Table 51058 "CshMgt PV Process Road"
     }
 
     var
-        PVSteps: Record "Cheque Clearing Lines";
+    // PVSteps: Record "Cheque Clearing Lines";
 }
 

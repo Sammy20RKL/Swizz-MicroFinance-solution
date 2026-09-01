@@ -36,6 +36,10 @@ page 50558 "Loan Collateral Register List"
                 {
                     ApplicationArea = Basic;
                 }
+                field(Status; Rec.Status)
+                {
+                    ApplicationArea = Basic;
+                }
                 field("Collateral Description"; Rec."Collateral Description")
                 {
                     ApplicationArea = Basic;

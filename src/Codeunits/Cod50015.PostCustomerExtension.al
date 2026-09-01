@@ -16,8 +16,6 @@ codeunit 50015 "PostCustomerExtension"
     //1)-----------------------------------------------------------------------------------------------------
     [EventSubscriber(ObjectType::codeunit, Codeunit::"Gen. Jnl.-Post Line", 'OnAfterInsertDtldCustLedgEntry', '', false, false)]
     procedure InsertCustomfieldstodetailedcustledgerentry(GenJournalLine: Record "Gen. Journal Line"; var DtldCustLedgEntry: Record "Detailed Cust. Ledg. Entry")
-    var
-        sfactory: Codeunit "Swizzsoft Factory";
     begin
         //Fields to autopopopulate data b4 the posting process is started;
         DtldCustLedgEntry.LockTable();
@@ -31,7 +29,8 @@ codeunit 50015 "PostCustomerExtension"
         DtldCustLedgEntry."Posting Date" := GenJournalLine."Posting Date";
         DtldCustLedgEntry."Prepayment Date" := GenJournalLine."Prepayment date";
         DtldCustLedgEntry."Group Code" := GenJournalLine."Group Code";
-        //DtldCustLedgEntry."BLoan Officer No." := sfactory.FnGetLoanOfficerFromMemberNo(GenJournalLine."Account No.");
+        if MemberReg.Get(GenJournalLine."Account No.") then
+            DtldCustLedgEntry."Agent No." := MemberReg."Agent No.";
     end;
 
     //2)-----------------------------------------------------------------------------------------------------
@@ -250,7 +249,6 @@ codeunit 50015 "PostCustomerExtension"
     procedure InsertCustomTransactionFields(GenJournalLine: Record "Gen. Journal Line"; var CustLedgerEntry: Record "Cust. Ledger Entry")
     var
         cust: Record Customer;
-        sfactory: Codeunit "Swizzsoft Factory";
     begin
         CustLedgerEntry.LockTable();
         CustLedgerEntry."Transaction Type" := GenJournalLine."Transaction Type";
@@ -266,7 +264,8 @@ codeunit 50015 "PostCustomerExtension"
         CustLedgerEntry."Prepayment Date" := GenJournalLine."Prepayment date";
         CustLedgerEntry."Group Code" := GenJournalLine."Group Code";
         CustLedgerEntry."Document No." := GenJournalLine."Document No.";
-        // CustLedgerEntry."BLoan Officer No." := sfactory.FnGetLoanOfficerFromMemberNo(GenJournalLine."Account No.");
+        if cust.Get(GenJournalLine."Account No.") then
+            CustLedgerEntry."Agent No." := cust."Agent No.";
     end;
 
 

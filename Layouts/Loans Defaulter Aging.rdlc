@@ -1,13 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:am="http://schemas.microsoft.com/sqlserver/reporting/authoringmetadata">
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>4bd84e69-a22c-475c-ba98-7bb73fe4dfce</rd:ReportID>
+  <am:AuthoringMetadata>
+    <am:CreatedBy>
+      <am:Name>PBIRB</am:Name>
+      <am:Version>15.7.1813.16</am:Version>
+    </am:CreatedBy>
+    <am:UpdatedBy>
+      <am:Name>PBIRB</am:Name>
+      <am:Version>15.7.1813.16</am:Version>
+    </am:UpdatedBy>
+    <am:LastModifiedTimestamp>2026-08-24T10:59:55.9935295Z</am:LastModifiedTimestamp>
+  </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="DataSource">
+      <rd:SecurityType>None</rd:SecurityType>
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
         <ConnectString />
       </ConnectionProperties>
-      <rd:SecurityType>None</rd:SecurityType>
       <rd:DataSourceID>adbe32cb-14b3-44c3-99eb-2e6f648ce17c</rd:DataSourceID>
     </DataSource>
   </DataSources>
@@ -17,13 +30,13 @@
         <ReportItems>
           <Image Name="Image1">
             <Source>Database</Source>
-            <Value>=First(Fields!Company_Letter_Head.Value, "DataSet_Result")</Value>
+            <Value>=First(Fields!Company_Picture.Value, "DataSet_Result")</Value>
             <MIMEType>image/png</MIMEType>
             <Sizing>Fit</Sizing>
             <Top>0.20015cm</Top>
-            <Left>0.4979cm</Left>
+            <Left>1.0603cm</Left>
             <Height>3.11893cm</Height>
-            <Width>28.10983cm</Width>
+            <Width>2.67453cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -31,13 +44,14 @@
             </Style>
           </Image>
           <Textbox Name="Textbox28">
+            <rd:DefaultName>Textbox16</rd:DefaultName>
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value EvaluationMode="Auto">LOANS DEFAULTER AGING AS AT </Value>
+                    <Value>LOANS DEFAULTER AGING:</Value>
                     <Style>
                       <FontFamily>Maiandra GD</FontFamily>
                       <FontWeight>Bold</FontWeight>
@@ -47,9 +61,8 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox16</rd:DefaultName>
-            <Top>3.49547cm</Top>
-            <Left>0.49792cm</Left>
+            <Top>3.42491cm</Top>
+            <Left>8.98223cm</Left>
             <Height>0.6cm</Height>
             <Width>7.12328cm</Width>
             <ZIndex>1</ZIndex>
@@ -64,9 +77,10 @@
             </Style>
           </Textbox>
           <Line Name="Line2">
-            <Top>4.27186cm</Top>
+            <Top>4.09547cm</Top>
+            <Left>1.0603cm</Left>
             <Height>0cm</Height>
-            <Width>28.60773cm</Width>
+            <Width>27.55346cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -78,40 +92,34 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.34741cm</Width>
+                  <Width>2.93274cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.93343cm</Width>
+                  <Width>1.78015cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.93943cm</Width>
+                  <Width>3.36617cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.76298cm</Width>
+                  <Width>2.37217cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.78563cm</Width>
+                  <Width>4.19572cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.22741cm</Width>
+                  <Width>2.32714cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.50867cm</Width>
+                  <Width>2.21837cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.28647cm</Width>
+                  <Width>3.03654cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.6038cm</Width>
+                  <Width>2.774cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.25562cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>2.34126cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>2.11773cm</Width>
+                  <Width>2.55047cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -120,27 +128,81 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox115">
+                        <Textbox Name="Textbox3">
+                          <rd:DefaultName>Textbox3</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Loan No.</Value>
+                                  <Value />
                                   <Style>
                                     <FontFamily>Maiandra GD</FontFamily>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
-                                    <Color>IndianRed</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </RightBorder>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox115">
                           <rd:DefaultName>Textbox1</rd:DefaultName>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Loan No.</Value>
+                                  <Style>
+                                    <FontFamily>Maiandra GD</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -177,26 +239,25 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox1">
+                          <rd:DefaultName>Textbox1</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Loan Type</Value>
+                                  <Value>Loan Type</Value>
                                   <Style>
                                     <FontFamily>Maiandra GD</FontFamily>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
-                                    <Color>IndianRed</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -233,26 +294,25 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox167">
+                          <rd:DefaultName>Textbox165</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Member No</Value>
+                                  <Value>Member No</Value>
                                   <Style>
                                     <FontFamily>Maiandra GD</FontFamily>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
-                                    <Color>IndianRed</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox165</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -289,25 +349,80 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox119">
+                          <rd:DefaultName>Textbox2</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Member Name</Value>
+                                  <Value>Member Name</Value>
                                   <Style>
                                     <FontFamily>Maiandra GD</FontFamily>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
-                                    <Color>IndianRed</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox2</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </RightBorder>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox7">
+                          <rd:DefaultName>Textbox7</rd:DefaultName>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Issued Date</Value>
+                                  <Style>
+                                    <FontFamily>Maiandra GD</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -344,91 +459,18 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox2">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">Days</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>IndianRed</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
                           <rd:DefaultName>Textbox2</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
-                            <BackgroundColor>WhiteSmoke</BackgroundColor>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox126">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Performing</Value>
+                                  <Value>Days</Value>
                                   <Style>
                                     <FontFamily>Maiandra GD</FontFamily>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
-                                    <Color>IndianRed</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">(0 Days)</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>IndianRed</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -437,153 +479,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox5</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
-                            <BackgroundColor>WhiteSmoke</BackgroundColor>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox154">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">Watch</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>IndianRed</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">(1 - 30 Days)</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>IndianRed</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox6</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
-                            <BackgroundColor>WhiteSmoke</BackgroundColor>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox54">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">Substandard</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>IndianRed</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">(31 - 180 Days)</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>IndianRed</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox3</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -620,107 +515,18 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox55">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">Doubtful</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>IndianRed</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">(181 - 360 Days)</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>IndianRed</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
                           <rd:DefaultName>Textbox9</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
-                            <BackgroundColor>WhiteSmoke</BackgroundColor>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox56">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Loss</Value>
+                                  <Value>Loan Category</Value>
                                   <Style>
                                     <FontFamily>Maiandra GD</FontFamily>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
-                                    <Color>IndianRed</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">Over 360 Days</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>IndianRed</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -729,7 +535,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox18</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -766,18 +571,18 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox57">
+                          <rd:DefaultName>Textbox22</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Outstanding Bal</Value>
+                                  <Value>Outstanding Bal</Value>
                                   <Style>
                                     <FontFamily>Maiandra GD</FontFamily>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
-                                    <Color>IndianRed</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -786,7 +591,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox22</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -823,18 +627,18 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox52">
+                          <rd:DefaultName>Textbox52</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">Arrears</Value>
+                                  <Value>Arrears</Value>
                                   <Style>
                                     <FontFamily>Maiandra GD</FontFamily>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
-                                    <Color>IndianRed</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -843,7 +647,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox52</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -884,14 +687,69 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="PostingDate_Deposits5">
+                        <Textbox Name="Textbox5">
+                          <rd:DefaultName>Textbox5</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Loans__Loan__No__.Value</Value>
+                                  <Value>=Fields!NoLoans.Value</Value>
+                                  <Style>
+                                    <FontFamily>Maiandra GD</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </RightBorder>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="PostingDate_Deposits5">
+                          <rd:DefaultName>PostingDate_Deposits</rd:DefaultName>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Loans__Loan__No__.Value</Value>
                                   <Style>
                                     <FontFamily>Maiandra GD</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -904,7 +762,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>PostingDate_Deposits</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -940,13 +797,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="LoanProductType">
+                          <rd:DefaultName>LoanProductType</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!LoanProductType.Value</Value>
+                                  <Value>=Fields!LoanProductType_LoansRegister.Value</Value>
                                   <Style>
                                     <FontFamily>Maiandra GD</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -958,7 +816,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>LoanProductType</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -994,13 +851,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Loans__Client_Code_2">
+                          <rd:DefaultName>Loans__Client_Code_</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!ClientCode_LoansRegister.Value</Value>
+                                  <Value>=Fields!ClientCode_LoansRegister.Value</Value>
                                   <Style>
                                     <FontFamily>Maiandra GD</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1012,7 +870,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Loans__Client_Code_</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1048,13 +905,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="DocumentNo_Deposits5">
+                          <rd:DefaultName>DocumentNo_Deposits</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Loans__Client_Name_.Value</Value>
+                                  <Value>=Fields!Loans__Client_Name_.Value</Value>
                                   <Style>
                                     <FontFamily>Maiandra GD</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1064,7 +922,6 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>DocumentNo_Deposits</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1099,14 +956,49 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Days">
+                        <Textbox Name="Issued_Date">
+                          <rd:DefaultName>Issued_Date</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Days.Value</Value>
+                                  <Value>=Format(Fields!Issued_Date.Value, "dd/MM/yyyy")</Value>
+                                  <Style>
+                                    <FontFamily>Maiandra GD</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Days">
+                          <rd:DefaultName>Days</rd:DefaultName>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Days_Arrears.Value</Value>
                                   <Style>
                                     <FontFamily>Maiandra GD</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1119,132 +1011,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Days</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="CreditAmount_Deposits6">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!V0Month_.Value</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <Format>#,0.00;#,0.00-;''</Format>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Right</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>CreditAmount_Deposits</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="ClosingBal4">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!V1Month_.Value</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <Format>#,0.00;#,0.00-;''</Format>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Right</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>ClosingBal</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Loans__Approved_Amount_2">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!V2Month_.Value</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <Format>#,0.00;(#,0.00)</Format>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Right</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Loans__Approved_Amount_</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1260,13 +1026,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Loans_Installments2">
+                          <rd:DefaultName>Loans_Installments</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!V3Month_.Value</Value>
+                                  <Value>=Fields!Loan_Category.Value</Value>
                                   <Style>
                                     <FontFamily>Maiandra GD</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1278,7 +1045,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Loans_Installments</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1313,49 +1079,15 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Loans_Loans__Outstanding_Balance_2">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Over3Month.Value</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <Format>#,0.00;(#,0.00)</Format>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Right</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Loans_Loans__Outstanding_Balance_</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
                         <Textbox Name="Loans__Oustanding_Interest_2">
+                          <rd:DefaultName>Loans__Oustanding_Interest_</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!Loans_Loans__Outstanding_Balance_.Value</Value>
+                                  <Value>=Fields!Loans_Loans__Outstanding_Balance_.Value</Value>
                                   <Style>
                                     <FontFamily>Maiandra GD</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1368,7 +1100,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Loans__Oustanding_Interest_</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1384,13 +1115,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="AmountinArrears_LoansRegister">
+                          <rd:DefaultName>AmountinArrears_LoansRegister</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Fields!AmountinArrears_LoansRegister.Value</Value>
+                                  <Value>=Fields!AmountinArrears_LoansRegister.Value</Value>
                                   <Style>
                                     <FontFamily>Maiandra GD</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1403,7 +1135,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>AmountinArrears_LoansRegister</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1423,14 +1154,15 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox45">
+                        <Textbox Name="Textbox6">
+                          <rd:DefaultName>Textbox6</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">TOTAL</Value>
+                                  <Value />
                                   <Style>
                                     <FontFamily>Maiandra GD</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1442,7 +1174,46 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <BackgroundColor>RosyBrown</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox45">
                           <rd:DefaultName>Textbox38</rd:DefaultName>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>TOTAL</Value>
+                                  <Style>
+                                    <FontFamily>Maiandra GD</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>White</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1467,56 +1238,56 @@
                     <TablixCell />
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox9">
+                          <rd:DefaultName>Textbox9</rd:DefaultName>
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontFamily>Maiandra GD</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>White</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <BackgroundColor>RosyBrown</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox4">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto" />
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>White</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Right</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
                           <rd:DefaultName>Textbox4</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <BackgroundColor>RosyBrown</BackgroundColor>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox32">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Sum(Fields!V0Month_.Value)</Value>
+                                  <Value />
                                   <Style>
                                     <FontFamily>Maiandra GD</FontFamily>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>#,0.00;(#,0.00)</Format>
                                     <Color>White</Color>
                                   </Style>
                                 </TextRun>
@@ -1526,83 +1297,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox16</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <BackgroundColor>RosyBrown</BackgroundColor>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox33">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">=Sum(Fields!V1Month_.Value)</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Format>#,0.00;(#,0.00)</Format>
-                                    <Color>White</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Right</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox25</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <BackgroundColor>RosyBrown</BackgroundColor>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox34">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">=Sum(Fields!V2Month_.Value)</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Format>#,0.00;(#,0.00)</Format>
-                                    <Color>White</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Right</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox5</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1619,51 +1313,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox35">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value EvaluationMode="Auto">=Sum(Fields!V3Month_.Value)</Value>
-                                  <Style>
-                                    <FontFamily>Maiandra GD</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Format>#,0.00;(#,0.00)</Format>
-                                    <Color>White</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Right</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
                           <rd:DefaultName>Textbox13</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <BackgroundColor>RosyBrown</BackgroundColor>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox36">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Sum(Fields!Over3Month.Value)</Value>
+                                  <Value />
                                   <Style>
                                     <FontFamily>Maiandra GD</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1678,7 +1335,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox20</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1695,13 +1351,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox37">
+                          <rd:DefaultName>Textbox24</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Sum(Fields!Loans_Loans__Outstanding_Balance_.Value)</Value>
+                                  <Value>=Sum(Fields!Loans_Loans__Outstanding_Balance_.Value)</Value>
                                   <Style>
                                     <FontFamily>Maiandra GD</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1716,7 +1373,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox24</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1733,13 +1389,14 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox58">
+                          <rd:DefaultName>Textbox58</rd:DefaultName>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value EvaluationMode="Auto">=Sum(Fields!AmountinArrears_LoansRegister.Value)</Value>
+                                  <Value>=Sum(Fields!AmountinArrears_LoansRegister.Value)</Value>
                                   <Style>
                                     <FontFamily>Maiandra GD</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1754,7 +1411,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox58</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1784,8 +1440,6 @@
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
-                <TablixMember />
-                <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
@@ -1802,10 +1456,10 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>4.44825cm</Top>
-            <Left>0.19603in</Left>
+            <Top>4.16603cm</Top>
+            <Left>0.41744in</Left>
             <Height>1.9323cm</Height>
-            <Width>28.10984cm</Width>
+            <Width>27.55346cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -1813,47 +1467,11 @@
               </Border>
             </Style>
           </Tablix>
-          <Textbox Name="Textbox9">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value EvaluationMode="Auto">=First(Fields!AsAt.Value, "DataSet_Result")</Value>
-                    <Style>
-                      <FontFamily>Maiandra GD</FontFamily>
-                      <FontWeight>Bold</FontWeight>
-                      <Format>dd/MM/yyyy</Format>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style>
-                  <TextAlign>Center</TextAlign>
-                </Style>
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox3</rd:DefaultName>
-            <Top>1.37617in</Top>
-            <Left>2.80545in</Left>
-            <Height>0.23622in</Height>
-            <Width>1.32099in</Width>
-            <ZIndex>4</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
         </ReportItems>
         <Height>6.66484cm</Height>
         <Style />
       </Body>
-      <Width>28.80039cm</Width>
+      <Width>28.66667cm</Width>
       <Page>
         <PageHeight>26.95cm</PageHeight>
         <PageWidth>29.7cm</PageWidth>
@@ -1898,8 +1516,6 @@ End Function
 </Code>
   <Language>=User!Language</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
-  <rd:ReportUnitType>Cm</rd:ReportUnitType>
-  <rd:ReportID>4bd84e69-a22c-475c-ba98-7bb73fe4dfce</rd:ReportID>
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
@@ -1930,9 +1546,6 @@ End Function
         <Field Name="Company_Picture">
           <DataField>Company_Picture</DataField>
         </Field>
-        <Field Name="Company_Letter_Head">
-          <DataField>Company_Letter_Head</DataField>
-        </Field>
         <Field Name="Company_Email">
           <DataField>Company_Email</DataField>
         </Field>
@@ -1950,12 +1563,6 @@ End Function
         </Field>
         <Field Name="ArrearsFormat">
           <DataField>ArrearsFormat</DataField>
-        </Field>
-        <Field Name="DaysInArrears_LoansRegister">
-          <DataField>DaysInArrears_LoansRegister</DataField>
-        </Field>
-        <Field Name="DaysInArrears_LoansRegisterFormat">
-          <DataField>DaysInArrears_LoansRegisterFormat</DataField>
         </Field>
         <Field Name="Loans__Loan_Product_Type_">
           <DataField>Loans__Loan_Product_Type_</DataField>
@@ -2047,14 +1654,26 @@ End Function
         <Field Name="V1MonthC_">
           <DataField>V1MonthC_</DataField>
         </Field>
+        <Field Name="V1MonthC_Format">
+          <DataField>V1MonthC_Format</DataField>
+        </Field>
         <Field Name="V2MonthC_">
           <DataField>V2MonthC_</DataField>
+        </Field>
+        <Field Name="V2MonthC_Format">
+          <DataField>V2MonthC_Format</DataField>
         </Field>
         <Field Name="V3MonthC_">
           <DataField>V3MonthC_</DataField>
         </Field>
+        <Field Name="V3MonthC_Format">
+          <DataField>V3MonthC_Format</DataField>
+        </Field>
         <Field Name="Over3MonthC">
           <DataField>Over3MonthC</DataField>
+        </Field>
+        <Field Name="Over3MonthCFormat">
+          <DataField>Over3MonthCFormat</DataField>
         </Field>
         <Field Name="NoLoans">
           <DataField>NoLoans</DataField>
@@ -2098,74 +1717,62 @@ End Function
         <Field Name="V0MonthC_">
           <DataField>V0MonthC_</DataField>
         </Field>
-        <Field Name="Loans_Aging_Analysis__SASRA_Caption">
-          <DataField>Loans_Aging_Analysis__SASRA_Caption</DataField>
-        </Field>
-        <Field Name="CurrReport_PAGENOCaption">
-          <DataField>CurrReport_PAGENOCaption</DataField>
-        </Field>
-        <Field Name="Loans__Loan__No__Caption">
-          <DataField>Loans__Loan__No__Caption</DataField>
-        </Field>
-        <Field Name="Loan_TypeCaption">
-          <DataField>Loan_TypeCaption</DataField>
-        </Field>
-        <Field Name="Staff_No_Caption">
-          <DataField>Staff_No_Caption</DataField>
+        <Field Name="V0MonthC_Format">
+          <DataField>V0MonthC_Format</DataField>
         </Field>
         <Field Name="Loans__Client_Name_Caption">
           <DataField>Loans__Client_Name_Caption</DataField>
         </Field>
-        <Field Name="Oustanding_BalanceCaption">
-          <DataField>Oustanding_BalanceCaption</DataField>
+        <Field Name="Loan_Category">
+          <DataField>Loan_Category</DataField>
         </Field>
-        <Field Name="PerformingCaption">
-          <DataField>PerformingCaption</DataField>
+        <Field Name="Sorting">
+          <DataField>Sorting</DataField>
         </Field>
-        <Field Name="V1___30_Days_Caption">
-          <DataField>V1___30_Days_Caption</DataField>
+        <Field Name="LoanProductType_LoansRegister">
+          <DataField>LoanProductType_LoansRegister</DataField>
         </Field>
-        <Field Name="V0_Days_Caption">
-          <DataField>V0_Days_Caption</DataField>
+        <Field Name="Issued_Date">
+          <DataField>Issued_Date</DataField>
         </Field>
-        <Field Name="WatchCaption">
-          <DataField>WatchCaption</DataField>
+        <Field Name="RepaymentStartDate_LoansRegister">
+          <DataField>RepaymentStartDate_LoansRegister</DataField>
         </Field>
-        <Field Name="V31___180_Days_Caption">
-          <DataField>V31___180_Days_Caption</DataField>
+        <Field Name="CurrentRepayment_LoansRegister">
+          <DataField>CurrentRepayment_LoansRegister</DataField>
         </Field>
-        <Field Name="SubstandardCaption">
-          <DataField>SubstandardCaption</DataField>
+        <Field Name="CurrentRepayment_LoansRegisterFormat">
+          <DataField>CurrentRepayment_LoansRegisterFormat</DataField>
         </Field>
-        <Field Name="V181___360_Days_Caption">
-          <DataField>V181___360_Days_Caption</DataField>
+        <Field Name="ExpectedDateofCompletion_LoansRegister">
+          <DataField>ExpectedDateofCompletion_LoansRegister</DataField>
         </Field>
-        <Field Name="DoubtfulCaption">
-          <DataField>DoubtfulCaption</DataField>
+        <Field Name="lastbalance">
+          <DataField>lastbalance</DataField>
         </Field>
-        <Field Name="Over_360_DaysCaption">
-          <DataField>Over_360_DaysCaption</DataField>
+        <Field Name="lastbalanceFormat">
+          <DataField>lastbalanceFormat</DataField>
         </Field>
-        <Field Name="LossCaption">
-          <DataField>LossCaption</DataField>
+        <Field Name="Days_Arrears">
+          <DataField>Days_Arrears</DataField>
         </Field>
-        <Field Name="TotalsCaption">
-          <DataField>TotalsCaption</DataField>
-        </Field>
-        <Field Name="CountCaption">
-          <DataField>CountCaption</DataField>
-        </Field>
-        <Field Name="Grand_TotalCaption">
-          <DataField>Grand_TotalCaption</DataField>
-        </Field>
-        <Field Name="LoanProductType">
-          <DataField>LoanProductType</DataField>
+        <Field Name="Days_ArrearsFormat">
+          <DataField>Days_ArrearsFormat</DataField>
         </Field>
         <Field Name="AsAt">
           <DataField>AsAt</DataField>
         </Field>
-        <Field Name="Days">
-          <DataField>Days</DataField>
+        <Field Name="LBal">
+          <DataField>LBal</DataField>
+        </Field>
+        <Field Name="LBalFormat">
+          <DataField>LBalFormat</DataField>
+        </Field>
+        <Field Name="CurrentBal">
+          <DataField>CurrentBal</DataField>
+        </Field>
+        <Field Name="CurrentBalFormat">
+          <DataField>CurrentBalFormat</DataField>
         </Field>
       </Fields>
       <Query>

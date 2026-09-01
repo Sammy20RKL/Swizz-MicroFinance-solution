@@ -43,6 +43,20 @@ Page 56033 "Loan Products Setup Card"
                 //         if Rec.Source <> Rec.Source::FOSA then Error('Only FOSA Products Apply');
                 //     end;
                 // }
+                field("Loan Category"; Rec."Loan Category")
+                {
+                    ApplicationArea = Basic;
+
+                    trigger OnValidate()
+                    begin
+                        ShowAgricultureTerms :=
+                            Rec."Loan Category" in [Rec."Loan Category"::"Seasonal/Crop-Cycle (Agri)", Rec."Loan Category"::"Cooperative/Aggregator (Agri)"];
+                    end;
+                }
+                field("Requires Literacy Certification"; Rec."Requires Literacy Certification")
+                {
+                    ApplicationArea = Basic;
+                }
                 field("Interest rate"; Rec."Interest rate")
                 {
                     ApplicationArea = Basic;
@@ -102,11 +116,7 @@ Page 56033 "Loan Products Setup Card"
                 {
                     ApplicationArea = Basic;
                 }
-                field("Shares Multiplier"; Rec."Shares Multiplier")
-                {
-                    ApplicationArea = Basic;
-                    Caption = 'BOSA Deposits Multiplier';
-                }
+
                 field("Penalty Calculation Method"; Rec."Penalty Calculation Method")
                 {
                     ApplicationArea = Basic;
@@ -173,10 +183,7 @@ Page 56033 "Loan Products Setup Card"
                 {
                     ApplicationArea = Basic;
                 }
-                field("Deposits Multiplier"; Rec."Deposits Multiplier")
-                {
-                    ApplicationArea = Basic;
-                }
+
                 // field("Sacco Deposits"; Rec."Sacco Deposits")
                 // {
                 //     ApplicationArea = Basic;
@@ -214,6 +221,7 @@ Page 56033 "Loan Products Setup Card"
                 {
                     ApplicationArea = Basic;
                     Caption = 'Deposits';
+                    Visible = false;
                 }
                 field("Appraise Shares"; Rec."Appraise Shares")
                 {
@@ -246,6 +254,32 @@ Page 56033 "Loan Products Setup Card"
                     ApplicationArea = Basic;
                 }
             }
+            group("Agriculture / Seasonal Terms")
+            {
+                Caption = 'Agriculture / Seasonal Terms';
+                Visible = ShowAgricultureTerms;
+
+                field("Pre-Disbursement Interest"; Rec."Pre-Disbursement Interest")
+                {
+                    ApplicationArea = Basic;
+                }
+                field("Seasonal Repayment"; Rec."Seasonal Repayment")
+                {
+                    ApplicationArea = Basic;
+                }
+                field("Grace Period to Harvest"; Rec."Grace Period to Harvest")
+                {
+                    ApplicationArea = Basic;
+                }
+                field("Balloon Payment at Harvest"; Rec."Balloon Payment at Harvest")
+                {
+                    ApplicationArea = Basic;
+                }
+                field("Crop/Livestock Type"; Rec."Crop/Livestock Type")
+                {
+                    ApplicationArea = Basic;
+                }
+            }
         }
     }
 
@@ -269,5 +303,20 @@ Page 56033 "Loan Products Setup Card"
             }
         }
     }
+
+    trigger OnAfterGetRecord()
+    begin
+        ShowAgricultureTerms :=
+            Rec."Loan Category" in [Rec."Loan Category"::"Seasonal/Crop-Cycle (Agri)", Rec."Loan Category"::"Cooperative/Aggregator (Agri)"];
+    end;
+
+    trigger OnAfterGetCurrRecord()
+    begin
+        ShowAgricultureTerms :=
+            Rec."Loan Category" in [Rec."Loan Category"::"Seasonal/Crop-Cycle (Agri)", Rec."Loan Category"::"Cooperative/Aggregator (Agri)"];
+    end;
+
+    var
+        ShowAgricultureTerms: Boolean;
 }
 

@@ -550,16 +550,16 @@ table 50290 "Accounts Applications Details"
         }
         field(68043; "Fixed Deposit Type"; Code[20])
         {
-            TableRelation = "Fixed Deposit Type".Code;
+            // TableRelation = "Fixed Deposit Type".Code;
 
             trigger OnValidate()
             begin
                 TestField("Application Date");
-                if FDType.Get("Fixed Deposit Type") then begin
-                    "FD Maturity Date" := CalcDate(FDType.Duration, "Application Date");
+                // if FDType.Get("Fixed Deposit Type") then begin
+                //     "FD Maturity Date" := CalcDate(FDType.Duration, "Application Date");
 
-                    "FD Duration" := FDType."No. of Months";
-                end;
+                //     "FD Duration" := FDType."No. of Months";
+                // end;
             end;
         }
         field(68044; "FD Maturity Date"; Date)
@@ -753,7 +753,7 @@ table 50290 "Accounts Applications Details"
         Text010: label 'You cannot change the contents of the %1 field because this %2 has one or more open ledger entries.';
         AccountTypes: Record "Account Types-Saving Products";
         UsersID: Record User;
-        FDType: Record "Fixed Deposit Type";
+        // FDType: Record "Fixed Deposit Type";
         Cust: Record Customer;
         NOKBOSA: Record "Members Next Kin Details";
         NOKApp: Record "Member App Next Of kin";// "Accounts App Kin Details";

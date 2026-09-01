@@ -1,5 +1,5 @@
 #pragma warning disable AA0005, AA0008, AA0018, AA0021, AA0072, AA0137, AA0201, AA0206, AA0218, AA0228, AL0254, AL0424, AS0011, AW0006 // ForNAV settings
-Page 56042 "BOSA Cue"
+Page 56042 "MICROFINANCE Cue"
 {
     PageType = CardPart;
     SourceTable = "Members Cues";
@@ -13,7 +13,7 @@ Page 56042 "BOSA Cue"
         {
             cuegroup(Group1)
             {
-                Caption = 'BOSA Member Accounts ';
+                Caption = 'Microfinance Member Accounts ';
                 // CuegroupLayout = Wide;
                 field("All Members"; Rec."All Members")
                 {
@@ -34,14 +34,14 @@ Page 56042 "BOSA Cue"
                     StyleExpr = true;
                     DrillDownPageId = "Member List";
                 }
-                field("Active Juniors"; Rec."Active Juniors")
+                field(Agents; Rec.Agents)
                 {
 
                     ApplicationArea = Basic;
                     Image = none;
                     Style = StandardAccent;
                     StyleExpr = true;
-                    DrillDownPageId = "Member List";
+                    DrillDownPageId = "Agent Lists";
                 }
 
                 field("NonActive Mbrs"; Rec."NonActive Mbrs")
@@ -49,10 +49,10 @@ Page 56042 "BOSA Cue"
 
                     ApplicationArea = Basic;
                     Image = none;
-                    Caption = 'Dormant Members';
+                    Caption = 'Members Group';
                     Style = Favorable;
                     StyleExpr = true;
-                    DrillDownPageId = "Member List";
+                    DrillDownPageId = "Member Group List";
                 }
                 field(Deceased; Rec.Deceased)
                 {

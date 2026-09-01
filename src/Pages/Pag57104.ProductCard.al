@@ -1314,7 +1314,7 @@ Page 57104 "Product Card"
         Charges: Record Charges;
         ForfeitInterest: Boolean;
         InterestBuffer: Record "Interest Buffer";
-        FDType: Record "Fixed Deposit Type";
+        // FDType: Record "Fixed Deposit Type";
         Vend: Record Vendor;
         Cust: Record Customer;
         LineNo: Integer;

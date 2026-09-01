@@ -64,7 +64,6 @@ Codeunit 51120 PORTALIntegration
         DivTotal: Decimal;
         CDeposits: Decimal;
         CustDiv: Record customer;
-        DivProg: Record "Dividends Progression";
         CDiv: Decimal;
         BDate: Date;
         CustR: Record customer;
@@ -1637,10 +1636,10 @@ Codeunit 51120 PORTALIntegration
             Clear(TempBlob);
             TempBlob.CreateOutStream(Outstr);
             TempBlob.CreateInStream(Instr);
-            if Report.SaveAs(Report::"Member Shares Certificate", '', ReportFormat::Pdf, Outstr, RecRef) then begin
-                exitString := Base64Convert.ToBase64(Instr);
-                exit;
-            end;
+            // if Report.SaveAs(Report::"Member Shares Certificate", '', ReportFormat::Pdf, Outstr, RecRef) then begin
+            //     exitString := Base64Convert.ToBase64(Instr);
+            //     exit;
+            // end;
         end;
     end;
 
@@ -2155,7 +2154,7 @@ Codeunit 51120 PORTALIntegration
                 objRegMember."Date of Registration" := Today;
                 objRegMember.Status := objRegMember.Status::Open;
                 objRegMember."Application Category" := objRegMember."Application Category"::"New Application";
-                objRegMember."Account Category" := objRegMember."Account Category"::"Regular Account";
+                objRegMember."Account Category" := objRegMember."Account Category"::Individual;
                 objRegMember."Marital Status" := "Marital Status";
                 objRegMember."Employer Name" := '';
 
@@ -3035,15 +3034,15 @@ Codeunit 51120 PORTALIntegration
     procedure deleteLoanApplication(memberNumber: Code[20]; loanNumber: Code[20]) isDeleted: Boolean
     var
         onlineLoanTable: Record "Online Loan Application";
+        OnlineGuarantorDetails: Record "Online Loan Guarantors";
     begin
         isDeleted := false;
-        onlineLoanTable.Reset();
-        onlineLoanTable.SetRange("BOSA No", memberNumber);
-        onlineLoanTable.SetRange("Application No", loanNumber);
-        if onlineLoanTable.Find('-') then begin
-            onlineLoanTable."Application Status" := onlineLoanTable."Application Status"::Deleted;
-            onlineLoanTable.Modify();
+        OnlineGuarantorDetails.Reset();
+        OnlineGuarantorDetails.SetRange("Member No", memberNumber);
+        OnlineGuarantorDetails.SetRange("Loan Application No", loanNumber);
+        if OnlineGuarantorDetails.Find('-') then begin
 
+            OnlineGuarantorDetails.Delete();
             isDeleted := true;
             exit;
         end;
@@ -3167,14 +3166,6 @@ Codeunit 51120 PORTALIntegration
 
     procedure FnLoanfo(MemberNo: Code[20]) dividend: Text
     begin
-        DivProg.Reset;
-        DivProg.SetRange("Member No", MemberNo);
-        if DivProg.Find('-') then begin
-            repeat
-                dividend := dividend + Format(DivProg.Date) + ':::' + Format(DivProg."Gross Dividends") + ':::' + Format(DivProg."Witholding Tax") + ':::' + Format(DivProg."Net Dividends") + ':::' + Format(DivProg."Qualifying Shares") + ':::'
-                + Format(DivProg.Shares) + '::::';
-            until DivProg.Next = 0;
-        end;
     end;
 
 
@@ -3281,7 +3272,7 @@ Codeunit 51120 PORTALIntegration
         salesFormFee.SetRange(Used, false);
         salesFormFee.SetRange("Member Application No.", '');
         if not salesFormFee.Find('-') then begin
-            GeneratedApplicationNo := 'Already used M-pesa code';
+            GeneratedApplicationNo := 'Invalid Mpesa code, Please Check your code and try again. ';
             exit;
         end;
 
@@ -3509,6 +3500,7 @@ Codeunit 51120 PORTALIntegration
     begin
         OnlineLoanGuarantors.Reset();
         OnlineLoanGuarantors.SetRange(OnlineLoanGuarantors."Loan Application No", loanNumber);
+        OnlineLoanGuarantors.SetRange(OnlineLoanGuarantors."Member No", memberNumber);
         if OnlineLoanGuarantors.Find('-') then begin
             loanGuarantors.Init();
             loanGuarantors."Loan No" := loanNo;
@@ -4000,7 +3992,7 @@ Codeunit 51120 PORTALIntegration
         objJuniorApp."Saving Amount" := SavingAmount;
         objJuniorApp."Mobile No. 3" := MobileNo;
         objJuniorApp."E-Mail (Personal2)" := Email;
-        objJuniorApp."Account Category" := objJuniorApp."Account Category"::"Junior Account";
+        // objJuniorApp."Account Category" := objJuniorApp."Account Category"::Junior;
         objJuniorApp.Status := objJuniorApp.Status::Open;
         objJuniorApp."Monthly Contribution" := Gensetup."Min. Junior Contribution";
         objJuniorApp."Customer Posting Group" := 'Juniors';
@@ -4058,34 +4050,7 @@ Codeunit 51120 PORTALIntegration
             info := '{"StatusCode":"98","StatusDescription":"Failed to insert NOK"}';
     end;
 
-    procedure FnGetJunior(JuniorNo: Code[20]) info: Text
-    var
-        objJuniorApp: Record "Membership Applications";
-    begin
-        if objJuniorApp.Get(JuniorNo) then begin
-            if objJuniorApp."Account Category" <> objJuniorApp."Account Category"::"Junior Account" then begin
-                info := '{"StatusCode":"98","StatusDescription":"Not a Junior Account"}';
-                exit;
-            end;
-            info :=
-                '{' +
-                 '"JuniorNo":"' + objJuniorApp."No." + '",' +
-                '"GuardianNo":"' + objJuniorApp."Guardian No." + '",' +
-                '"FirstName":"' + objJuniorApp."First Name" + '",' +
-                '"MiddleName":"' + objJuniorApp."Middle Name" + '",' +
-                '"LastName":"' + objJuniorApp."Last Name" + '",' +
-                '"FullName":"' + objJuniorApp.Name + '",' +
-                '"DOB":"' + Format(objJuniorApp."Date of Birth2") + '",' +
-                '"BirthCertNo":"' + objJuniorApp."Birth Certficate No." + '",' +
-                '"SavingAmount":"' + Format(objJuniorApp."Saving Amount") + '",' +
-                '"MobileNo":"' + objJuniorApp."Mobile No. 3" + '",' +
-                             '"Status":"' + Format(objJuniorApp.Status) + '"' +
-                '}';
-        end else begin
-            info :=
-                '{"StatusCode":"98","StatusDescription":"Junior not found"}';
-        end;
-    end;
+
 
     procedure FnDeleteJunior(JuniorNo: Code[20]) info: Text
     var
@@ -4094,10 +4059,10 @@ Codeunit 51120 PORTALIntegration
         if objJuniorApp.Get(JuniorNo) then begin
 
             // Ensure it is a Junior Account
-            if objJuniorApp."Account Category" <> objJuniorApp."Account Category"::"Junior Account" then begin
-                info := '{"StatusCode":"98","StatusDescription  ":"Not a Junior Account"}';
-                exit;
-            end;
+            // if objJuniorApp."Account Category" <> objJuniorApp."Account Category"::Business then begin
+            //     info := '{"StatusCode":"98","StatusDescription  ":"Not a Junior Account"}';
+            //     exit;
+            // end;
 
             objJuniorApp.Delete(true);
 

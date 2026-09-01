@@ -9,36 +9,36 @@ table 50057 "Members Cues"
         }
         field(2; "All Members"; Integer)
         {
-            CalcFormula = count(Customer where("Customer Posting Group" = filter('BOSA' | 'JUNIORS' | ' ')));
+            CalcFormula = count(Customer where("Customer Posting Group" = filter('DOMESTIC' | 'JUNIORS' | ' ')));
             FieldClass = FlowField;
         }
 
         field(3; "Active Members"; Integer)
         {
-            CalcFormula = count(Customer where(Status = const("Active"), "Customer Posting Group" = filter('BOSA')));
+            CalcFormula = count(Customer where(Status = const("Active"), "Customer Posting Group" = filter('DOMESTIC')));
             FieldClass = FlowField;
         }
         field(45; "Active Juniors"; Integer)
         {
-            CalcFormula = count(Customer where(Status = const("Active"), "Customer Posting Group" = filter('JUNIORS')));
+            CalcFormula = count(Customer where(Status = const("Active"), "Customer Posting Group" = filter('DOMESTIC')));
             FieldClass = FlowField;
         }
 
         field(4; "NonActive Mbrs"; Integer)
         {
-            CalcFormula = count(Customer where(Status = const(Dormant), "Customer Posting Group" = filter('BOSA')));
+            CalcFormula = count("Member Group" where(Status = const(Active))); //"Customer Posting Group" = filter('DOMESTIC')));
             FieldClass = FlowField;
         }
 
         field(5; Deceased; Integer)
         {
-            CalcFormula = count(Customer where(Status = const(Deceased), "Customer Posting Group" = filter('BOSA')));
+            CalcFormula = count(Customer where(Status = const(Deceased), "Customer Posting Group" = filter('DOMESTIC')));
             FieldClass = FlowField;
         }
 
         field(6; Exited; Integer)
         {
-            CalcFormula = count(Customer where(Status = const(Withdrawal), "Customer Posting Group" = filter('BOSA')));
+            CalcFormula = count(Customer where(Status = const(Withdrawal), "Customer Posting Group" = filter('DOMESTIC')));
             FieldClass = FlowField;
         }
         field(8; "Requests to Approve"; Integer)
@@ -58,7 +58,7 @@ table 50057 "Members Cues"
 
         field(10; "Awaiting Exit"; Integer)
         {
-            CalcFormula = count(Customer where(Status = const("Awaiting Withdrawal"), "Customer Posting Group" = filter('BOSA')));
+            CalcFormula = count(Customer where(Status = const("Awaiting Withdrawal"), "Customer Posting Group" = filter('DOMESTIC')));
             FieldClass = FlowField;
         }
         field(13; Female; Integer)
@@ -69,6 +69,11 @@ table 50057 "Members Cues"
         field(14; Male; Integer)
         {
             CalcFormula = count(Customer where(Gender = Const(Male), Status = filter('Active'), "Customer Posting Group" = filter('BOSA')));
+            FieldClass = FlowField;
+        }
+        field(15; "Agents"; Integer)
+        {
+            CalcFormula = count(Agents where(Status = const(Active)));
             FieldClass = FlowField;
         }
     }

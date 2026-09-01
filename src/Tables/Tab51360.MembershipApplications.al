@@ -153,6 +153,8 @@ Table 51360 "Membership Applications"
 
             end;
         }
+        field(457; "Business Name"; code[70])
+        { }
         field(10; "Customer Posting Group"; Code[10])
         {
             Caption = 'Customer Posting Group';
@@ -619,9 +621,9 @@ Table 51360 "Membership Applications"
         }
         field(68070; "Account Category"; Option)
         {
-            // OptionCaption = 'Individual,Junior,Joint,Corporate,Business,Other';
-            // OptionMembers = Individual,Junior,Joint,Corporate,Business,Other;
-            OptionMembers = "Regular Account","Junior Account";
+            OptionCaption = 'Individual';
+            OptionMembers = Individual;
+            // OptionMembers = "Regular Account","Junior Account";
 
 
         }
@@ -834,7 +836,7 @@ Table 51360 "Membership Applications"
         field(68121; "Employment Info"; Option)
         {
             // OptionMembers = " ","Self Employed",Employed,UnEmployed,Others;
-            OptionMembers = " ",Employed,UnEmployed,"Self Employed";
+            OptionMembers = " ",Employed,UnEmployed,"Self Employed",Others;
 
         }
         field(68122; "Contracting Details"; Text[30])
@@ -1050,6 +1052,8 @@ Table 51360 "Membership Applications"
         }
         field(68144; "Micro Group Code"; Code[20])
         {
+            Caption = 'Group No.';
+            TableRelation = "Member Group"."No.";
         }
         field(68145; Source; Option)
         {
@@ -1552,6 +1556,42 @@ Table 51360 "Membership Applications"
         { }
         field(69145; "Birth Certificate Copy"; media) { }
         field(79150; "Mpesa Code"; Code[20]) { }
+        field(79151; "Agent No."; Code[20])
+        {
+            TableRelation = Agents;
+            trigger OnValidate()
+            var
+                Agents: Record Agents;
+            begin
+                Agents.Reset();
+                Agents.SetRange(Agents."No.", "Agent No.");
+                if Agents.Find('-') then
+                    "Agent Name" := Agents."Full Name";
+            end;
+
+        }
+        field(76152; "Agent Name"; Code[100])
+        {
+            Editable = false;
+        }
+        field(79153; "Agent No1."; Code[20])
+        {
+            TableRelation = Agents."No.";
+            trigger OnValidate()
+            var
+                Agents: Record Agents;
+            begin
+                Agents.Reset();
+                Agents.SetRange(Agents."No.", "Agent No1.");
+                if Agents.Find('-') then
+                    "Agent Name2" := Agents."Full Name";
+            end;
+        }
+        field(76153; "Agent Name2"; Code[100])
+        {
+            Editable = false;
+        }
+
     }
 
 
@@ -1621,7 +1661,7 @@ Table 51360 "Membership Applications"
         "Customer Posting Group" := GenSetUp."Default Customer Posting Group";
         "Recruited By" := UserId;
         "Monthly Contribution" := GenSetUp."Min. Contribution";
-        "Global Dimension 1 Code" := 'BOSA';
+        "Global Dimension 1 Code" := 'MICROFINANCE';
         "Global Dimension 2 Code" := 'Nairobi';
         "Captured By" := UserId;
 

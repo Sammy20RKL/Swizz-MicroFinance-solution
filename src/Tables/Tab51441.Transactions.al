@@ -1274,95 +1274,95 @@ Table 51441 Transactions
                                     GenJournalLine.Insert;
                             end;
                             //Charges
-                            GenSetup.Get();
-                            ChequeDiscounting.Reset;
-                            ChequeDiscounting.SetRange(ChequeDiscounting."Cheque to Discount", No);
-                            ChequeDiscounting.SetRange(ChequeDiscounting."Cheque No", "Cheque No");
-                            if ChequeDiscounting.FindSet then begin
-                                LineNo := LineNo + 10000;
-                                GenJournalLine.Init;
-                                GenJournalLine."Journal Template Name" := 'PURCHASES';
-                                GenJournalLine."Journal Batch Name" := 'FTRANS';
-                                GenJournalLine."Document No." := No;
-                                GenJournalLine."External Document No." := "Cheque No";
-                                GenJournalLine."Line No." := LineNo;
-                                GenJournalLine."Account Type" := GenJournalLine."account type"::Vendor;
-                                GenJournalLine."Account No." := "Account No";
-                                GenJournalLine.Validate(GenJournalLine."Account No.");
-                                GenJournalLine."Posting Date" := Today;
-                                GenJournalLine.Description := 'Cheque Discounting Commission';
-                                GenJournalLine.Validate(GenJournalLine."Currency Code");
-                                GenJournalLine.Amount := ChequeDiscounting."Cheque Discounting Commission";
-                                GenJournalLine.Validate(GenJournalLine.Amount);
-                                GenJournalLine."Bal. Account Type" := GenJournalLine."bal. account type"::"G/L Account";
-                                GenJournalLine."Bal. Account No." := GenSetup."Cheque Discounting Fee Account";
-                                GenJournalLine.Validate(GenJournalLine."Bal. Account No.");
-                                GenJournalLine."Shortcut Dimension 1 Code" := 'FOSA';
-                                GenJournalLine.Validate(GenJournalLine."Shortcut Dimension 1 Code");
-                                GenJournalLine."Shortcut Dimension 2 Code" := Trans."Transacting Branch";
-                                GenJournalLine.Validate(GenJournalLine."Shortcut Dimension 2 Code");
-                                if GenJournalLine.Amount <> 0 then
-                                    GenJournalLine.Insert;
+                            // GenSetup.Get();
+                            // ChequeDiscounting.Reset;
+                            // ChequeDiscounting.SetRange(ChequeDiscounting."Cheque to Discount", No);
+                            // ChequeDiscounting.SetRange(ChequeDiscounting."Cheque No", "Cheque No");
+                            // if ChequeDiscounting.FindSet then begin
+                            //     LineNo := LineNo + 10000;
+                            //     GenJournalLine.Init;
+                            //     GenJournalLine."Journal Template Name" := 'PURCHASES';
+                            //     GenJournalLine."Journal Batch Name" := 'FTRANS';
+                            //     GenJournalLine."Document No." := No;
+                            //     GenJournalLine."External Document No." := "Cheque No";
+                            //     GenJournalLine."Line No." := LineNo;
+                            //     GenJournalLine."Account Type" := GenJournalLine."account type"::Vendor;
+                            //     GenJournalLine."Account No." := "Account No";
+                            //     GenJournalLine.Validate(GenJournalLine."Account No.");
+                            //     GenJournalLine."Posting Date" := Today;
+                            //     GenJournalLine.Description := 'Cheque Discounting Commission';
+                            //     GenJournalLine.Validate(GenJournalLine."Currency Code");
+                            //     GenJournalLine.Amount := ChequeDiscounting."Cheque Discounting Commission";
+                            //     GenJournalLine.Validate(GenJournalLine.Amount);
+                            //     GenJournalLine."Bal. Account Type" := GenJournalLine."bal. account type"::"G/L Account";
+                            //     GenJournalLine."Bal. Account No." := GenSetup."Cheque Discounting Fee Account";
+                            //     GenJournalLine.Validate(GenJournalLine."Bal. Account No.");
+                            //     GenJournalLine."Shortcut Dimension 1 Code" := 'FOSA';
+                            //     GenJournalLine.Validate(GenJournalLine."Shortcut Dimension 1 Code");
+                            //     GenJournalLine."Shortcut Dimension 2 Code" := Trans."Transacting Branch";
+                            //     GenJournalLine.Validate(GenJournalLine."Shortcut Dimension 2 Code");
+                            //     if GenJournalLine.Amount <> 0 then
+                            //         GenJournalLine.Insert;
 
-                                //Excise Duty
-                                LineNo := LineNo + 10000;
-                                GenJournalLine.Init;
-                                GenJournalLine."Journal Template Name" := 'PURCHASES';
-                                GenJournalLine."Journal Batch Name" := 'FTRANS';
-                                GenJournalLine."Document No." := No;
-                                GenJournalLine."External Document No." := "Cheque No";
-                                GenJournalLine."Line No." := LineNo;
-                                GenJournalLine."Account Type" := GenJournalLine."account type"::Vendor;
-                                GenJournalLine."Account No." := "Account No";
-                                GenJournalLine.Validate(GenJournalLine."Account No.");
-                                GenJournalLine."Posting Date" := Today;
-                                GenJournalLine.Description := 'Excise Duty';
-                                GenJournalLine.Validate(GenJournalLine."Currency Code");
-                                GenJournalLine.Amount := ChequeDiscounting."Cheque Discounting Commission" * (GenSetup."Excise Duty(%)" / 100);
-                                GenJournalLine.Validate(GenJournalLine.Amount);
-                                GenJournalLine."Bal. Account Type" := GenJournalLine."bal. account type"::"G/L Account";
-                                GenJournalLine."Bal. Account No." := GenSetup."Excise Duty Account";
-                                GenJournalLine.Validate(GenJournalLine."Bal. Account No.");
-                                GenJournalLine."Shortcut Dimension 1 Code" := 'FOSA';
-                                GenJournalLine.Validate(GenJournalLine."Shortcut Dimension 1 Code");
-                                GenJournalLine."Shortcut Dimension 2 Code" := Trans."Transacting Branch";
-                                GenJournalLine.Validate(GenJournalLine."Shortcut Dimension 2 Code");
-                                if GenJournalLine.Amount <> 0 then
-                                    GenJournalLine.Insert;
+                            //Excise Duty
+                            LineNo := LineNo + 10000;
+                            GenJournalLine.Init;
+                            GenJournalLine."Journal Template Name" := 'PURCHASES';
+                            GenJournalLine."Journal Batch Name" := 'FTRANS';
+                            GenJournalLine."Document No." := No;
+                            GenJournalLine."External Document No." := "Cheque No";
+                            GenJournalLine."Line No." := LineNo;
+                            GenJournalLine."Account Type" := GenJournalLine."account type"::Vendor;
+                            GenJournalLine."Account No." := "Account No";
+                            GenJournalLine.Validate(GenJournalLine."Account No.");
+                            GenJournalLine."Posting Date" := Today;
+                            GenJournalLine.Description := 'Excise Duty';
+                            GenJournalLine.Validate(GenJournalLine."Currency Code");
+                            // GenJournalLine.Amount := ChequeDiscounting."Cheque Discounting Commission" * (GenSetup."Excise Duty(%)" / 100);
+                            GenJournalLine.Validate(GenJournalLine.Amount);
+                            GenJournalLine."Bal. Account Type" := GenJournalLine."bal. account type"::"G/L Account";
+                            GenJournalLine."Bal. Account No." := GenSetup."Excise Duty Account";
+                            GenJournalLine.Validate(GenJournalLine."Bal. Account No.");
+                            GenJournalLine."Shortcut Dimension 1 Code" := 'FOSA';
+                            GenJournalLine.Validate(GenJournalLine."Shortcut Dimension 1 Code");
+                            GenJournalLine."Shortcut Dimension 2 Code" := Trans."Transacting Branch";
+                            GenJournalLine.Validate(GenJournalLine."Shortcut Dimension 2 Code");
+                            if GenJournalLine.Amount <> 0 then
+                                GenJournalLine.Insert;
 
-                                if Account.Get(ChequeDiscounting."Account No") then begin
-                                    Account."Cheque Discounted" := 0;
-                                    Account."Comission On Cheque Discount" := 0;
-                                end;
-                            end;
-
-
-
-                            GenJournalLine.Reset;
-                            GenJournalLine.SetRange("Journal Template Name", 'PURCHASES');
-                            GenJournalLine.SetRange("Journal Batch Name", 'FTRANS');
-                            if GenJournalLine.Find('-') then begin
-                                repeat
-                                    //GLPosting.RUN(GenJournalLine);
-                                    Codeunit.Run(Codeunit::"Gen. Jnl.-Post Line", GenJournalLine);
-                                until GenJournalLine.Next = 0;
-                            end;
-
-
-                            GenJournalLine.Reset;
-                            GenJournalLine.SetRange("Journal Template Name", 'PURCHASES');
-                            GenJournalLine.SetRange("Journal Batch Name", 'FTRANS');
-                            GenJournalLine.DeleteAll;
-
-
-
-                            Trans."Cheque Processed" := true;
-                            Trans."Date Cleared" := Today;
-                            Trans.Modify;
+                            // if Account.Get(ChequeDiscounting."Account No") then begin
+                            //     Account."Cheque Discounted" := 0;
+                            //     Account."Comission On Cheque Discount" := 0;
+                            // end;
                         end;
+
+
+
+                        GenJournalLine.Reset;
+                        GenJournalLine.SetRange("Journal Template Name", 'PURCHASES');
+                        GenJournalLine.SetRange("Journal Batch Name", 'FTRANS');
+                        if GenJournalLine.Find('-') then begin
+                            repeat
+                                //GLPosting.RUN(GenJournalLine);
+                                Codeunit.Run(Codeunit::"Gen. Jnl.-Post Line", GenJournalLine);
+                            until GenJournalLine.Next = 0;
+                        end;
+
+
+                        GenJournalLine.Reset;
+                        GenJournalLine.SetRange("Journal Template Name", 'PURCHASES');
+                        GenJournalLine.SetRange("Journal Batch Name", 'FTRANS');
+                        GenJournalLine.DeleteAll;
+
+
+
+                        Trans."Cheque Processed" := true;
+                        Trans."Date Cleared" := Today;
+                        Trans.Modify;
                     end;
                 end;
             end;
+
         }
         field(69219; "Bounce Cheque"; Boolean)
         {
@@ -1758,7 +1758,7 @@ Table 51441 Transactions
         ChequeType: Record "Cheque Types";
         LineNo: Integer;
         GenSetup: Record "Sacco General Set-Up";
-        ChequeDiscounting: Record "Cheque Discounting";
+        // ChequeDiscounting: Record "Cheque Discounting";
         DValue: Record "Dimension Value";
         ChBank: Code[20];
         DActivity: Code[20];

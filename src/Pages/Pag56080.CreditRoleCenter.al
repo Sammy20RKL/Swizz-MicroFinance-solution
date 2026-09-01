@@ -327,123 +327,17 @@ page 56080 "Credit Role Center"
                 }
                 //........................................................................................................................................           
 
-                group("SASRA Reports")
+                group("Loan Risk & Provisioning")
                 {
-                    Caption = 'SASRA Reports';
-                    ToolTip = 'which highlights the operations and performance of the SACCO industry during the year ended';
+                    Caption = 'Loan Risk & Provisioning';
+                    ToolTip = 'Loan portfolio risk classification and provisioning reports.';
                     Visible = true;
-                    action("Capital Adequacy Return")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Capital Adequacy Return';
-                        RunObject = report "CAPITAL ADEQUACY RETURN";
-                        ToolTip = 'View or Generate Deposit Return SASRA for a given period.';
-                    }
-
-                    action("Investiment Return")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Investiment Return';
-                        RunObject = report "RETURN ON INVESTMENT";
-                        ToolTip = 'View or Generate Deposit Return SASRA for a given period.';
-                        // Visible = false;
-                    }
-                    action("Liquidity Statement")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Liquidity Statement';
-                        RunObject = report Liquidity;
-                        ToolTip = 'View or Generate Deposit Return SASRA for a given period.';
-                        // Visible = false;
-                    }
-                    action("Form2F Statement of CompIncome")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Statement of comprehensive Income';
-                        RunObject = report "Form2F Statement of CompIncome";
-                        ToolTip = 'View or Generate Deposit Return SASRA for a given period.';
-                        // Visible = false;
-                    }
-                    action("Deposits Return-SASRA")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Statement of Deposits Return';
-                        Image = Report;
-                        RunObject = report "Deposit returnN";
-                    }
-                    action("Statement of Financial Position")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Statement of Financial Position';
-                        RunObject = report "STATEMENT OF FINANCIAL P";
-                        ToolTip = 'View or Generate Deposit Return SASRA for a given period.';
-                        // Visible = false;
-                    }
-                    action("Other Disclosures")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Other Disclosures';
-                        RunObject = report "Other Disclosures";
-                    }
-                    action("Insider Lending Report")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Insider Lending Report';
-                        RunObject = report "Insider Lending & Perf Return";
-                        ToolTip = 'View or Generate Agency Returns for a given period.';
-                        // Visible = false;
-                    }
-
-                    action("Loans Defaulter Aging-SASRA")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Loans Defaulter Aging';
-                        RunObject = report "Loans Defaulter Aging";//"SASRA Loans Classification"
-                    }
-
-                    // action("Sectorial Lending Report")
-                    // {
-                    //     ApplicationArea = Basic, Suite;
-                    //     Caption = 'Sectorial Lending Report';
-                    //     RunObject = report "SECTORAL LENDING";
-                    //     ToolTip = 'View or Generate Agency Returns for a given period.';
-                    //     // Visible = false;
-                    // }
-
-                    action("Risk Class of Assets")
-                    {
-                        Visible = false;
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Risk Classification and Loan Provisioning';
-                        RunObject = report "Risk Class Of Assets & Prov";
-                    }
                     action("Risk Class of Assets Nav")
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'Risk Classification and Loan Provisioning';
-                        RunObject = report "Risk Class Of Assets & ProvNav";
+                        RunObject = report "Risk Class Assets & Prov Nav";
                     }
-
-                    // action("Loans Provisioning Summary-SASRA")
-                    // {
-                    //     ApplicationArea = Basic, Suite;
-                    //     Caption = 'Loans Provisioning Summary';
-                    //     RunObject = report "Loans Provisioning Summarys";
-                    // }
-                    action("Loan Sectorial Lendng-SASRA")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Loan Sectorial Lending';
-                        RunObject = REPORT "Loan Sectoral Lending Report";
-                        Visible = false;
-                    }
-                    action("Loan Sectorial Lendng-Nav")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Loan Sectorial Lending -Nav';
-                        RunObject = REPORT "SECTORAL LENDING";
-                    }
-
                 }
                 //..........................................................................................................................................
                 group("Receipt Processing")
@@ -710,16 +604,6 @@ page 56080 "Credit Role Center"
 
                     }
 
-                    action("LiquidityReport")
-                    {
-                        ApplicationArea = Basic, Suite;
-                        Caption = 'Liquidity Report';
-                        Image = Journal;
-                        RunObject = report Liquidity;
-                        ToolTip = 'Generate Liquidity Report for a given period.';
-                        Visible = false;
-                    }
-
                 }
 
 
@@ -880,7 +764,7 @@ page 56080 "Credit Role Center"
                         {
                             ApplicationArea = all;
                             Caption = 'Closed Membership Applications';
-                            RunObject = page "Membership Applications List";
+                            RunObject = page "Membership Application List";
                             RunPageView = WHERE(status = CONST(closed));
                         }
 
@@ -977,7 +861,7 @@ page 56080 "Credit Role Center"
                     {
                         ApplicationArea = all;
                         Caption = 'Members without minimum share capital report.';
-                        RunObject = report MemberwithoutMinshapitalreport;
+                        // RunObject = report MemberwithoutMinshapitalreport;
 
                     }
 
@@ -1035,11 +919,6 @@ page 56080 "Credit Role Center"
                         ApplicationArea = All;
                         RunObject = report MemberWithoutNextOfKin;
                     }
-                    action("Member shares Report")
-                    {
-                        ApplicationArea = all;
-                        RunObject = report "Member Share Capital Statement";
-                    }
                     action("Member Deposits Report")
                     {
                         ApplicationArea = all;
@@ -1049,11 +928,6 @@ page 56080 "Credit Role Center"
                     {
                         ApplicationArea = all;
                         RunObject = report "Member Detailed Statement";
-                    }
-                    action("Member Dividends Statement")
-                    {
-                        ApplicationArea = all;
-                        RunObject = report "Members Dividend Statement";// "Member Account Statement";
                     }
                 }
 
@@ -1651,80 +1525,6 @@ page 56080 "Credit Role Center"
                             Image = Setup;
                             RunObject = page "Loan Interest List";
                         }
-                    }
-                    group(Dividends)
-                    {
-                        Caption = 'Dividends';
-
-                        group(Prorated)
-                        {
-                            Caption = 'Prorated';
-                            action("Dividends Processing-Prorated")
-                            {
-                                Caption = 'Dividends Processing-Prorated';
-                                Image = Setup;
-                                RunObject = report "Dividend Processing-Prorated";
-                            }
-                            action("Dividends Register")
-                            {
-                                Caption = 'Dividends Register';
-                                Image = Setup;
-                                RunObject = report "Dividend Register";
-                            }
-                            action(DividendProgressionSlip)
-                            {
-                                Caption = 'Dividend Progression Slip';
-                                Image = Setup;
-                                RunObject = report "Dividends Progressionslip";
-                                Visible = false;
-                            }
-                            action("Dividends Payments Report")
-                            {
-                                ApplicationArea = all;
-                                RunObject = Report "Dividends Payments";
-
-                            }
-                            action("Process Dividends 2")
-                            {
-                                ApplicationArea = all;
-                                RunObject = Report "Process Dividends for member";
-                            }
-                            action("Dividends To Loan Arrears")
-                            {
-                                //Caption = 'Dividends Processing-Prorated';
-                                Image = Setup;
-                                RunObject = report "Dividend Transfer To ArreaLoan";
-                            }
-                        }
-                        group("Share capital Manangement")
-                        {
-                            action("Share Capital Recovery")
-                            {
-                                Image = ReceiveLoaner;
-                                ApplicationArea = all;
-                                Caption = 'Recover Sharecapital from Deposits';
-                                RunObject = report "Share Capital Recovery";
-                            }
-                            group(SharecapitalTrading)
-                            {
-                                action(SharecapitalTradingList)
-                                {
-                                    ApplicationArea = Basic, Suite;
-                                    RunObject = page "Share Capital Trading List";
-                                    Caption = 'Sharecapital Trading List';
-                                }
-                                action(SharecapitalTradingListPosted)
-                                {
-                                    ApplicationArea = Basic, Suite;
-                                    RunObject = page "Share Capital Trading Posted";
-                                    Caption = 'Sharecapital Trading List Posted';
-
-                                }
-                            }
-                        }
-
-
-
                     }
                 }
 

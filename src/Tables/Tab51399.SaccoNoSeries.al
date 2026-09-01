@@ -253,6 +253,7 @@ Table 51399 "Sacco No. Series"
         }
         field(47; "Micro Group Nos."; Code[10])
         {
+            TableRelation = "No. Series";
         }
         field(77; "Junior Member Nos"; Code[10])
         {
@@ -595,7 +596,10 @@ Table 51399 "Sacco No. Series"
         }
         field(467444; "Sacco No."; Code[15])
         {
-
+        }
+        field(347876; "Agent No"; Code[20])
+        {
+            TableRelation = "No. Series".Code;
         }
 
     }

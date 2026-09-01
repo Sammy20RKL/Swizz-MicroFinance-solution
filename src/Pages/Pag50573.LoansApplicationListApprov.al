@@ -7,7 +7,7 @@ page 50573 "Loans Application List(Approv)"
     SourceTable = "Loans Register";
     SourceTableView = where("Approval Status" = filter(Approved),
                             Posted = filter(false),
-                            Source = const(BOSA));
+                            Source = const(MICRO));
 
     layout
     {

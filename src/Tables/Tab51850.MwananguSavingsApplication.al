@@ -1291,13 +1291,13 @@ Table 51850 "Mwanangu Savings Application"
         }
         field(68043; "Fixed Deposit Type"; Code[20])
         {
-            TableRelation = "Fixed Deposit Type".Code;
+            // TableRelation = "Fixed Deposit Type".Code;
 
             trigger OnValidate()
             begin
-                TestField("Application Date");
-                if FDType.Get("Fixed Deposit Type") then
-                    "FD Maturity Date" := CalcDate(FDType.Duration, "Application Date");
+                // TestField("Application Date");
+                // if FDType.Get("Fixed Deposit Type") then
+                //     "FD Maturity Date" := CalcDate(FDType.Duration, "Application Date");
             end;
         }
         field(68044; "FD Maturity Date"; Date)
@@ -1697,7 +1697,7 @@ Table 51850 "Mwanangu Savings Application"
         Text010: label 'You cannot change the contents of the %1 field because this %2 has one or more open ledger entries.';
         AccountTypes: Record "Account Types-Saving Products";
         UsersID: Record User;
-        FDType: Record "Fixed Deposit Type";
+        // FDType: Record "Fixed Deposit Type";
         Cust: Record Customer;
         NOKBOSA: Record "Members Nominee";
         NOKApp: Record "FOSA Account App Kin Details";

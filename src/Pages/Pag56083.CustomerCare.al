@@ -19,7 +19,7 @@ page 56083 "Customer Care"
                 ApplicationArea = Basic, Suite;
                 Visible = false;
             }
-            part(BOSACue; "BOSA Cue")
+            part(MicrofinanceCue; "Microfinance Cue")
             {
                 ApplicationArea = Basic, Suite;
                 Visible = true;
@@ -209,7 +209,7 @@ page 56083 "Customer Care"
                         {
                             ApplicationArea = all;
                             Caption = 'Closed Membership Applications';
-                            RunObject = page "Membership Applications List";
+                            RunObject = page "Membership Application List";
                             RunPageView = WHERE(status = CONST(closed));
                         }
 
@@ -306,7 +306,7 @@ page 56083 "Customer Care"
                     {
                         ApplicationArea = all;
                         Caption = 'Members without minimum share capital report.';
-                        RunObject = report MemberwithoutMinshapitalreport;
+                        // RunObject = report MemberwithoutMinshapitalreport;
 
                     }
 
@@ -364,11 +364,6 @@ page 56083 "Customer Care"
                         ApplicationArea = All;
                         RunObject = report MemberWithoutNextOfKin;
                     }
-                    action("Member shares Report")
-                    {
-                        ApplicationArea = all;
-                        RunObject = report "Member Share Capital Statement";
-                    }
                     action("Member Deposits Report")
                     {
                         ApplicationArea = all;
@@ -378,11 +373,6 @@ page 56083 "Customer Care"
                     {
                         ApplicationArea = all;
                         RunObject = report "Member Detailed Statement";
-                    }
-                    action("Member Dividends Statement")
-                    {
-                        ApplicationArea = all;
-                        RunObject = report "Members Dividend Statement";// "Member Account Statement";
                     }
                 }
 
@@ -785,80 +775,6 @@ page 56083 "Customer Care"
                             RunObject = page "Loan Interest List";
                         }
                     }
-                    group(Dividends)
-                    {
-                        Caption = 'Dividends';
-
-                        group(Prorated)
-                        {
-                            Caption = 'Prorated';
-                            action("Dividends Processing-Prorated")
-                            {
-                                Caption = 'Dividends Processing-Prorated';
-                                Image = Setup;
-                                RunObject = report "Dividend Processing-Prorated";
-                            }
-                            action("Dividends Register")
-                            {
-                                Caption = 'Dividends Register';
-                                Image = Setup;
-                                RunObject = report "Dividend Register";
-                            }
-                            action(DividendProgressionSlip)
-                            {
-                                Caption = 'Dividend Progression Slip';
-                                Image = Setup;
-                                RunObject = report "Dividends Progressionslip";
-                                Visible = false;
-                            }
-                            action("Dividends Payments Report")
-                            {
-                                ApplicationArea = all;
-                                RunObject = Report "Dividends Payments";
-
-                            }
-                            action("Process Dividends 2")
-                            {
-                                ApplicationArea = all;
-                                RunObject = Report "Process Dividends for member";
-                            }
-                            action("Dividends To Loan Arrears")
-                            {
-                                //Caption = 'Dividends Processing-Prorated';
-                                Image = Setup;
-                                RunObject = report "Dividend Transfer To ArreaLoan";
-                            }
-                        }
-                        group("Share capital Manangement")
-                        {
-                            action("Share Capital Recovery")
-                            {
-                                Image = ReceiveLoaner;
-                                ApplicationArea = all;
-                                Caption = 'Recover Sharecapital from Deposits';
-                                RunObject = report "Share Capital Recovery";
-                            }
-                            group(SharecapitalTrading)
-                            {
-                                action(SharecapitalTradingList)
-                                {
-                                    ApplicationArea = Basic, Suite;
-                                    RunObject = page "Share Capital Trading List";
-                                    Caption = 'Sharecapital Trading List';
-                                }
-                                action(SharecapitalTradingListPosted)
-                                {
-                                    ApplicationArea = Basic, Suite;
-                                    RunObject = page "Share Capital Trading Posted";
-                                    Caption = 'Sharecapital Trading List Posted';
-
-                                }
-                            }
-                        }
-
-
-
-                    }
                 }
 
             }
@@ -868,6 +784,7 @@ page 56083 "Customer Care"
             group(SwizzKash)
             {
                 Caption = 'Alternative Channels';
+                Visible = false;
                 group(SwizzKashActivities)
                 {
                     Caption = 'Mobile Banking';

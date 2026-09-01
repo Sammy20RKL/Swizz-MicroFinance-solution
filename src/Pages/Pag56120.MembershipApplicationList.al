@@ -52,6 +52,10 @@ page 56120 "Membership Application List"
                     ApplicationArea = Basic;
                     ShowMandatory = true;
                 }
+                field("Agent No."; Rec."Agent No.")
+                {
+                    ApplicationArea = Basic;
+                }
                 field("Account Type"; Rec."Account Category")
                 {
                     ApplicationArea = Basic;

@@ -31,6 +31,10 @@ page 50559 "Loan Collateral Register Card"
                 {
                     ApplicationArea = Basic;
                 }
+                field(Status; Rec.Status)
+                {
+                    ApplicationArea = Basic;
+                }
                 field("Collateral Description"; Rec."Collateral Description")
                 {
                     ApplicationArea = Basic;

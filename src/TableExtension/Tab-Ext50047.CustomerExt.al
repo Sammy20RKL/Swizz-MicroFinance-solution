@@ -2258,6 +2258,39 @@ tableextension 50047 "CustomerExt" extends Customer
         field(695167; "Qualifying share Capital"; Decimal)
         {
         }
+        field(50110; "Agent No."; Code[20])
+        {
+            Caption = 'Agent No.';
+            TableRelation = Agents."No.";
+            Editable = false;
+        }
+        field(59205; "Agent Name"; Text[100])
+        {
+            Caption = 'Agent Name';
+            CalcFormula = lookup(Agents."Full Name" where("No." = field("Agent No.")));
+            Editable = false;
+            FieldClass = FlowField;
+        }
+        field(59202; "Group No."; Code[20])
+        {
+            Caption = 'Group No.';
+            TableRelation = "Member Group"."No.";
+        }
+        field(59203; "Group Name"; Text[100])
+        {
+            Caption = 'Group Name';
+            CalcFormula = lookup("Member Group".Name where("No." = field("Group No.")));
+            Editable = false;
+            FieldClass = FlowField;
+        }
+        field(59204; "Financial Literacy Certified"; Boolean)
+        {
+            Caption = 'Financial Literacy Certified';
+            CalcFormula = exist("Financial Literacy Attendance" where("Member No." = field("No."), "Certification Status" = const(Certified)));
+            Editable = false;
+            FieldClass = FlowField;
+        }
+
 
     }
     keys

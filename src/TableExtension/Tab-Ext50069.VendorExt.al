@@ -519,7 +519,7 @@ tableextension 50069 "VendorExt" extends Vendor
         DimMgt: Codeunit DimensionManagement;
         InsertFromContact: Boolean;
         AccountTypes: Record "Account Types-Saving Products";
-        FDType: Record "Fixed Deposit Type";
+        // FDType: Record "Fixed Deposit Type";
         ReplCharge: Decimal;
         Vends: Record Vendor;
         gnljnlLine: Record "Gen. Journal Line";

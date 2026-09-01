@@ -2575,6 +2575,9 @@ End Function
         <Field Name="InterestDue_LoansRegisterFormat">
           <DataField>InterestDue_LoansRegisterFormat</DataField>
         </Field>
+        <Field Name="Loan_Category">
+          <DataField>Loan_Category</DataField>
+        </Field>
         <Field Name="Loans__Approved_Amount_">
           <DataField>Loans__Approved_Amount_</DataField>
         </Field>

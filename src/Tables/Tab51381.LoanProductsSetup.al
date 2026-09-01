@@ -435,6 +435,45 @@ Table 51381 "Loan Products Setup"
         {
 
         }
+
+        // ---------- Product category & agriculture configuration (microfinance conversion) ----------
+        // Drives which origination/repayment behaviour applies to a loan using this
+        // product - e.g. a Seasonal/Crop-Cycle product generates a harvest-aligned
+        // schedule instead of the standard fixed monthly one.
+        field(140; "Loan Category"; Option)
+        {
+            Caption = 'Loan Category';
+            OptionMembers = "Group-Guaranteed","Collateral/Guarantor-Backed","Salary/Check-off","Emergency/Instant","Development/Asset-Finance","Business/Cash-Flow (SME)","Seasonal/Crop-Cycle (Agri)","Cooperative/Aggregator (Agri)","Loan Against Group Deposits";
+        }
+        field(141; "Pre-Disbursement Interest"; Boolean)
+        {
+            Caption = 'Deduct Interest Upfront at Disbursement';
+            ToolTip = 'If enabled, interest is deducted upfront at disbursement (a discounted loan) instead of accrued and collected over the repayment term.';
+        }
+        field(142; "Seasonal Repayment"; Boolean)
+        {
+            Caption = 'Seasonal/Harvest-Aligned Repayment';
+            ToolTip = 'For Seasonal/Crop-Cycle and Cooperative/Aggregator agricultural products - repayment falls due at harvest rather than on a fixed monthly schedule.';
+        }
+        field(143; "Grace Period to Harvest"; DateFormula)
+        {
+            Caption = 'Grace Period to Harvest';
+            ToolTip = 'Period from disbursement to expected harvest, during which no instalment falls due.';
+        }
+        field(144; "Balloon Payment at Harvest"; Boolean)
+        {
+            Caption = 'Balloon/Bullet Payment at Harvest';
+            ToolTip = 'If enabled, the full principal and interest fall due in a single payment at harvest instead of instalments during the grace period.';
+        }
+        field(145; "Crop/Livestock Type"; Text[50])
+        {
+            Caption = 'Crop/Livestock Type';
+        }
+        field(146; "Requires Literacy Certification"; Boolean)
+        {
+            Caption = 'Requires Financial Literacy Certification';
+            ToolTip = 'If enabled, a member must be certified on the financial literacy programme (Section 3.13) before this product can be applied for - typically used for a first loan under Women-Focused programmes.';
+        }
     }
 
     keys

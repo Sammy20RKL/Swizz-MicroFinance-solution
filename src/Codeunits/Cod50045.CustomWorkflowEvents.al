@@ -124,6 +124,12 @@ codeunit 50045 "Custom Workflow Events"
         WFHandler.AddEventToLibrary(RunWorkflowOnSendPaymentHeaderForApprovalCode, Database::"Payments Header", 'Approval of Payment Header is Submitted', 0, false);
         WFHandler.AddEventToLibrary(RunWorkflowOnCancelPaymentHeaderApprovalCode, Database::"Payments Header", 'Payment Headers Approval is cancelled', 0, false);
         //-------------------------------------------End Approval Events-------------------------------------------------------------
+        //Agent
+        WFHandler.AddEventToLibrary(RunWorkflowOnSendAgentForApprovalCode,
+                            Database::Agents, 'Approval of Agent is Requested.', 0, false);
+        WFHandler.AddEventToLibrary(RunWorkflowOnCancelAgentApprovalRequestCode,
+                                    Database::Agents, 'An Approval request for Agent is canceled.', 0, false);
+        //-------------------------------------------End Approval Events-------------------------------------------------------------
     end;
 
 
@@ -241,6 +247,13 @@ codeunit 50045 "Custom Workflow Events"
         WFHandler.AddEventPredecessor(WFHandler.RunWorkflowOnRejectApprovalRequestCode, RunWorkflowOnSendInternalTransfersTransactionsForApprovalCode);
 
         WFHandler.AddEventPredecessor(WFHandler.RunWorkflowOnDelegateApprovalRequestCode, RunWorkflowOnSendInternalTransfersTransactionsForApprovalCode);
+
+        //14. Agent
+        WFHandler.AddEventPredecessor(WFHandler.RunWorkflowOnApproveApprovalRequestCode, RunWorkflowOnSendAgentForApprovalCode);
+
+        WFHandler.AddEventPredecessor(WFHandler.RunWorkflowOnRejectApprovalRequestCode, RunWorkflowOnSendAgentForApprovalCode);
+
+        WFHandler.AddEventPredecessor(WFHandler.RunWorkflowOnDelegateApprovalRequestCode, RunWorkflowOnSendAgentForApprovalCode);
 
         //---------------------------------------End Approval,Rejection,Delegation Predecessors---------------------------------------------
 
@@ -706,7 +719,7 @@ codeunit 50045 "Custom Workflow Events"
     // -------------------------------------------------end of Payment Header ----------------------------///
 
 
-    //----------------------------------------Cancel Payment Header Approval ------------------------------------//    
+    //----------------------------------------Cancel Payment Header Approval ------------------------------------//
     procedure RunWorkflowOnCancelPaymentHeaderApprovalCode(): code[128]
     begin
         exit(UpperCase('RunWorkflowOnCancelPaymentHeaderApproval'));
@@ -719,5 +732,30 @@ codeunit 50045 "Custom Workflow Events"
     end;
     //--------------------------------------------end of Cancel Payment Header Approval---------------------------------------///
 
+    //17)Agent
+    procedure RunWorkflowOnSendAgentForApprovalCode(): Code[128]//
+    begin
+        exit(UpperCase('RunWorkflowOnSendAgentForApproval'));
+    end;
+
+    procedure RunWorkflowOnCancelAgentApprovalRequestCode(): Code[128]
+    begin
+        exit(UpperCase('RunWorkflowOnCancelAgentApprovalRequest'));
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::SurestepApprovalsCodeUnit, 'FnOnSendAgentForApproval', '', false, false)]
+
+    procedure RunWorkflowOnSendAgentForApproval(var Agents: Record Agents)
+    begin
+        WorkflowManagement.HandleEvent(RunWorkflowOnSendAgentForApprovalCode, Agents);
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::SurestepApprovalsCodeUnit, 'FnOnCancelAgentApprovalRequest', '', false, false)]
+
+    procedure RunWorkflowOnCancelAgentApprovalRequest(var Agents: Record Agents)
+    begin
+        WorkflowManagement.HandleEvent(RunWorkflowOnCancelAgentApprovalRequestCode, Agents);
+    end;
+    //--------------------------------------------end of Agent Approval---------------------------------------///
 
 }

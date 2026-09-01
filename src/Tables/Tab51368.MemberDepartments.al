@@ -22,9 +22,12 @@ Table 51368 "Member Departments"
             Clustered = true;
         }
     }
-
     fieldgroups
     {
+        fieldgroup(DropDown; "No.", Department)
+        { }
     }
+
+
 }
 

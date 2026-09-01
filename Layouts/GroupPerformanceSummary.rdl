@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+        </Field>
+        <Field Name="ReportFilters">
+          <DataField>ReportFilters</DataField>
+        </Field>
+        <Field Name="ExecutionDate">
+          <DataField>ExecutionDate</DataField>
+        </Field>
+        <Field Name="PageNo">
+          <DataField>PageNo</DataField>
+        </Field>
+        <Field Name="GroupNo">
+          <DataField>GroupNo</DataField>
+        </Field>
+        <Field Name="GroupName">
+          <DataField>GroupName</DataField>
+        </Field>
+        <Field Name="AgentNo">
+          <DataField>AgentNo</DataField>
+        </Field>
+        <Field Name="AgentName">
+          <DataField>AgentName</DataField>
+        </Field>
+        <Field Name="BranchCode">
+          <DataField>BranchCode</DataField>
+        </Field>
+        <Field Name="GroupStatus">
+          <DataField>GroupStatus</DataField>
+        </Field>
+        <Field Name="MemberCount">
+          <DataField>MemberCount</DataField>
+        </Field>
+        <Field Name="TotalContributions">
+          <DataField>TotalContributions</DataField>
+        </Field>
+        <Field Name="TotalContributionsFormat">
+          <DataField>TotalContributionsFormat</DataField>
+        </Field>
+        <Field Name="CommittedAmount">
+          <DataField>CommittedAmount</DataField>
+        </Field>
+        <Field Name="CommittedAmountFormat">
+          <DataField>CommittedAmountFormat</DataField>
+        </Field>
+        <Field Name="AvailableBalance">
+          <DataField>AvailableBalance</DataField>
+        </Field>
+        <Field Name="AvailableBalanceFormat">
+          <DataField>AvailableBalanceFormat</DataField>
+        </Field>
+        <Field Name="OutstandingGroupLoans">
+          <DataField>OutstandingGroupLoans</DataField>
+        </Field>
+        <Field Name="TotalMemberCount">
+          <DataField>TotalMemberCount</DataField>
+        </Field>
+        <Field Name="TotalContributionsSum">
+          <DataField>TotalContributionsSum</DataField>
+        </Field>
+        <Field Name="TotalContributionsSumFormat">
+          <DataField>TotalContributionsSumFormat</DataField>
+        </Field>
+        <Field Name="TotalCommittedAmount">
+          <DataField>TotalCommittedAmount</DataField>
+        </Field>
+        <Field Name="TotalCommittedAmountFormat">
+          <DataField>TotalCommittedAmountFormat</DataField>
+        </Field>
+        <Field Name="TotalAvailableBalance">
+          <DataField>TotalAvailableBalance</DataField>
+        </Field>
+        <Field Name="TotalAvailableBalanceFormat">
+          <DataField>TotalAvailableBalanceFormat</DataField>
+        </Field>
+        <Field Name="TotalOutstandingGroupLoans">
+          <DataField>TotalOutstandingGroupLoans</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

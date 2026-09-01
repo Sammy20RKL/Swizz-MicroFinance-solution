@@ -270,6 +270,18 @@ codeunit 50043 "Custom Workflow Responses"
         // WFResponseHandler.AddResponsePredecessor(WFResponseHandler.CancelAllApprovalRequestsCode,
         // SwizzsoftWFEvents.RunWorkflowOnCancelFixedDepositApprovalRequestCode);
 
+        //Agent
+        WFResponseHandler.AddResponsePredecessor(WFResponseHandler.SetStatusToPendingApprovalCode,
+                                                 SwizzsoftWFEvents.RunWorkflowOnSendAgentForApprovalCode);
+        WFResponseHandler.AddResponsePredecessor(WFResponseHandler.CreateApprovalRequestsCode,
+                                                 SwizzsoftWFEvents.RunWorkflowOnSendAgentForApprovalCode);
+        WFResponseHandler.AddResponsePredecessor(WFResponseHandler.SendApprovalRequestForApprovalCode,
+                                                 SwizzsoftWFEvents.RunWorkflowOnSendAgentForApprovalCode);
+        WFResponseHandler.AddResponsePredecessor(WFResponseHandler.OpenDocumentCode,
+                                                 SwizzsoftWFEvents.RunWorkflowOnCancelAgentApprovalRequestCode);
+        WFResponseHandler.AddResponsePredecessor(WFResponseHandler.CancelAllApprovalRequestsCode,
+                                                 SwizzsoftWFEvents.RunWorkflowOnCancelAgentApprovalRequestCode);
+
         //-----------------------------End AddOn--------------------------------------------------------------------------------------
     end;
 
@@ -420,6 +432,7 @@ codeunit 50043 "Custom Workflow Responses"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnOpenDocument', '', true, true)]
     local procedure OnOpenDocument(RecRef: RecordRef; var Handled: Boolean)
     var
+        Agent: Record Agents;
         MembershipApplication: Record "Membership Applications";
         LoansRegister: Record "Loans Register";
         BOSATransfers: Record "BOSA Transfers";
@@ -569,6 +582,14 @@ codeunit 50043 "Custom Workflow Responses"
                     SaccoTransfers.Modify(true);
                     Handled := true;
                 end;
+            //Agent
+            Database::Agents:
+                begin
+                    RecRef.SetTable(Agent);
+                    Agent."Approval Status" := Agent."Approval Status"::Open;
+                    Agent.Modify(true);
+                    Handled := true;
+                end;
         end
 
     end;
@@ -576,6 +597,7 @@ codeunit 50043 "Custom Workflow Responses"
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Approvals Mgmt.", 'OnSetStatusToPendingApproval', '', false, false)]
     procedure OnSetStatusToPendingApproval(RecRef: RecordRef; var Variant: Variant; var IsHandled: Boolean)
     var
+        Agent: Record Agents;
         MembershipApplication: Record "Membership Applications";
         LoansRegister: Record "Loans Register";
         BOSATransfers: Record "BOSA Transfers";
@@ -730,12 +752,21 @@ codeunit 50043 "Custom Workflow Responses"
                     SaccoTransfers.Modify(true);
                     IsHandled := true;
                 end;
+            //Agent
+            Database::Agents:
+                begin
+                    RecRef.SetTable(Agent);
+                    Agent.Validate("Approval Status", Agent."Approval Status"::"Pending Approval");
+                    Agent.Modify(true);
+                    IsHandled := true;
+                end;
         end;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnReleaseDocument', '', true, true)]
     local procedure OnReleaseDocument(RecRef: RecordRef; var Handled: Boolean)
     var
+        Agent: Record Agents;
         MemberShipApp: Record "Membership Applications";
         LoansRegister: Record "Loans Register";
         BOSATransfers: Record "BOSA Transfers";
@@ -881,7 +912,35 @@ codeunit 50043 "Custom Workflow Responses"
                     SaccoTransfers.Modify(true);
                     Handled := true;
                 end;
+            //Agent
+            Database::Agents:
+                begin
+                    RecRef.SetTable(Agent);
+                    Agent."Approval Status" := Agent."Approval Status"::Approved;
+                    Agent.Modify(true);
+                    Handled := true;
+                end;
         end;
 
+    end;
+
+    // Membership Applications and the other document types wired into this
+    // codeunit never subscribed to a reject outcome - a rejected approval just
+    // silently left the document's own status wherever it was. That gap is fixed
+    // here for Agents only: once every approval entry on the request is rejected,
+    // the agent's own Approval Status is set to Rejected so it's visible on the
+    // card and in the Applications Rejected list, not just in the Approval Entries.
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Approvals Mgmt.", 'OnRejectApprovalRequest', '', false, false)]
+    local procedure OnRejectApprovalRequest_Agent(var ApprovalEntry: Record "Approval Entry")
+    var
+        Agent: Record Agents;
+    begin
+        if ApprovalEntry."Table ID" <> Database::Agents then
+            exit;
+
+        if Agent.Get(ApprovalEntry."Document No.") then begin
+            Agent."Approval Status" := Agent."Approval Status"::Rejected;
+            Agent.Modify(true);
+        end;
     end;
 }

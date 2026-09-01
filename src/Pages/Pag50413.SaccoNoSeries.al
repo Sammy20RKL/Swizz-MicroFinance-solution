@@ -27,11 +27,19 @@ page 50413 "Sacco No. Series"
                 {
                     ApplicationArea = Basic;
                 }
+                field("Agent No"; Rec."Agent No")
+                {
+                    ApplicationArea = Basic;
+                }
             }
             group(Credit)
             {
                 Caption = 'Credit';
                 field("Member Application Nos"; Rec."Member Application Nos")
+                {
+                    ApplicationArea = Basic;
+                }
+                field("Micro Group Nos."; Rec."Micro Group Nos.")
                 {
                     ApplicationArea = Basic;
                 }

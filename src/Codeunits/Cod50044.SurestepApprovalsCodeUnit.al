@@ -637,5 +637,43 @@ codeunit 50044 "SurestepApprovalsCodeUnit"
     begin
     end;
 
+    //7)--------------------------------------------------------------------Send Agent request For Approval start
+    procedure SendAgentRequestForApproval(AgentNo: Code[20]; var Agents: Record Agents)
+    begin
+        if FnCheckIfAgentApprovalsWorkflowEnabled(Agents) then begin
+            FnOnSendAgentForApproval(Agents);
+        end;
+    end;
+
+    local procedure FnCheckIfAgentApprovalsWorkflowEnabled(var Agents: Record Agents): Boolean;
+    begin
+        if not IsAgentApprovalsWorkflowEnabled(Agents) then
+            Error(NoWorkflowEnabledErr);
+        exit(true);
+    end;
+
+    //.
+    procedure CancelAgentRequestForApproval(AgentNo: Code[20]; var Agents: Record Agents)
+    begin
+        FnOnCancelAgentApprovalRequest(Agents);
+    end;
+
+    local procedure IsAgentApprovalsWorkflowEnabled(var Agents: Record Agents): Boolean
+    begin
+        exit(WorkflowManagement.CanExecuteWorkflow(Agents, Psalmkitswfevents.RunWorkflowOnSendAgentForApprovalCode));
+    end;
+
+    [IntegrationEvent(false, false)]
+
+    procedure FnOnSendAgentForApproval(var Agents: Record Agents)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+
+    procedure FnOnCancelAgentApprovalRequest(var Agents: Record Agents)
+    begin
+    end;
+
 }
 

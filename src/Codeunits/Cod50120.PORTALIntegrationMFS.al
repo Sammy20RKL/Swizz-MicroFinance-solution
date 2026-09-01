@@ -64,7 +64,6 @@ Codeunit 50120 "PORTALIntegration MFS"
         DivTotal: Decimal;
         CDeposits: Decimal;
         CustDiv: Record customer;
-        DivProg: Record "Dividends Progression";
         CDiv: Decimal;
         BDate: Date;
         CustR: Record customer;
@@ -1882,14 +1881,6 @@ Codeunit 50120 "PORTALIntegration MFS"
 
     procedure FnLoanfo(MemberNo: Code[20]) dividend: Text
     begin
-        DivProg.Reset;
-        DivProg.SetRange("Member No", MemberNo);
-        if DivProg.Find('-') then begin
-            repeat
-                dividend := dividend + Format(DivProg.Date) + ':::' + Format(DivProg."Gross Dividends") + ':::' + Format(DivProg."Witholding Tax") + ':::' + Format(DivProg."Net Dividends") + ':::' + Format(DivProg."Qualifying Shares") + ':::'
-                + Format(DivProg.Shares) + '::::';
-            until DivProg.Next = 0;
-        end;
     end;
 
     procedure fnGetFosaAccounts(BosaNo: Code[20]) fosas: Text
@@ -2801,10 +2792,10 @@ Codeunit 50120 "PORTALIntegration MFS"
             Clear(TempBlob);
             TempBlob.CreateOutStream(Outstr);
             TempBlob.CreateInStream(Instr);
-            if Report.SaveAs(Report::"Member Shares Certificate", '', ReportFormat::Pdf, Outstr, RecRef) then begin
-                exitString := Base64Convert.ToBase64(Instr);
-                exit;
-            end;
+            // if Report.SaveAs(Report::"Member Shares Certificate", '', ReportFormat::Pdf, Outstr, RecRef) then begin
+            //     exitString := Base64Convert.ToBase64(Instr);
+            //     exit;
+            // end;
         end;
     end;
 

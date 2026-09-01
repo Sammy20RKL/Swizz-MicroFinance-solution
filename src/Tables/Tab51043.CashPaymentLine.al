@@ -417,7 +417,7 @@ Table 51043 "Cash Payment Line"
         BankAcc: Record "Bank Account";
         //NoSeriesMgt: Codeunit NoSeriesManagement;
         GenLedgerSetup: Record "Salary Processing Lines";
-        RecPayTypes: Record "Fixed Deposit Type";
+        // RecPayTypes: Record "Fixed Deposit Type";
         CashierLinks: Record "Cheque Types";
         GLAccount: Record "G/L Account";
         EntryNo: Integer;

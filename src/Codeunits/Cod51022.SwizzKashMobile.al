@@ -5639,6 +5639,7 @@ Codeunit 51022 SwizzKashMobile
                     result := PostLoan(SwizzKASHTrans."Document No", SwizzKASHTrans."Account No", SwizzKASHTrans.Amount, SwizzKASHTrans."Loan Period");
                 end;
             UNTIL SwizzKASHTrans.NEXT = 0;
+
         END;
     END;
 
@@ -6405,7 +6406,7 @@ Codeunit 51022 SwizzKashMobile
                     PaybillTransTable.MODIFY;
                     res := 'TRUE';
                     msg := 'Dear ' + Members.Name + ', Your ACC: ' + Members."No." + ' has been credited with KES. ' + FORMAT(Amount) +
-                                ' .Thank you, BAMBURI Sacco Mobile.';
+                                ' .Thank you, BAMBURI Wananchi Sacco Mobile.';
                     SMSMessage('PAYBILL', Members."No.", Members."Mobile Phone No", msg);
                 END ELSE BEGIN
                     PaybillTransTable."Date Posted" := TODAY;
@@ -6604,7 +6605,7 @@ Codeunit 51022 SwizzKashMobile
                     PaybillTransTable.MODIFY;
                     res := 'TRUE';
                     msg := 'Dear ' + Members.Name + ', Your ACC: ' + Members."No." + ' has been credited with KES. ' + FORMAT(Amount) +
-                                ' .Thank you, BAMBURI Sacco Mobile.';
+                                ' .Thank you, BAMBURI Wananchi Sacco Mobile.';
                     SMSMessage('PAYBILL', Members."No.", Members."Mobile Phone No", msg);
                 END ELSE BEGIN
                     PaybillTransTable."Date Posted" := TODAY;
@@ -6851,7 +6852,7 @@ Codeunit 51022 SwizzKashMobile
                     PaybillTransTable.MODIFY;
                     res := 'TRUE';
                     msg := 'Dear ' + Members.Name + ', Your ACC: ' + accNo + ' has been credited with KES. ' + FORMAT(amount) +
-                              ' .Thank you for using BAMBURI Sacco Mobile.';
+                              ' .Thank you for using BAMBURI Wananchi Sacco Mobile.';
                     SMSMessage('PAYBILL', Members."No.", Members."Mobile Phone No", msg);
                 END ELSE BEGIN
                     PaybillTransTable."Date Posted" := TODAY;
@@ -7106,7 +7107,7 @@ Codeunit 51022 SwizzKashMobile
                             isPosted := TRUE;
                             msg := 'Dear ' + objMember.Name + ', your payment of KES. ' + FORMAT(PaybillTrans.Amount) +
                                       ' for loan: ' + LoansRegister."Loan  No." + '-' + LoansRegister."Loan Product Type Name"
-                                  + ' has been received.Thank you, BAMBURI NON-WDT SACCO Mobile.';
+                                  + ' has been received.Thank you, BAMBURI Wananchi NON-WDT SACCO Mobile.';
                             SMSMessage('PAYBILL', objMember."No.", objMember."Mobile Phone No", msg);
 
                         END ELSE BEGIN
@@ -7326,7 +7327,7 @@ Codeunit 51022 SwizzKashMobile
                     PaybillTransTable.MODIFY;
                     res := 'TRUE';
                     msg := 'Dear ' + Vendor.Name + ', Your ACC: ' + Vendor."No." + ' has been credited with KES. ' + FORMAT(Amount) +
-                                ' .Thank you, BAMBURI Sacco Mobile.';
+                                ' .Thank you, BAMBURI Wananchi Sacco Mobile.';
                     SMSMessage('PAYBILL', Vendor."No.", Vendor."Phone No.", msg);
                 END ELSE BEGIN
                     PaybillTransTable."Date Posted" := TODAY;
@@ -9765,7 +9766,7 @@ Codeunit 51022 SwizzKashMobile
                         GenJournalLine.DELETEALL;
 
                         msg := 'You have withdrawn KES ' + FORMAT(withdrawAmount) + ' from Account ' + Vendor.Name +
-                        ' .Thank you for using BAMBURI Sacco Mobile.';
+                        ' .Thank you for using BAMBURI Wananchi Sacco Mobile.';
 
                         SwizzKashTransTable."Account No2" := MPESARecon;
                         SwizzKashTransTable.Charge := TotalCharges;
@@ -10057,7 +10058,7 @@ Codeunit 51022 SwizzKashMobile
                             END;
                             IF (LoansRegister."Loan Product Type" = 'HALL') THEN BEGIN
                                 amount := 2;
-                                Res := '2::::You do not Qualify for this loan because You have an outstanding Halli Hallo Loan::::False';
+                                Res := '2::::You do not Qualify for this loan because You have an outstanding Hallo Hallo Loan::::False';
                                 Res := '{ "StatusCode":"403","StatusDescription":"OutstandingHalloLoan","LimitAmount":0,"Message":"You do not Qualify for this loan because You have an outstanding Hallo Hallo Loan." } ';
                                 EXIT;
                             END;
@@ -10958,7 +10959,7 @@ Codeunit 51022 SwizzKashMobile
                     SwizzKASHTrans."Transaction Time" := Time;
                     SwizzKASHTrans.Insert;
                     result := 'TRUE';
-                    msg := 'You have withdrawn KES ' + Format(amount) + ' from Account ' + Vendor.Name + ' thank you for using BAMBURI Sacco Mobile.';
+                    msg := 'You have withdrawn KES ' + Format(amount) + ' from Account ' + Vendor.Name + ' thank you for using BAMBURI Wananchi Sacco Mobile.';
                     SMSMessage(documentNo, Vendor."No.", Vendor."Phone No.", msg);
                 end
                 else begin

@@ -22,11 +22,11 @@ Page 56174 "Member Stats"
                 Caption = 'Member Statistics FactBox';
                 Editable = false;
 
-                field("Current Shares"; Rec."Current Shares")
-                {
-                    Caption = 'Non-withdrawable Deposits';
-                    Style = StrongAccent;
-                }
+                // field("Current Shares"; Rec."Current Shares")
+                // {
+                //     Caption = 'Non-withdrawable Deposits';
+                //     Style = StrongAccent;
+                // }
 
                 field("Outstanding Balance"; Rec."Outstanding Balance")
                 {
@@ -37,29 +37,29 @@ Page 56174 "Member Stats"
                     Style = StrongAccent;
                 }
 
-                field("Principal Arrears"; Rec."Principal Arrears")
-                {
-                    Style = Unfavorable;
-                    StyleExpr = true;
-                }
+                // field("Principal Arrears"; Rec."Principal Arrears")
+                // {
+                //     Style = Unfavorable;
+                //     StyleExpr = true;
+                // }
                 field("Interest Arrears"; Rec."Interest Arrears")
                 {
                     Style = Unfavorable;
                     StyleExpr = true;
                 }
-                field("Registration Fee Paid"; Rec."Registration Fee Paid")
-                {
-                    ApplicationArea = Basic;
-                    Importance = Promoted;
-                    Style = Ambiguous;
-                }
-                field("Shares Retained"; rec."Shares Retained")
-                {
-                    ApplicationArea = Basic;
-                    Importance = Promoted;
-                    Style = Ambiguous;
+                // field("Registration Fee Paid"; Rec."Registration Fee Paid")
+                // {
+                //     ApplicationArea = Basic;
+                //     Importance = Promoted;
+                //     Style = Ambiguous;
+                // }
+                // field("Shares Retained"; rec."Shares Retained")
+                // {
+                //     ApplicationArea = Basic;
+                //     Importance = Promoted;
+                //     Style = Ambiguous;
 
-                }
+                // }
                 // field("School Fees Shares"; "School Fees Shares")
                 // {
                 //     Caption = 'CO- OP Shares';
@@ -99,15 +99,15 @@ Page 56174 "Member Stats"
                 //     Style = Ambiguous;
                 // }
 
-                field("Dividend Amount"; Rec."Dividend Amount")
-                {
-                    style = Strong;
-                }
+                // field("Dividend Amount"; Rec."Dividend Amount")
+                // {
+                //     style = Strong;
+                // }
 
-                field("Un-allocated Funds"; Rec."Un-allocated Funds")
-                {
-                    style = Strong;
-                }
+                // field("Un-allocated Funds"; Rec."Un-allocated Funds")
+                // {
+                //     style = Strong;
+                // }
 
                 field("Benevolent Fund"; Rec."Benevolent Fund")
                 {

@@ -38,8 +38,9 @@ tableextension 50081 "detailedCustLedgExt" extends "Detailed Cust. Ledg. Entry"
         {
             DataClassification = ToBeClassified;
         }
-        field(1008; "BLoan Officer No."; Code[100])
+        field(1008; "Agent No."; Code[100])
         {
+            Caption = 'Agent No.';
             DataClassification = ToBeClassified;
         }
     }

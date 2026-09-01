@@ -11,7 +11,7 @@ Page 56027 "Member List"
     SourceTableView = sorting("No.")
     order(ascending)
     //where("Customer Type" = filter(BOSA | STAFF),
-   where("Customer Posting Group" = filter('BOSA' | 'JUNIORS' | ''));
+   where("Customer Posting Group" = filter('DOMESTIC' | 'JUNIORS' | ''));
     UsageCategory = Lists;
 
     layout
@@ -51,6 +51,22 @@ Page 56027 "Member List"
                 field(Status; Rec.Status)
                 {
                     ApplicationArea = basic;
+                }
+                field("Agent No."; Rec."Agent No.")
+                {
+                    ApplicationArea = Basic;
+                }
+                field("Agent Name"; Rec."Agent Name")
+                {
+                    ApplicationArea = Basic;
+                }
+                field("Group No."; Rec."Group No.")
+                {
+                    ApplicationArea = Basic;
+                }
+                field("Group Name"; Rec."Group Name")
+                {
+                    ApplicationArea = Basic;
                 }
                 field("Date of Birth"; Rec."Date of Birth")
                 {
@@ -159,7 +175,7 @@ Page 56027 "Member List"
                 {
                     ApplicationArea = Basic;
                     Promoted = true;
-                    //visible = false;
+                    visible = false;
                     PromotedCategory = "Report";
 
                     trigger OnAction()

@@ -56,7 +56,7 @@ Table 51371 "Loans Register"
         field(3; "Loan Product Type"; Code[250])
         {
             Editable = true;
-            TableRelation = if (Source = const(BOSA)) "Loan Products Setup".Code where(Source = const(BOSA));
+            TableRelation = if (Source = const(MICRO)) "Loan Products Setup".Code where(Source = const(MICRO));
 
             trigger OnValidate()
             var
@@ -65,7 +65,18 @@ Table 51371 "Loans Register"
                 KHLLn: Decimal;
                 RefDate: Date;
                 loanOffsetTable: Record "Loan Offset Details";
+                Member: Record Customer;
             begin
+                if ("Client Code" <> '') and ProdFac.Get("Loan Product Type") then begin
+                    if ProdFac."Requires Literacy Certification" then begin
+                        if Member.Get("Client Code") then begin
+                            Member.CalcFields("Financial Literacy Certified");
+                            if not Member."Financial Literacy Certified" then
+                                Error('This loan product requires the member to first complete and be certified on the financial literacy programme.');
+                        end;
+                    end;
+                end;
+
                 LoanApp.Reset;
                 LoanApp.SetRange("Client Code", "Client Code");
                 LoanApp.SetRange(Posted, true);
@@ -341,6 +352,8 @@ Table 51371 "Loans Register"
                 MembReg.SetRange(MembReg."No.", "Client Code");
                 if MembReg.FindFirst() then begin
                     "Client Name" := MembReg.Name;
+                    if "Agent No." = '' then
+                        "Agent No." := MembReg."Agent No.";
                 end;
 
                 LoanApp.Reset;
@@ -383,23 +396,23 @@ Table 51371 "Loans Register"
                 END;
                 
                 */
-                GenSetUp.Get();
-                if Cust.Get("Client Code") then begin
-                    IF Cust."Registration Date" <> 0D THEN
-                        RefDate := CALCDATE('<+' + GenSetUp."Share Capital Period" + '>', Cust."Registration Date");
-                    IF Today < RefDate THEN BEGIN
-                        ERROR('You do not qualify for this loan yet. You must be a member for at least %1 before applying. You will be eligible from %2.',
-                            GenSetUp."Share Capital Period",
-                            RefDate);
-                        // ERROR('Member does not qualify for this loan!. Qualification date is %1.', RefDate);
-                        //  if Today < RefDate then
-                        // Error('Member does not qualify for this loan. Qualification date is %1.', RefDate);
-                    END; // For members who are not 6 months old in the Sacco
+                // GenSetUp.Get();
+                // if Cust.Get("Client Code") then begin
+                //     IF Cust."Registration Date" <> 0D THEN
+                //         RefDate := CALCDATE('<+' + GenSetUp."Share Capital Period" + '>', Cust."Registration Date");
+                //     IF Today < RefDate THEN BEGIN
+                //         ERROR('You do not qualify for this loan yet. You must be a member for at least %1 before applying. You will be eligible from %2.',
+                //             GenSetUp."Share Capital Period",
+                //             RefDate);
+                // ERROR('Member does not qualify for this loan!. Qualification date is %1.', RefDate);
+                //  if Today < RefDate then
+                // Error('Member does not qualify for this loan. Qualification date is %1.', RefDate);
+                // END; // For members who are not 6 months old in the Sacco
 
-                    Cust.CALCFIELDS("Shares Retained");
-                    // IF Cust."Shares Retained" < GenSetUp."Retained Shares" THEN
-                    //  ERROR('Member does not meet the minimum Shares Capital contibution to qualify for this loan');
-                end;
+                // Cust.CALCFIELDS("Shares Retained");
+                // IF Cust."Shares Retained" < GenSetUp."Retained Shares" THEN
+                //  ERROR('Member does not meet the minimum Shares Capital contibution to qualify for this loan');
+                // end;
                 if Source = Source::BOSA then begin
                     if "Loan  No." = '' then begin
                         SalesSetup.Get;
@@ -714,19 +727,18 @@ Table 51371 "Loans Register"
                 Amtt: Decimal;
             begin
                 //check qualifying deposists *3 ---------------------------------
-                if "Requested Amount" > ("Member Deposits" * 3) then Error('Amount Requested exceeds member Eligibility');
+                // if "Requested Amount" > ("Member Deposits" * 3) then Error('Amount Requested exceeds member Eligibility');
 
-                if LoanType.Get("Loan Product Type") then begin
-                    if "Requested Amount" > ("Member Deposits" * LoanType."Deposits Multiplier") then begin
-                        Error('Amount Requested exceeds member Eligibility');
-                    end;
-                    if ("Loan Product Type" = 'KIVUK') or ("Loan Product Type" = 'HALL') or ("Loan Product Type" = 'INST') then begin
+                // if LoanType.Get("Loan Product Type") then begin
+                //     if "Requested Amount" > ("Member Deposits" * LoanType."Deposits Multiplier") then begin
+                //         Error('Amount Requested exceeds member Eligibility');
+                //     end;
+                //     // Max. Loan Amount is a per-product setting - it applies whenever the
+                //     // product configures one, not just to a hardcoded list of product codes.
+                //     if (LoanType."Max. Loan Amount" <> 0) and ("Requested Amount" > LoanType."Max. Loan Amount") then
+                //         Error('You cannot request more than the allowable limit of %1', LoanType."Max. Loan Amount");
 
-                        if "Requested Amount" > LoanType."Max. Loan Amount" then
-                            Error('You cannot request more than the allowable limit of %1', LoanType."Max. Loan Amount");
-                    end;
-
-                end;
+                // end;
 
 
                 //.....................................cj
@@ -739,11 +751,8 @@ Table 51371 "Loans Register"
                         LoansRec.SetRange(LoansRec.Posted, true);
 
                     end else
-                        if ("Loan Product Type" = 'KIVUK') or ("Loan Product Type" = 'HALL') or ("Loan Product Type" = 'INST') then begin
-
-                            if "Requested Amount" > LoanType."Max. Loan Amount" then
-                                Error('You cannot request more than the allowable limit of %1', LoanType."Max. Loan Amount");
-                        end;
+                        if (LoanType."Max. Loan Amount" <> 0) and ("Requested Amount" > LoanType."Max. Loan Amount") then
+                            Error('You cannot request more than the allowable limit of %1', LoanType."Max. Loan Amount");
 
                     if "Requested Amount" < LoanType."Min. Loan Amount" then begin
                         Error('The amount requested cannot be less than the minimum amount of %1', LoanType."Min. Loan Amount");
@@ -811,16 +820,21 @@ Table 51371 "Loans Register"
 
 
                 //End Repayments for amortised method
-                GenSetUp.Get();
                 "Boosting Commision" := 0;
                 "Boosted Amount" := 0;
-                if (("Member Deposits" < "Requested Amount") and ("Boost this Loan" = true)) then begin
-                    if LoanType.Get("Loan Product Type") then begin
-                        "Boosted Amount" := ROUND(("Requested Amount" - "Member Deposits" * LoanType."Shares Multiplier") / 3, 1, '=');//
-                        "Boosting Commision" := "Boosted Amount" * GenSetUp."Boosting Shares %" / 100;
-                        "Boosted Amount Interest" := "Boosted Amount" * Interest / 1200;
-                    end
-                end;
+                // "Boost this Loan" topped up a loan using the member's deposits - no
+                // deposits exist in this system, so this block would now always fire
+                // (0 < any requested amount) and always compute against a "Member
+                // Deposits" value that's never populated. Commented out rather than
+                // deleted, matching the other deposit-eligibility checks above.
+                // GenSetUp.Get();
+                // if (("Member Deposits" < "Requested Amount") and ("Boost this Loan" = true)) then begin
+                //     if LoanType.Get("Loan Product Type") then begin
+                //         "Boosted Amount" := ROUND(("Requested Amount" - "Member Deposits" * LoanType."Shares Multiplier") / 3, 1, '=');//
+                //         "Boosting Commision" := "Boosted Amount" * GenSetUp."Boosting Shares %" / 100;
+                //         "Boosted Amount Interest" := "Boosted Amount" * Interest / 1200;
+                //     end
+                // end;
 
 
 
@@ -871,6 +885,11 @@ Table 51371 "Loans Register"
                     if "Approved Amount" > "Requested Amount" then
                         Error('Approved amount must not be more than the requested amount. %1', "Loan  No.");
 
+                    //Group-guaranteed loans need the group's own sign-off before a loan
+                    //officer can approve them - see field "Group Official Approved".
+                    if ("Guarantor Group No." <> '') and (not "Group Official Approved") then
+                        Error('This loan is guaranteed by group %1 and needs that group''s official sign-off (Group Official Approved) before it can be approved.', "Guarantor Group No.");
+
                 end;
                 LAppCharges.Reset;
                 LAppCharges.SetRange(LAppCharges."Loan No", "Loan  No.");
@@ -907,18 +926,22 @@ Table 51371 "Loans Register"
 
                     //IF LoanAmount>100000 THEN BEGIN
                     if LoanType.Get("Loan Product Type") then begin
-                        if ("Loan Product Type" <> 'SUKUMA') and ("Loan Product Type" <> 'KARIBU') and ("Loan Product Type" <> 'INSTANT') then begin
+                        // "One-Time" (Repayment Method) is a single lump-sum repayment at
+                        // term, as opposed to amortised/straight-line periodic installments -
+                        // this used to be gated to a hardcoded list of product codes instead
+                        // of the product's own configured Repayment Method.
+                        if LoanType."Repayment Method" <> LoanType."Repayment Method"::"One-Time" then begin
                             Repayment := LPrincipal + LInterest;
                             //MESSAGE('evv %1',Repayment);
                         end;
-                        if ("Loan Product Type" = 'SUKUMA') or ("Loan Product Type" = 'KARIBU') or ("Loan Product Type" = 'INSTANT') then begin
+                        if LoanType."Repayment Method" = LoanType."Repayment Method"::"One-Time" then begin
                             Repayment := "Approved Amount";
                         end;
                         //MESSAGE('repayment  is %1',Repayment);
                         "Loan Principle Repayment" := LPrincipal;
                         //MESSAGE('repayment  is %1',Repayment);
                         "Loan Interest Repayment" := LInterest;
-                        if ("Loan Product Type" = 'SUKUMA') or ("Loan Product Type" = 'KARIBU') or ("Loan Product Type" = 'INSTANT') then begin
+                        if LoanType."Repayment Method" = LoanType."Repayment Method"::"One-Time" then begin
                             Repayment := "Approved Amount";
                             "Loan Principle Repayment" := "Requested Amount";
                             "Loan Interest Repayment" := LInterest;
@@ -1041,7 +1064,7 @@ Table 51371 "Loans Register"
                 if LoanType."Charge Interest Upfront" = true then begin
                     "Interest Upfront Amount" := ROUND(("Approved Amount" * Interest) / 1200, 1, '=');
                 end;
-                if ("Loan Product Type" = 'SUKUMA') or ("Loan Product Type" = 'KARIBU') or ("Loan Product Type" = 'INSTANT') then begin
+                if LoanType.Get("Loan Product Type") and (LoanType."Repayment Method" = LoanType."Repayment Method"::"One-Time") then begin
                     Repayment := "Approved Amount";
                     "Loan Principle Repayment" := "Approved Amount";
                 end;
@@ -3990,7 +4013,10 @@ Table 51371 "Loans Register"
                 if "Loan Product Type" = '' then
                     Error('Please select the loan product type!');
 
-                if ("Loan Product Type" = 'SUKUMA') or ("Loan Product Type" = 'INSTANT') or ("Loan Product Type" = 'MALIMALI') or ("Loan Product Type" = 'KARIBU') then
+                // A one-time/lump-sum product has no ongoing installment schedule to top
+                // up, so it can't be boosted - this was previously a hardcoded product
+                // code list instead of reading the product's own Repayment Method.
+                if LoanType.Get("Loan Product Type") and (LoanType."Repayment Method" = LoanType."Repayment Method"::"One-Time") then
                     Error('The loan product selected is not eligible for boosting!');
 
                 ObjCust.Reset;
@@ -4807,6 +4833,137 @@ Table 51371 "Loans Register"
         {
             CalcFormula = sum("Loan Offset Details"."Interest Top Up2" where("Loan No." = field("Loan  No."), "Client Code" = field("Client Code")));
             FieldClass = FlowField;
+        }
+
+        // ---------- Agent attribution (microfinace conversion) ----------
+        // Every loan is traceable to the agent who originated it, independent of
+        // whichever agent the member is currently attached to on the Customer card -
+        // this preserves history correctly if the member is later reassigned to a
+        // different agent. Defaults from the member's current agent on loan creation.
+        field(59200; "Agent No."; Code[20])
+        {
+            Caption = 'Agent No.';
+            TableRelation = Agents."No.";
+
+            trigger OnValidate()
+            var
+                Agent: Record Agents;
+            begin
+                if "Agent No." <> '' then
+                    Agent.Get("Agent No.");
+            end;
+        }
+        field(59201; "Agent Name"; Text[100])
+        {
+            Caption = 'Agent Name';
+            CalcFormula = lookup(Agents."Full Name" where("No." = field("Agent No.")));
+            Editable = false;
+            FieldClass = FlowField;
+        }
+
+        // ---------- Group guarantee (microfinace conversion) ----------
+        // Set when this loan is secured by a group's guarantee fund (Section 3.4/3.5)
+        // rather than, or alongside, individual collateral/guarantors (Section 3.6).
+        field(59210; "Guarantor Group No."; Code[20])
+        {
+            Caption = 'Guarantor Group No.';
+            // Filtered to groups run by this loan's own Agent - an agent manages many
+            // groups, so picking the group without narrowing by agent first meant
+            // choosing from every group in the system.
+            TableRelation = "Member Group"."No." where("Agent No." = field("Agent No."));
+
+            trigger OnValidate()
+            var
+                GuarantorGroup: Record "Member Group";
+                AvailableGuarantee: Decimal;
+                LoanAmount: Decimal;
+            begin
+                if "Guarantor Group No." = '' then
+                    exit;
+
+                GuarantorGroup.Get("Guarantor Group No.");
+                GuarantorGroup.CalcFields("Total Contributions");
+                GuarantorGroup.UpdateGuaranteeFundFigures();
+                AvailableGuarantee := GuarantorGroup."Total Contributions" - GuarantorGroup."Committed Amount";
+
+                LoanAmount := "Requested Amount";
+                if LoanAmount = 0 then
+                    LoanAmount := "Approved Amount";
+
+                if LoanAmount > AvailableGuarantee then
+                    Error('Group %1 only has an available guarantee balance of %2, which does not cover this loan amount of %3.', GuarantorGroup."No.", AvailableGuarantee, LoanAmount);
+            end;
+        }
+        // ---------- Group official sign-off (Section 3.5) ----------
+        // For a group-guaranteed loan, the group's own leadership endorses the
+        // application before it goes to a loan officer/credit committee - this is
+        // a distinct step from the guarantee-sufficiency check above, which only
+        // verifies the group's fund can cover the amount, not that the group has
+        // actually agreed to back this specific member.
+        field(59214; "Group Official Approved"; Boolean)
+        {
+            Caption = 'Group Official Approved';
+            Editable = false;
+        }
+        field(59215; "Group Official Approved By"; Text[100])
+        {
+            Caption = 'Group Official Approved By';
+            Editable = false;
+        }
+        field(59216; "Group Official Approval Date"; Date)
+        {
+            Caption = 'Group Official Approval Date';
+            Editable = false;
+        }
+        // The actual sign-off input: a lookup restricted to whoever currently holds
+        // an officer role (Chairperson/Treasurer/Secretary) in THIS loan's
+        // guaranteeing group - not a free checkbox anyone could tick. Selecting a
+        // valid officer here is what sets "Group Official Approved" above.
+        field(59217; "Group Official No."; Code[20])
+        {
+            Caption = 'Approving Group Official';
+            TableRelation = "Group Member Line"."Member No." where(
+                "Group No." = field("Guarantor Group No."),
+                Role = filter(<> "Ordinary Member"),
+                Status = const(Active));
+
+            trigger OnValidate()
+            var
+                GroupOfficial: Record "Group Member Line";
+            begin
+                if "Group Official No." = '' then begin
+                    "Group Official Approved" := false;
+                    "Group Official Approved By" := '';
+                    "Group Official Approval Date" := 0D;
+                    exit;
+                end;
+
+                TestField("Guarantor Group No.");
+                GroupOfficial.SetRange("Group No.", "Guarantor Group No.");
+                GroupOfficial.SetRange("Member No.", "Group Official No.");
+                GroupOfficial.SetFilter(Role, '<>%1', GroupOfficial.Role::"Ordinary Member");
+                GroupOfficial.SetRange(Status, GroupOfficial.Status::Active);
+                if not GroupOfficial.FindFirst() then
+                    Error('%1 does not currently hold an officer role (Chairperson/Treasurer/Secretary) in group %2.', "Group Official No.", "Guarantor Group No.");
+
+                "Group Official Approved" := true;
+                "Group Official Approved By" := StrSubstNo('%1 (%2)', GroupOfficial."Member Name", GroupOfficial.Role);
+                "Group Official Approval Date" := Today;
+            end;
+        }
+
+        // ---------- Seasonal/agricultural terms for this specific loan ----------
+        // The product (Tab51381) configures whether a category of loan uses
+        // harvest-aligned repayment by default; these carry the actual dates for
+        // this loan, since planting/harvest timing varies loan to loan even within
+        // the same product.
+        field(59220; "Expected Harvest Date"; Date)
+        {
+            Caption = 'Expected Harvest Date';
+        }
+        field(59221; "Crop/Livestock Type"; Text[50])
+        {
+            Caption = 'Crop/Livestock Type';
         }
     }
 

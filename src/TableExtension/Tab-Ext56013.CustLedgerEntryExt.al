@@ -115,8 +115,10 @@ tableextension 56013 CustLedgerEntryExt extends "Cust. Ledger Entry"
         }
 
 
-        field(7700; "BLoan Officer No."; Code[20])
+        field(7700; "Agent No."; Code[20])
         {
+            Caption = 'Agent No.';
+            TableRelation = Agents."No.";
         }
         field(7701; "Loan Product Description"; Text[100])
         {

@@ -11,7 +11,7 @@
             "authentication": "UserPassword",
             "startupObjectId": 56043,
             "startupObjectType": "Page",
-            "port": 7049,
+            "port": 9049,
             "breakOnError": "All",
             "launchBrowser": true,
             "enableLongRunningSqlStatements": true,
@@ -20,36 +20,17 @@
             "schemaUpdateMode": "Synchronize",
             "usePublicURLFromServer": true
         },
-        // {
-        //     "name": "Test Company",
-        //     "request": "launch",
-        //     "type": "al",
-        //     "environmentType": "OnPrem",
-        //     "server": "http://88.99.215.90:8080/BC270/",
-        //     "serverInstance": "BC270",
-        //     "authentication": "UserPassword",
-        //     "startupObjectId": 56043,
-        //     "startupObjectType": "Page",
-        //     "port": 7049,
-        //     "breakOnError": "All",
-        //     "launchBrowser": true,
-        //     "enableLongRunningSqlStatements": true,
-        //     "enableSqlInformationDebugger": false,
-        //     "tenant": "default",
-        //     "schemaUpdateMode": "Synchronize",
-        //     "usePublicURLFromServer": true
-        // },
         {
-            "name": "Bamburi Wananchi Server",
+            "name": "Swizz Microfinance Solution",
             "request": "launch",
             "type": "al",
             "environmentType": "OnPrem",
-            "server": "http://213.136.69.69:8080/BC270/",
+            "server": "http://169.58.208.188:8080/BC270/",
             "serverInstance": "BC270",
             "authentication": "UserPassword",
             "startupObjectId": 56043,
             "startupObjectType": "Page",
-            "port": 7749,
+            "port": 9049,
             "breakOnError": "All",
             "launchBrowser": true,
             "enableLongRunningSqlStatements": true,
@@ -57,6 +38,6 @@
             "tenant": "default",
             "schemaUpdateMode": "Synchronize",
             "usePublicURLFromServer": true
-        }
+        },
     ]
 }

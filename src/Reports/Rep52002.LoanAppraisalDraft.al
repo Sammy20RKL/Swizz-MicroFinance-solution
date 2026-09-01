@@ -1118,7 +1118,7 @@ Report 52002 "Loan Appraisal Draft"
 
         BRIDGEDLOANS: Record "Loan Offset Details";
 
-        DivProg: Record "Dividends Progression";
+        // DivProg: Record "Dividends Progression";
         LoanProcessingFee: Decimal;
         ProductCharges: Record "Loan Product Charges";
         LoanAppraisal: Decimal;

@@ -94,6 +94,7 @@ Report 52000 "loan aging new Nav"
             column(InterestDue_LoansRegister; "Loans Register"."Interest Due")
             {
             }
+            column(Loan_Category; "Loans Register"."Loans Category") { }
             column(Loans__Approved_Amount_; "Approved Amount")
             {
             }

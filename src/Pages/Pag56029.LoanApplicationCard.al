@@ -6,7 +6,7 @@ Page 56029 "Loan Application Card"
     PageType = Card;
     PromotedActionCategories = 'New,Process,Reports,Approval,Budgetary Control,Cancellation,Category7_caption,Category8_caption,Category9_caption,Category10_caption';
     SourceTable = "Loans Register";
-    SourceTableView = where(Source = const(BOSA),
+    SourceTableView = where(Source = const(MICRO),
                             Posted = const(false));
 
     layout
@@ -33,6 +33,34 @@ Page 56029 "Loan Application Card"
                     ApplicationArea = Basic;
                     Editable = false;
                 }
+                field("Agent No."; Rec."Agent No.")
+                {
+                    ApplicationArea = Basic;
+                    Editable = false;
+
+                }
+                field("Guarantor Group No."; Rec."Guarantor Group No.")
+                {
+                    ApplicationArea = Basic;
+                    Caption = 'Guaranteeing Group';
+                    ToolTip = 'The group whose savings/guarantee fund is backing this loan, if any.';
+                }
+                field("Group Official No."; Rec."Group Official No.")
+                {
+                    ApplicationArea = Basic;
+                    Caption = 'Approving Group Official';
+                    ToolTip = 'Select the group''s Chairperson, Treasurer or Secretary to record their sign-off.';
+                }
+                field("Group Official Approved By"; Rec."Group Official Approved By")
+                {
+                    ApplicationArea = Basic;
+                    Editable = false;
+                }
+                field("Group Official Approval Date"; Rec."Group Official Approval Date")
+                {
+                    ApplicationArea = Basic;
+                    Editable = false;
+                }
                 field("ID NO"; Rec."ID NO")
                 {
                     ApplicationArea = Basic;
@@ -50,22 +78,13 @@ Page 56029 "Loan Application Card"
                 {
                     ApplicationArea = Basic;
                     Editable = false;
-                }
-                field("Member Deposits"; Rec."Member Deposits")
-                {
-                    ApplicationArea = Basic;
-                    Caption = 'Member Deposits';
+
                 }
                 field("Total Outstanding Loan BAL"; Rec."Total Outstanding Loan BAL")
                 {
                     ApplicationArea = Basic;
                     Visible = false;
                     Caption = 'Total Outstanding Loan Balance';
-                    Editable = false;
-                }
-                field("GuarantorShip Liability"; Rec."GuarantorShip Liability")
-                {
-                    ApplicationArea = Basic;
                     Editable = false;
                 }
                 field("Arrear Amount"; Rec."Affidavit - Estimated Value 2")
@@ -101,12 +120,6 @@ Page 56029 "Loan Application Card"
                 {
                     ApplicationArea = Basic;
                     Editable = false;
-                }
-                field(Mulitiplier; Rec."Loan Deposit Multiplier")
-                {
-                    ApplicationArea = Basic;
-                    Editable = false;
-                    Style = StrongAccent;
                 }
                 field("Existing Loan"; Rec."Existing Loan")
                 {
@@ -151,49 +164,6 @@ Page 56029 "Loan Application Card"
                 {
                     ApplicationArea = Basic;
                 }
-                field("Deboost Loan"; Rec."Deboost Loan Applied")
-                {
-                    ApplicationArea = all;
-                    Visible = false;
-                    trigger OnValidate()
-                    var
-                        myInt: Integer;
-                        Loanoffeset: Record "Loan Offset Details";
-                        OffesetAmount: Decimal;
-                    begin
-                        if Rec."Deboost Loan Applied" = true then begin
-                            begin
-                                OffesetAmount := 0;
-                                Loanoffeset.Reset();
-                                Loanoffeset.SetRange(Loanoffeset."Loan No.", Rec."Loan  No.");
-                                if Loanoffeset.FindSet() then begin
-                                    repeat
-                                        OffesetAmount := OffesetAmount + Loanoffeset."Principle Top Up" + Loanoffeset."Interest Top Up2"
-                                    Until Loanoffeset.Next = 0;
-                                end;
-                                if (Rec."Member Deposits" * Rec."Loan Deposit Multiplier") < ((rec."Requested Amount" + Rec."Existing Loan") - OffesetAmount) then begin
-                                    Rec."Deboost Amount" := ((((rec."Requested Amount" + (Rec."Existing Loan" - OffesetAmount))) - (Rec."Member Deposits" * 3)) / 3);
-                                    Rec."Deboost Commision" := Rec."Deboost Amount" * 0.05;
-                                    Rec.Modify;
-                                end;
-                            end;
-                        end;
-                    end;
-                }
-                field("Deboost Amount"; Rec."Deboost Amount")
-                {
-                    ApplicationArea = all;
-                    Editable = true;
-                    Visible = false;
-                }
-
-                field("Deboost Commision"; Rec."Deboost Commision")
-                {
-                    ApplicationArea = all;
-                    Editable = true;
-                    Visible = false;
-                }
-
                 field("Recommended Amount"; Rec."Recommended Amount")
                 {
                     ApplicationArea = Basic;
@@ -262,6 +232,7 @@ Page 56029 "Loan Application Card"
                 field("Is Top Up"; Rec."Is Top Up")
                 {
                     ApplicationArea = Basic;
+                    // Visible=false;
 
                     trigger OnValidate()
                     begin
@@ -329,13 +300,13 @@ Page 56029 "Loan Application Card"
                 field("Valuation Cost"; Rec."Valuation Cost")
                 {
                     ApplicationArea = Basic;
-                    Caption = 'Commission Fee';
+                    Caption = 'Valuation Cost';
 
                 }
                 field("Legal Cost"; Rec."Legal Cost")
                 {
                     ApplicationArea = Basic;
-                    Caption = 'Kivukio Processing Fee';
+                    Caption = 'Legal Cost';
                 }
                 field("Staff Loan"; Rec."Staff Loan")
                 {
@@ -431,14 +402,14 @@ Page 56029 "Loan Application Card"
             }
             part(Control1000000004; "Loans Guarantee Details")
             {
-                Caption = 'Guarantors  Detail';
+                Caption = 'Individual Guarantors';
                 ApplicationArea = Basic;
                 SubPageLink = "Loan No" = field("Loan  No.");
                 Editable = MNoEditable;
             }
             part(Control1000000005; "Loan Collateral Security")
             {
-                Caption = 'Other Securities';
+                Caption = 'Collateral Security';
                 ApplicationArea = Basic;
                 SubPageLink = "Loan No" = field("Loan  No.");
                 Editable = true;// MNoEditable;
@@ -520,8 +491,10 @@ Page 56029 "Loan Application Card"
                             //    if Member."E-Mail" = '' then
                             //    Error('Prohibited! Please add an email address for this member');
 
-                            if checkGuarantorCount() < 1 then begin
-                                Error('Loan Applications must have at least one Guarantor');
+                            // A group-guaranteed loan doesn't need an individual guarantor
+                            // on top - the group's guarantee fund is the security.
+                            if (checkGuarantorCount() < 1) and (Rec."Guarantor Group No." = '') then begin
+                                Error('Loan Applications must have at least one Guarantor or a Guaranteeing Group');
                             end;
                         //Audit Entries
                         if (UserId <> 'MOBILE') and (UserId <> 'ATM') and (UserId <> 'AGENCY') then begin
@@ -568,8 +541,10 @@ Page 56029 "Loan Application Card"
                             exit;
                         end else begin
 
-                            if checkGuarantorCount() < 1 then begin
-                                Error('Loan Applications must have at least one Guarantor');
+                            // A group-guaranteed loan doesn't need an individual guarantor
+                            // on top - the group's guarantee fund is the security.
+                            if (checkGuarantorCount() < 1) and (Rec."Guarantor Group No." = '') then begin
+                                Error('Loan Applications must have at least one Guarantor or a Guaranteeing Group');
                             end;
 
                             if Rec."Notify Guarantor SMS" = true then begin
@@ -577,6 +552,7 @@ Page 56029 "Loan Application Card"
                             end else begin
                                 // if Rec.notif
                                 FnNotifyGuarantors();
+                                FnNotifyGroupOfficials();
                                 Rec."Notify Guarantor SMS" := true;
                                 Message('Guarantor(s) notified successfully.');
                             end;
@@ -599,11 +575,12 @@ Page 56029 "Loan Application Card"
                 action("Send Approvals")
                 {
                     Caption = 'Send For Approval';
-                    //Enabled = (not OpenApprovalEntriesExist) AND EnabledApprovalWorkflowsExist AND (not RecordApproved);
+                    Enabled = (not OpenApprovalEntriesExist) AND EnabledApprovalWorkflowsExist AND (not RecordApproved);
 
                     Image = SendApprovalRequest;
                     Promoted = true;
                     PromotedCategory = Process;
+                    PromotedIsBig = true;
                     trigger OnAction()
                     var
                         SystemGenSet: Codeunit "System General Setup";
@@ -617,8 +594,10 @@ Page 56029 "Loan Application Card"
                         //     if Member."E-Mail" = '' then
                         //         Error('Prohibited! Please add an email address for this member');
 
-                        if checkGuarantorCount() < 1 then begin
-                            Error('Loan Applications must have at least one Guarantor');
+                        // A group-guaranteed loan doesn't need an individual guarantor
+                        // on top - the group's guarantee fund is the security.
+                        if (checkGuarantorCount() < 1) and (Rec."Guarantor Group No." = '') then begin
+                            Error('Loan Applications must have at least one Guarantor or a Guaranteeing Group');
                         end;
 
                         FnCheckForTestFields();
@@ -642,6 +621,7 @@ Page 56029 "Loan Application Card"
                     Image = CancelApprovalRequest;
                     Promoted = true;
                     PromotedCategory = Process;
+                    InFooterBar = true;
                     trigger OnAction()
                     begin
                         if Confirm('Cancel Approval?', false) = false then begin
@@ -657,6 +637,7 @@ Page 56029 "Loan Application Card"
                     ApplicationArea = Basic;
                     Promoted = true;
                     PromotedCategory = Process;
+                    Visible = false;
                     Image = Report;
 
                     trigger OnAction()
@@ -758,7 +739,7 @@ Page 56029 "Loan Application Card"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Rec.Source := Rec.Source::BOSA;
+        Rec.Source := Rec.Source::MICRO;
         Rec."Mode of Disbursement" := Rec."mode of disbursement"::"Cheque";
         Rec."Mode of Disbursement" := Rec."Mode Of Disbursement"::Cash;
     end;
@@ -1276,6 +1257,47 @@ Page 56029 "Loan Application Card"
             UNTIL LoanGuar.NEXT = 0;
         END;
 
+    end;
+
+    // Notifies the guaranteeing group's leadership (Chairperson/Treasurer/Secretary)
+    // that one of their members has applied for a loan against the group's guarantee
+    // fund - the group official picked on the loan doesn't find out just because an
+    // agent selected their name; they need their own alert to actually go review and
+    // sign off. Uses the same SMS queue as individual guarantor notifications.
+    local procedure FnNotifyGroupOfficials()
+    var
+        GroupOfficial: Record "Group Member Line";
+        OfficialCust: Record Customer;
+    begin
+        if Rec."Guarantor Group No." = '' then
+            exit;
+
+        GroupOfficial.SetRange("Group No.", Rec."Guarantor Group No.");
+        GroupOfficial.SetFilter(Role, '<>%1', GroupOfficial.Role::"Ordinary Member");
+        GroupOfficial.SetRange(Status, GroupOfficial.Status::Active);
+        if GroupOfficial.FindSet() then
+            repeat
+                if OfficialCust.Get(GroupOfficial."Member No.") then begin
+                    SMSMessages.Reset();
+                    if SMSMessages.Find('+') then
+                        iEntryNo := SMSMessages."Entry No" + 1
+                    else
+                        iEntryNo := 1;
+
+                    SMSMessages.Init();
+                    SMSMessages."Entry No" := iEntryNo;
+                    SMSMessages."Account No" := GroupOfficial."Member No.";
+                    SMSMessages."Date Entered" := Today;
+                    SMSMessages."Time Entered" := Time;
+                    SMSMessages.Source := 'GROUP GUARANTEE';
+                    SMSMessages."Entered By" := UserId;
+                    SMSMessages."Sent To Server" := SMSMessages."Sent To Server"::No;
+                    SMSMessages."SMS Message" := StrSubstNo('%1 has applied for a loan of %2 guaranteed by your group %3. Please review and approve as %4.',
+                        Rec."Client Name", Rec."Requested Amount", Rec."Guarantor Group No.", GroupOfficial.Role);
+                    SMSMessages."Telephone No" := OfficialCust."Phone No.";
+                    SMSMessages.Insert();
+                end;
+            until GroupOfficial.Next() = 0;
     end;
 
     local procedure FnMemberHasAnExistingLoanSameProduct(): Boolean

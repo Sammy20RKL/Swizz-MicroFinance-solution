@@ -435,7 +435,7 @@ page 50411 "Sacco General Set-Up"
                 field("Legal Fees"; Rec."Legal Fees")
                 {
                     ApplicationArea = basic;
-                    Caption = 'Kivukio Processing Fee';
+                    Caption = 'Legal Fee';
                 }
                 field("Staff Loans Deduction Account"; Rec."Staff Loans Deduction Account")
                 {
@@ -816,6 +816,14 @@ page 50411 "Sacco General Set-Up"
             }
         }
     }
+
+    trigger OnOpenPage()
+    begin
+        if not Rec.Get() then begin
+            Rec.Init();
+            Rec.Insert();
+        end;
+    end;
 
     var
         Cust: Record Customer;

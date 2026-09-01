@@ -1594,7 +1594,7 @@ Report 50244 "Loan Appraisal"
         DivTotal: Decimal;
         CDeposits: Decimal;
         CustDiv: Record Customer;
-        DivProg: Record "Dividends Progression";
+        // DivProg: Record "Dividends Progression";
         CDiv: Decimal;
         BDate: Date;
         CustR: Record Customer;

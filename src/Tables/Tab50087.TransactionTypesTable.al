@@ -32,6 +32,7 @@ table 50087 "Transaction Types Table"
 
     var
         myInt: Integer;
+        genjou: page 39;
 
     trigger OnInsert()
     begin

@@ -10,7 +10,7 @@ page 50554 "Loans  List- pending approval"
     SourceTable = "Loans Register";
     SourceTableView = where(Posted = filter(false),
                             "Approval Status" = filter(Pending),
-                            Source = const(BOSA));
+                            Source = const(MICRO));
 
     layout
     {

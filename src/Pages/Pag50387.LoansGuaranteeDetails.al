@@ -20,17 +20,11 @@ page 50387 "Loans Guarantee Details"
                 {
                     ApplicationArea = Basic;
                     //ShowMandatory = true;
-                    Caption = 'Account No.';
+                    Caption = 'Guarantor No.';
                 }
                 field(Name; Rec.Name)
                 {
                     ApplicationArea = Basic;
-                }
-                field(Shares; Rec.Shares)
-                {
-                    ApplicationArea = Basic;
-                    Caption = 'Deposits';
-                    Visible = true;
                 }
                 field("Amont Guaranteed"; Rec."Amont Guaranteed")
                 {
@@ -40,26 +34,16 @@ page 50387 "Loans Guarantee Details"
                 {
                     ApplicationArea = Basic;
                 }
-
-                field("Committed Shares"; Rec.Shares)
+                field("No Of Loans Guaranteed"; Rec."No Of Loans Guaranteed")
                 {
                     ApplicationArea = Basic;
+                    Caption = 'Active Guarantees';
                 }
-                // field("TotalLoan Guaranteed"; Rec."TotalLoan Guaranteed")
-                // {
-                //     ApplicationArea = Basic;
-                //     Caption = 'Guarantorship Liability';
-                // }
                 field(CStatus; CStatus)
                 {
                     ApplicationArea = Basic;
                     Caption = 'Status';
                     Editable = false;
-                }
-                field("free Share"; Rec."free Share")
-                {
-                    ApplicationArea = Basic;
-                    Visible = false;
                 }
                 field(Date; Rec.Date)
                 {

@@ -42,11 +42,27 @@ Table 51512 "Loan Collateral Register"
         }
         field(6; "Collateral Type"; Option)
         {
-            OptionCaption = 'Title Deed, Motor Vehicle, Logbook';
-            OptionMembers = "Title Deed","Motor Vehicle","Logbook";
+            OptionCaption = 'Title Deed, Motor Vehicle, Logbook, Motorcycle, Livestock, Other Movable Asset';
+            OptionMembers = "Title Deed","Motor Vehicle",Logbook,Motorcycle,Livestock,"Other Movable Asset";
+        }
+        // "Action"/"Last Collateral Action" (field 39/67) log custody movement
+        // (lodged to strong room, issued to lawyer, etc.) but don't say whether the
+        // collateral itself is still pledged against the loan, has been given back,
+        // or is being recovered - this Status field is that lifecycle, separate
+        // from the movement log.
+        field(79; Status; Option)
+        {
+            Caption = 'Status';
+            OptionMembers = Pledged,Released,Repossessed,"Under Recovery";
+            InitValue = Pledged;
         }
         field(7; "Collateral Description"; Code[20])
         {
+        }
+        field(15; "Loan No."; Code[30])
+        {
+            Caption = 'Loan No.';
+            TableRelation = "Loans Register"."Loan  No.";
         }
         field(8; "Date Received"; Date)
         {
@@ -62,6 +78,14 @@ Table 51512 "Loan Collateral Register"
         }
         field(10; "Date Released"; Date)
         {
+            trigger OnValidate()
+            begin
+                if "Date Released" <> 0D then begin
+                    "Released By" := UserId;
+                    if Status = Status::Pledged then
+                        Status := Status::Released;
+                end;
+            end;
         }
         field(11; "Released By"; Code[20])
         {

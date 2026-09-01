@@ -1786,7 +1786,7 @@ Codeunit 50007 "Swizzsoft Factory."
     procedure FnCalculateDividendProrated(MemberNo: Code[10]; StartDate: Date; EndDate: Date)
     var
         ObjCust: Record Customer;
-        ObjDivProg: Record 51393;
+        // ObjDivProg: Record 51393;
         FromBate: Date;
         "To Date": Date;
     begin

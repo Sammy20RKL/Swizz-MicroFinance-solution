@@ -16,98 +16,46 @@ Table 51372 "Loans Guarantee Details"
             NotBlank = true;
             TableRelation = Customer."No." where(Status = filter(Active | "Re-instated"));
 
+            // A guarantor here is a KYC + commitment record, not a deposit-capacity
+            // record: this system has no member deposits/shares to compute guarantee
+            // capacity from, so the only "capacity" control that still makes sense is
+            // a cap on how many loans one person can simultaneously guarantee (see
+            // UpdateGuaranteeCount below), not an amount derived from savings.
             trigger OnValidate()
-            var
-                RefDate: Date;
             begin
-
-
-                GenSetUp.Get();
                 if Cust.Get("Member No") then begin
-                    // if Cust."Registration Date" <> 0D then
-                    //     RefDate := CalcDate('<' + GenSetUp."Share Capital Period" + '>', Cust."Registration Date");
-                    // if RefDate > Today then begin
-                    //     Error('Member has not finished 6 Months in the sacco and therefore cannot guarantee any loan!');
-                    // end;
-                end;
-
-                Cust.SetRange(Cust."No.", "Member No");
-                if Cust.FindSet then begin
-                    if Cust.Status <> Cust.Status::Active then begin
+                    if Cust.Status <> Cust.Status::Active then
                         Error('Only Active Members can guarantee Loans');
-                    end;
                 end;
 
-                MemberCust.Reset;
+                MemberCust.Reset();
                 MemberCust.SetRange(MemberCust."No.", "Member No");
-                if MemberCust.Find('-') then begin
+                if MemberCust.FindFirst() then begin
                     if MemberCust.Status = MemberCust.Status::Defaulter then
                         Error('THE MEMBER  IS  A  DEFAULTER');
                 end;
 
-
-                LnGuarantor.Reset;
+                LnGuarantor.Reset();
                 LnGuarantor.SetRange(LnGuarantor."Loan  No.", "Loan No");
-                if LnGuarantor.Find('-') then begin
+                if LnGuarantor.FindFirst() then begin
                     if LnGuarantor."Client Code" = "Member No" then begin
-
                         "Self Guarantee" := true;
                         Self := true;
-                        //MODIFY;
                     end;
-                end;
-                LoanGuarantors.SetRange(LoanGuarantors."Self Guarantee", true);
-                LoanGuarantors.SetRange(LoanGuarantors."Member No", "Member No");
-                SelfGuaranteedA := 0;
-                Date := Date;
-
-                MemberCust.Reset;
-                MemberCust.SetRange(MemberCust."No.", "Member No");
-                if MemberCust.Find('-') then begin
-                    MemberCust.CalcFields(MemberCust.TLoansGuaranteed, MemberCust."Current Savings", MemberCust.TLoansGuaranteedS);
-                    "Shares *3" := (MemberCust."Current Savings");
-                    "TotalLoan Guaranteed" := MemberCust.TLoansGuaranteed;
                 end;
 
                 if Cust.Get("Member No") then begin
-                    Cust.CalcFields(Cust."Outstanding Balance", Cust."Current Shares", Cust.TLoansGuaranteed);
+                    Cust.CalcFields(Cust."Outstanding Balance");
                     Name := Cust.Name;
                     "Staff/Payroll No." := Cust."Personal No";
-                    // "Employer Code"
                     "Loan Balance" := Cust."Outstanding Balance";
-                    Shares := Cust."Current Shares" * 1;
-                    Amont := 0;
-
-                    //***********************************************************************************************
-                    "Free Shares" := 0;
-                    if "Self Guarantee" = true then begin
-                        //Amont := SwizzsoftFactory.FnGetMemberSelfLiability("Member No");
-                        Amont := SwizzsoftFactory.FnGetMemberLiability("Member No");
-                        "TotalLoan Guaranteed" := Cust.TLoansGuaranteedS + Cust.TLoansGuaranteed;
-                        "Free Shares" := (Shares) - "TotalLoan Guaranteed";
-                        // MESSAGE('Sharesis %1',Shares);
-
-                        //MESSAGE('"Free Shares"is %1....| amont is %2  ',"Free Shares",Amont);
-
-                        // MESSAGE('"Free Shares"is %1',"Free Shares");
-
-                    end else begin
-                        if "Self Guarantee" = false then
-                            ;//Message('Member Deposits is %1', Shares);
-                        Amont := Shares * 1 - SwizzsoftFactory.FnGetMemberLiability("Member No");
-
-                        "TotalLoan Guaranteed" := Cust.TLoansGuaranteed + Cust.TLoansGuaranteedS;
-
-                        "Free Shares" := (Shares * 1) - "TotalLoan Guaranteed";
-                    end;
-                    "Amont Guaranteed" := "Amont Guaranteed";
-
                 end;
 
-                if "Shares *3" < 1 then
-                    Error('Member Must have Deposits');
-
-
+                UpdateGuaranteeCount();
+                if GenSetUp.Get() and (GenSetUp."Maximum No of Guarantees" > 0) and
+                   ("No Of Loans Guaranteed" > GenSetUp."Maximum No of Guarantees")
+                then
+                    Error('%1 is already guaranteeing %2 loan(s), at or above the maximum of %3 allowed per guarantor.', Name, "No Of Loans Guaranteed", GenSetUp."Maximum No of Guarantees");
             end;
         }
         field(3; Name; Text[200])
@@ -122,12 +70,15 @@ Table 51372 "Loans Guarantee Details"
         {
             Editable = false;
         }
+        // Not a FlowField: "Outstanding Balance" (field 16) is itself a FlowField, and
+        // SQL Server has no physical column to filter on for a FlowField-of-a-FlowField
+        // (the same class of bug fixed on Agents/Member Group - this one compiles but
+        // throws "Invalid column name 'Outstanding Balance'" at runtime). Refreshed by
+        // UpdateGuaranteeCount() instead.
         field(6; "No Of Loans Guaranteed"; Integer)
         {
-            CalcFormula = count("Loans Guarantee Details" where("Member No" = field("Member No"),
-                                                                 "Outstanding Balance" = filter(> 1)));
+            Caption = 'No. of Loans Guaranteed';
             Editable = false;
-            FieldClass = FlowField;
         }
         field(7; Substituted; Boolean)
         {
@@ -147,80 +98,14 @@ Table 51372 "Loans Guarantee Details"
         }
         field(11; "Amont Guaranteed"; Decimal)
         {
-
+            // Previously capped against three deposit/share-based "ability" figures
+            // from Guarantor Management (overall, self-guarantee, and per-loan) - all
+            // computed from the guarantor's own savings/shares, which don't exist in
+            // this system. A guarantor's commitment is now just recorded, not capped
+            // against a balance; the per-guarantor exposure control is the loan-count
+            // cap on "Member No" instead (see UpdateGuaranteeCount).
             trigger OnValidate()
-            var
-                guarantorManagement: Codeunit "Guarantor Management";
-                memberMaximumAbility: Decimal;
-                memberSelfAbility: Decimal;
-                memberPerLoanAbility: Decimal;
-                offsetSelfGuaranteeAmt: Decimal;
             begin
-                memberMaximumAbility := 0;
-                memberSelfAbility := 0;
-                memberPerLoanAbility := 0;
-                offsetSelfGuaranteeAmt := 0;
-
-                //*************************************************************************
-                ///Festus - swizzsoft
-                /// 1. Calculate members Guarantor Ability 2 times their Shares, minus what they have guaranteed in total
-                memberMaximumAbility := guarantorManagement.fnGetMemberGuarantorshipLiability("Member No");
-
-                if memberMaximumAbility < 0 then begin
-                    Error('This member cannot Guarantee any Loan');
-                end;
-                if memberMaximumAbility < "Amont Guaranteed" then begin
-                    Error('Maximum the member can Guarantee is ' + Format(memberMaximumAbility));
-                end;
-                //*************************************************************************
-                /// 2. get Members self Ability - 25% of their worth, less what they have already self guaranteed them selves
-                if "Self Guarantee" then begin
-
-                    memberSelfAbility := guarantorManagement.fnGetMemberSelfGuarantorshipLiability("Member No");
-
-                    //Confirm if its offset...
-                    // ---------- EXTRA LOGIC FOR TOP-UP ----------Festus
-                    // Check if this loan is a Top-Up
-                    Loans.Reset();
-                    Loans.SetRange("Loan  No.", "Loan No");
-                    if Loans.Find('-') then begin
-                        if Loans."Is Top Up" = true then begin
-                            // Get the loan(s) being offset
-                            LoanOffsets.Reset();
-                            LoanOffsets.SetRange("Loan No.", "Loan No"); // current loan
-                            if LoanOffsets.FindSet() then
-                                repeat
-                                    // For each offset loan, check if this member self-guaranteed it
-                                    LoanGuarantors.Reset();
-                                    LoanGuarantors.SetRange("Loan No", LoanOffsets."Loan Top Up");// "Loan No.");
-                                    LoanGuarantors.SetRange("Member No", "Member No");
-                                    LoanGuarantors.SetRange("Self Guarantee", true);
-                                    if LoanGuarantors.FindFirst() then
-                                        offsetSelfGuaranteeAmt += LoanGuarantors."Committed Shares";
-                                until LoanOffsets.Next() = 0;
-                        end;
-                    end;
-
-                    // Add any offset self-guarantee amount back to their ability
-                    memberSelfAbility += offsetSelfGuaranteeAmt;
-
-                    if memberSelfAbility < 0 then begin
-                        Error('This member cannot self-Guarantee any Loan');
-                    end;
-                    if memberSelfAbility < "Amont Guaranteed" then begin
-                        Error('Maximum the member can self-Guarantee is ' + Format(memberSelfAbility));
-                    end;
-                end;
-                //*************************************************************************
-                /// 3. Get the max they can guarantee 25% of their worth,.... member cannot guarantee the same loan more than 25% of their worth
-                memberPerLoanAbility := guarantorManagement.fnGetMemberGuarantorshipLiabilityperLoan("Member No", Rec."Loan No");
-                if memberPerLoanAbility < 0 then begin
-                    Error('This member cannot Guarantee this Loan');
-                end;
-                if memberPerLoanAbility < "Amont Guaranteed" then begin
-                    Error('Maximum the member can Guarantee this loan is KES' + Format(memberPerLoanAbility));
-                end;
-                //*************************************************************************
                 "Committed Shares" := "Amont Guaranteed";
                 "Original Amount" := "Amont Guaranteed";
                 Date := Today;
@@ -314,20 +199,12 @@ Table 51372 "Loans Guarantee Details"
         {
             TableRelation = Customer."No.";
 
+            // The "guaranteed more than the maximum" check that used to live here
+            // never actually ran - it compared against LoansG, a variable nothing in
+            // this table ever assigned, so it was always 0. That cap is now enforced
+            // for real on "Member No" instead (see UpdateGuaranteeCount).
             trigger OnValidate()
             begin
-                GenSetUp.Get();
-                if LoansG > GenSetUp."Maximum No of Guarantees" then begin
-                    Error('Member has guaranteed more than maximum active loans and  can not Guarantee any other Loans');
-                    "Member No" := '';
-                    "Staff/Payroll No." := '';
-                    Name := '';
-                    "Loan Balance" := 0;
-                    Date := 0D;
-                    exit;
-                end;
-
-
                 Loans.Reset;
                 Loans.SetRange(Loans."Client Code", "Member No");
                 if Loans.Find('-') then begin
@@ -517,9 +394,7 @@ Table 51372 "Loans Guarantee Details"
         Cust: Record Customer;
         LoanGuarantors: Record "Loans Guarantee Details";
         Loans: Record "Loans Register";
-        LoanOffsets: Record "Loan Offset Details";
         LoansR: Record "Loans Register";
-        LoansG: Integer;
         GenSetUp: Record "Sacco General Set-Up";
         SelfGuaranteedA: Decimal;
         StatusPermissions: Record "Status Change Permision";
@@ -539,10 +414,8 @@ Table 51372 "Loans Guarantee Details"
         freeshares: Decimal;
         loanrec: Record "Loans Guarantee Details";
         ObjWithApp: Record "Membership Exit";
-        SwizzsoftFactory: Codeunit "Swizzsoft Factory.";
         Self: Boolean;
         SelfGuaranteeAmount: Decimal;
-        Amont: Decimal;
         CustLedgerEntry: Record "Cust. Ledger Entry";
         AmountGuar: Decimal;
         vardiff: Decimal;
@@ -550,6 +423,26 @@ Table 51372 "Loans Guarantee Details"
 
     local procedure UPDATEG()
     begin
+    end;
+
+    // Counts this member's currently-active guarantee commitments (not substituted,
+    // and against a loan still carrying a balance). Replaces the deposit-based
+    // capacity math as the guardrail against one person over-committing themselves.
+    local procedure UpdateGuaranteeCount()
+    var
+        GuaranteeLine: Record "Loans Guarantee Details";
+        ActiveCount: Integer;
+    begin
+        GuaranteeLine.SetRange("Member No", "Member No");
+        GuaranteeLine.SetRange(Substituted, false);
+        if GuaranteeLine.FindSet() then
+            repeat
+                GuaranteeLine.CalcFields("Outstanding Balance");
+                if GuaranteeLine."Outstanding Balance" <> 0 then
+                    ActiveCount += 1;
+            until GuaranteeLine.Next() = 0;
+
+        "No Of Loans Guaranteed" := ActiveCount;
     end;
 
 }

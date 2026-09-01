@@ -92,7 +92,7 @@ Table 51436 "Account Types-Saving Products"
         }
         field(39; "Fixed Deposit Type"; Code[30])
         {
-            TableRelation = "Fixed Deposit Type";
+            // TableRelation = "Fixed Deposit Type";
         }
         field(40; "Last Date Modified"; Date)
         {

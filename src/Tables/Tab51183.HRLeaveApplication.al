@@ -1178,7 +1178,7 @@ Table 51183 "HR Leave Application"
             LeaveGjline.SETRANGE("Journal Template Name", HRSetup."Leave Template");
             LeaveGjline.SETRANGE("Journal Batch Name", HRSetup."Leave Batch");
             IF LeaveGjline.FIND('-') THEN BEGIN
-                CODEUNIT.RUN(CODEUNIT::"HR Leave Jnl.-Post", LeaveGjline);
+                // CODEUNIT.RUN(CODEUNIT::"HR Leave Jnl.-Post", LeaveGjline);
             END;
             Status := Status::Posted;
             "Posting Date" := TODAY;

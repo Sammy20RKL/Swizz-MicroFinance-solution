@@ -32,6 +32,28 @@ page 50367 "Member Account Card"
                     Editable = true;
                     Style = StrongAccent;
                 }
+                field("Agent No."; Rec."Agent No.")
+                {
+                    ApplicationArea = Basic;
+                    Caption = 'Agent';
+                }
+                field("Agent Name"; Rec."Agent Name")
+                {
+                    ApplicationArea = Basic;
+                }
+                field("Group No."; Rec."Group No.")
+                {
+                    ApplicationArea = Basic;
+                    Caption = 'Group';
+                }
+                field("Group Name"; Rec."Group Name")
+                {
+                    ApplicationArea = Basic;
+                }
+                field("Financial Literacy Certified"; Rec."Financial Literacy Certified")
+                {
+                    ApplicationArea = Basic;
+                }
                 field("ID No."; Rec."ID No.")
                 {
                     ApplicationArea = Basic;
@@ -154,8 +176,14 @@ page 50367 "Member Account Card"
                 {
                     ApplicationArea = Basic;
                     Editable = true;
+                    Visible = false;
                 }
-                field("Holiday Contribution"; Rec."Holiday Contribution") { ApplicationArea = Basic; Editable = true; }
+                field("Holiday Contribution"; Rec."Holiday Contribution")
+                {
+                    ApplicationArea = Basic;
+                    Editable = true;
+                    Visible = false;
+                }
                 field(PIN; Rec.Pin)
                 {
                     ApplicationArea = Basic;
@@ -604,6 +632,7 @@ page 50367 "Member Account Card"
             {
                 Caption = 'Member Withdrawal Details';
 
+
                 field("Withdrawal Application Date"; Rec."Withdrawal Application Date")
                 {
                     ApplicationArea = Basic;
@@ -967,6 +996,7 @@ page 50367 "Member Account Card"
                     Caption = 'Deposit Statement';
                     Image = "Report";
                     Promoted = true;
+                    Visible = false;
                     PromotedCategory = "Report";
 
                     trigger OnAction()
@@ -1000,6 +1030,7 @@ page 50367 "Member Account Card"
                     Caption = 'Dividend Statement';
                     Image = "Report";
                     Promoted = true;
+                    Visible = false;
                     PromotedCategory = "Report";
 
                     trigger OnAction()

@@ -117,7 +117,6 @@ Codeunit 50123 BackOfficePORTAL
         DivTotal: Decimal;
         CDeposits: Decimal;
         CustDiv: Record 51364;
-        DivProg: Record 51393;
         CDiv: Decimal;
         BDate: Date;
         CustR: Record 51364;
@@ -2179,14 +2178,6 @@ Codeunit 50123 BackOfficePORTAL
 
     procedure FnLoanfo(MemberNo: Code[20]) dividend: Text
     begin
-        DivProg.Reset;
-        DivProg.SetRange("Member No", MemberNo);
-        if DivProg.Find('-') then begin
-            repeat
-                dividend := dividend + Format(DivProg.Date) + ':::' + Format(DivProg."Gross Dividends") + ':::' + Format(DivProg."Witholding Tax") + ':::' + Format(DivProg."Net Dividends") + ':::' + Format(DivProg."Qualifying Share Capital") + ':::'
-                + Format(DivProg."Gross Interest On Deposit") + '::::';
-            until DivProg.Next = 0;
-        end;
     end;
 
 

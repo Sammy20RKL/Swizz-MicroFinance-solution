@@ -198,7 +198,7 @@ tableextension 56000 VendorExt2 extends Vendor
         }
         field(68041; "Fixed Deposit Type"; Code[20])
         {
-            TableRelation = "Fixed Deposit Type".Code;
+            // TableRelation = "Fixed Deposit Type".Code;
 
             trigger OnValidate()
             begin
@@ -223,11 +223,11 @@ tableextension 56000 VendorExt2 extends Vendor
                   END;*/
 
                 //TESTFIELD("Registration Date");
-                if FDType.Get("Fixed Deposit Type") then
-                    "FD Maturity Date" := CalcDate(FDType.Duration, "Fixed Deposit Start Date");
-                "Fixed Duration" := FDType.Duration;
-                "Fixed duration2" := FDType."No. of Months";
-                "FD Duration" := FDType."No. of Months";
+                // if FDType.Get("Fixed Deposit Type") then
+                //     "FD Maturity Date" := CalcDate(FDType.Duration, "Fixed Deposit Start Date");
+                // "Fixed Duration" := FDType.Duration;
+                // "Fixed duration2" := FDType."No. of Months";
+                // "FD Duration" := FDType."No. of Months";
                 "Fixed Deposit Status" := "fixed deposit status"::Active;
 
                 if interestCalc.Get(interestCalc.Code) then
@@ -1552,7 +1552,7 @@ tableextension 56000 VendorExt2 extends Vendor
 
     }
     VAR
-        FDType: Record "Fixed Deposit Type";
+        // FDType: Record "Fixed Deposit Type";
         ReplCharge: Decimal;
         Vends: Record Vendor;
         gnljnlLine: Record "Gen. Journal Line";
