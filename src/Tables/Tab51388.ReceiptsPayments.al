@@ -11,7 +11,7 @@ Table 51388 "Receipts & Payments"
         field(2; "Account No."; Code[30])
         {
             NotBlank = true;
-            //TableRelation = if ("Account Type" = const(Customer)) Customer."No."where("Customer Type" = filter(BOSA | STAFF)) 
+            // TableRelation = if ("Account Type" = const(Customer)) Customer."No."where("Customer Type" = filter(BOSA | STAFF)) ;
             TableRelation = if ("Account Type" = const(Customer)) Customer."No." else
             if ("Account Type" = const(Vendor)) Vendor."No." where("Account Type" = filter('M-Wallet')) else// "Customer Type" = filter(Member));
             if ("Account Type" = const("G/L Account")) "G/L Account"."No.";
@@ -94,7 +94,7 @@ Table 51388 "Receipts & Payments"
         field(8; "Employer No."; Code[20])
         {
             Editable = true;
-            TableRelation = if (Source = const(BOSA),
+            TableRelation = if (Source = const(MICRO),
                                 "Receipt Mode" = filter(Cheque | "Deposit Slip" | Mpesa | "Standing order" | EFT | Cash)) "Bank Account"."No.";
         }
         field(9; "User ID"; Code[50])
@@ -270,8 +270,8 @@ Table 51388 "Receipts & Payments"
     begin
         if "Transaction No." = '' then begin
             NoSetup.Get();
-            NoSetup.TestField(NoSetup."BOSA Receipts Nos");
-            "Transaction No." := NoSeries.GetNextNo(NoSetup."BOSA Receipts Nos");
+            NoSetup.TestField(NoSetup."Micro Finance Transactions");
+            "Transaction No." := NoSeries.GetNextNo(NoSetup."Micro Finance Transactions");
 
 
             //  NoSeriesMgt.InitSeries(NoSetup."BOSA Receipts Nos", xRec."No. Series", 0D, "Transaction No.", "No. Series");
@@ -283,7 +283,7 @@ Table 51388 "Receipts & Payments"
         "Transaction Date" := "Transaction Date";
         "Transaction Time" := Time;
         Source := Source::BOSA;
-        "Global Dimension 1 Code" := 'BOSA';
+        "Global Dimension 1 Code" := 'MICRO';
         "Global Dimension 2 Code" := SFactory.FnGetUserBranch();
 
         Banks.Reset;

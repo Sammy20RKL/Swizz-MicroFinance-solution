@@ -3,6 +3,7 @@ page 50399 "BOSA Receipts List"
 {
     CardPageID = "BOSA Receipt Card";
     Editable = true;
+    Caption = 'Microfinance Receipt Card';
     PageType = List;
     UsageCategory = Lists;
     DeleteAllowed = true;

@@ -25,6 +25,11 @@ Page 56043 "Swizz MicroFin Role Center"
                 ApplicationArea = Basic, Suite;
                 Visible = true;
             }
+            part(AgentManagementCue; "Agent Management Cue")
+            {
+                ApplicationArea = Basic, Suite;
+                Visible = true;
+            }
             // part(FOSACue; "FOSA Cue")
             // {
             //     ApplicationArea = Basic, Suite;
@@ -1438,10 +1443,10 @@ Page 56043 "Swizz MicroFin Role Center"
                 }
             }
 
-            group(BosaManagement)
+            group(MicroManagement)
             {
-                Caption = '';
-                Visible = false;
+                Caption = 'Other MicroFinance Management';
+                // Visible = false;
                 //................................................START OF CHANGE REQUEST MENU.........................
                 group(ChangeRequest)
                 {
@@ -1538,19 +1543,19 @@ Page 56043 "Swizz MicroFin Role Center"
 
                 group("Bosa Receipts")
                 {
-                    Caption = 'Bosa Receipts';
+                    Caption = 'Microfinance Receipts';
 
                     action("Bosa Receipt")
                     {
                         ApplicationArea = All;
-                        Caption = 'Bosa Receipts';
+                        Caption = 'Microfinance Receipts';
                         RunObject = page "BOSA Receipts List";
                     }
 
                     action(" Posted Bosa Receipt")
                     {
                         ApplicationArea = All;
-                        caption = 'Posted Bosa Receipts';
+                        caption = 'Posted Microfinance Receipts';
                         RunObject = page "Posted BOSA Receipts List";
                     }
                 }
@@ -1627,6 +1632,7 @@ Page 56043 "Swizz MicroFin Role Center"
                 group("Guarantor Management")
                 {
                     Caption = 'Guarantor Management';
+                    Visible = false;
                     action("Guarantor Substitution List")
                     {
                         ApplicationArea = Basic, Suite;

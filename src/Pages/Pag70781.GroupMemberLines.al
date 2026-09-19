@@ -11,6 +11,12 @@ page 70781 "Group Member Lines"
         {
             repeater(General)
             {
+                field("Member Picture"; Rec."Member Picture")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Picture';
+                    ShowCaption = false;
+                }
                 field("Member No."; Rec."Member No.")
                 {
                     ApplicationArea = All;

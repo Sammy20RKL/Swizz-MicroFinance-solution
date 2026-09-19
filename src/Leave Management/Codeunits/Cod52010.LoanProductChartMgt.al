@@ -16,6 +16,8 @@ codeunit 52010 "Loan Products Chart Mgt."
         ExistingColIndex: Integer;
         UpdatedApproved: Decimal;
         UpdatedCount: Integer;
+        TrimmedDesc: Text[249];
+        NormalizedDesc: Text[249];
     begin
         BusChartBuf.Initialize();
         BusChartBuf.SetXAxis('Loan Product', BusChartBuf."Data Type"::String);
@@ -37,7 +39,15 @@ codeunit 52010 "Loan Products Chart Mgt."
                 LoanCount := LoansReg.Count();
 
                 if TotalApproved > 0 then begin
-                    if DescToColIndex.Get(LoanProduct."Product Description", ExistingColIndex) then begin
+                    // Two product codes can carry the same description with a stray
+                    // space or different casing (e.g. "Instant Loan" vs "instant loan ")
+                    // - grouping on the raw text treats those as different products and
+                    // draws two near-identical bars. Grouping on a trimmed, upper-cased
+                    // key catches that; the trimmed (but original-case) text is still
+                    // what actually gets shown as the bar's label.
+                    TrimmedDesc := DelChr(LoanProduct."Product Description", '<>', ' ');
+                    NormalizedDesc := UpperCase(TrimmedDesc);
+                    if DescToColIndex.Get(NormalizedDesc, ExistingColIndex) then begin
                         // Description already has a column — merge totals into it
                         UpdatedApproved := ColTotalApproved.Get(ExistingColIndex + 1) + TotalApproved;
                         UpdatedCount := ColLoanCount.Get(ExistingColIndex + 1) + LoanCount;
@@ -48,14 +58,14 @@ codeunit 52010 "Loan Products Chart Mgt."
                         BusChartBuf.SetValueByIndex(1, ExistingColIndex, UpdatedCount);
                     end else begin
                         // New description — new column
-                        BusChartBuf.AddColumn(LoanProduct."Product Description");
+                        BusChartBuf.AddColumn(TrimmedDesc);
                         BusChartBuf.SetValueByIndex(0, ColIndex, TotalApproved);
                         BusChartBuf.SetValueByIndex(1, ColIndex, LoanCount);
 
-                        DescToColIndex.Add(LoanProduct."Product Description", ColIndex);
+                        DescToColIndex.Add(NormalizedDesc, ColIndex);
                         ColTotalApproved.Add(TotalApproved);
                         ColLoanCount.Add(LoanCount);
-                        ColDescriptions.Add(LoanProduct."Product Description");
+                        ColDescriptions.Add(TrimmedDesc);
 
                         ColIndex += 1;
                     end;
@@ -77,21 +87,30 @@ codeunit 52010 "Loan Products Chart Mgt."
     var
         LoanProduct: Record "Loan Products Setup";
         LoansReg: Record "Loans Register";
+        NormalizedDesc: Text[249];
+        Found: Boolean;
     begin
+        // An exact SetRange match here would miss the very near-duplicate
+        // descriptions UpdateData now merges into one bar (trailing space,
+        // different case) - so this has to compare the same normalized way,
+        // which means looping rather than filtering.
+        NormalizedDesc := UpperCase(DelChr(ProductDescription, '<>', ' '));
         LoanProduct.Reset();
-        LoanProduct.SetRange("Product Description", ProductDescription);
-        if not LoanProduct.FindSet() then
+        if LoanProduct.FindSet() then
+            repeat
+                if UpperCase(DelChr(LoanProduct."Product Description", '<>', ' ')) = NormalizedDesc then begin
+                    Found := true;
+                    LoansReg.Reset();
+                    LoansReg.SetRange("Loan Product Type", LoanProduct.Code);
+                    LoansReg.SetRange(Posted, true);
+                    if LoansReg.FindSet() then
+                        repeat
+                            LoansReg.Mark(true);
+                        until LoansReg.Next() = 0;
+                end;
+            until LoanProduct.Next() = 0;
+        if not Found then
             exit;
-
-        LoansReg.Reset();
-        repeat
-            LoansReg.SetRange("Loan Product Type", LoanProduct.Code);
-            LoansReg.SetRange(Posted, true);
-            if LoansReg.FindSet() then
-                repeat
-                    LoansReg.Mark(true);
-                until LoansReg.Next() = 0;
-        until LoanProduct.Next() = 0;
 
         LoansReg.Reset();
         LoansReg.MarkedOnly(true);

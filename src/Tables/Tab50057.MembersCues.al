@@ -9,36 +9,36 @@ table 50057 "Members Cues"
         }
         field(2; "All Members"; Integer)
         {
-            CalcFormula = count(Customer where("Customer Posting Group" = filter('DOMESTIC' | 'JUNIORS' | ' ')));
+            CalcFormula = count(Customer where("Customer Posting Group" = filter('MICRO' | 'JUNIORS' | ' ')));
             FieldClass = FlowField;
         }
 
         field(3; "Active Members"; Integer)
         {
-            CalcFormula = count(Customer where(Status = const("Active"), "Customer Posting Group" = filter('DOMESTIC')));
+            CalcFormula = count(Customer where(Status = const("Active"), "Customer Posting Group" = filter('MICRO')));
             FieldClass = FlowField;
         }
         field(45; "Active Juniors"; Integer)
         {
-            CalcFormula = count(Customer where(Status = const("Active"), "Customer Posting Group" = filter('DOMESTIC')));
+            CalcFormula = count(Customer where(Status = const("Active"), "Customer Posting Group" = filter('MICRO')));
             FieldClass = FlowField;
         }
 
         field(4; "NonActive Mbrs"; Integer)
         {
-            CalcFormula = count("Member Group" where(Status = const(Active))); //"Customer Posting Group" = filter('DOMESTIC')));
+            CalcFormula = count("Member Group" where(Status = const(Active))); //"Customer Posting Group" = filter('MICRO')));
             FieldClass = FlowField;
         }
 
         field(5; Deceased; Integer)
         {
-            CalcFormula = count(Customer where(Status = const(Deceased), "Customer Posting Group" = filter('DOMESTIC')));
+            CalcFormula = count(Customer where(Status = const(Deceased), "Customer Posting Group" = filter('MICRO')));
             FieldClass = FlowField;
         }
 
         field(6; Exited; Integer)
         {
-            CalcFormula = count(Customer where(Status = const(Withdrawal), "Customer Posting Group" = filter('DOMESTIC')));
+            CalcFormula = count(Customer where(Status = const(Withdrawal), "Customer Posting Group" = filter('MICRO')));
             FieldClass = FlowField;
         }
         field(8; "Requests to Approve"; Integer)
@@ -58,23 +58,76 @@ table 50057 "Members Cues"
 
         field(10; "Awaiting Exit"; Integer)
         {
-            CalcFormula = count(Customer where(Status = const("Awaiting Withdrawal"), "Customer Posting Group" = filter('DOMESTIC')));
+            CalcFormula = count(Customer where(Status = const("Awaiting Withdrawal"), "Customer Posting Group" = filter('MICRO')));
             FieldClass = FlowField;
         }
         field(13; Female; Integer)
         {
-            CalcFormula = count(Customer where(Gender = Const(Female), Status = filter('Active'), "Customer Posting Group" = filter('BOSA')));
+            CalcFormula = count(Customer where(Gender = Const(Female), Status = filter('Active'), "Customer Posting Group" = filter('MICRO')));
             FieldClass = FlowField;
         }
         field(14; Male; Integer)
         {
-            CalcFormula = count(Customer where(Gender = Const(Male), Status = filter('Active'), "Customer Posting Group" = filter('BOSA')));
+            CalcFormula = count(Customer where(Gender = Const(Male), Status = filter('Active'), "Customer Posting Group" = filter('MICRO')));
             FieldClass = FlowField;
         }
         field(15; "Agents"; Integer)
         {
-            CalcFormula = count(Agents where(Status = const(Active)));
+            CalcFormula = count(Agents where("Approval Status" = const(Approved)));
             FieldClass = FlowField;
+        }
+
+        // ---------- Agent Management Cue ----------
+        field(16; "All Agents Count"; Integer)
+        {
+            Caption = 'All Agents';
+            CalcFormula = count(Agents where("Approval Status" = const(Approved)));
+            FieldClass = FlowField;
+        }
+        field(17; "Agents Exited"; Integer)
+        {
+            Caption = 'Exited Agents';
+            CalcFormula = count(Agents where(Status = const(Exited)));
+            FieldClass = FlowField;
+        }
+        // Same >10% Default Rate threshold "Agents at Risk" (Pag70805) already filters on -
+        // reusing it here instead of inventing a second threshold.
+        field(18; "Agents at Risk"; Integer)
+        {
+            Caption = 'Agents at Risk';
+            CalcFormula = count(Agents where("Default Rate" = filter(> 10)));
+            FieldClass = FlowField;
+        }
+        // "Approved Amount" (not "Amount Disbursed") on purpose: it's set at approval
+        // time, so it's reliably populated on every loan, including ones posted before
+        // the POST action was fixed to also set "Amount Disbursed" - that fix makes the
+        // two identical for every loan going forward anyway, so this is correct for both
+        // old and new loans without needing to backfill the older ones. Still a plain
+        // field on Loans Register, so still safe to sum directly (not a FlowField-of-a-
+        // FlowField, which is what crashes "Outstanding Balance" elsewhere).
+        field(19; "Agent Total Disbursed"; Decimal)
+        {
+            Caption = 'Total Disbursed (All Agents)';
+            CalcFormula = sum("Loans Register"."Approved Amount" where(Posted = const(true), "Agent No." = filter(<> '')));
+            FieldClass = FlowField;
+        }
+        // Agents."Outstanding Portfolio" is a plain field (refreshed by
+        // UpdatePortfolioFigures()), not a FlowField, so summing it here is safe.
+        field(20; "Agent Outstanding Portfolio"; Decimal)
+        {
+            Caption = 'Outstanding Portfolio (All Agents)';
+            CalcFormula = sum(Agents."Outstanding Portfolio");
+            FieldClass = FlowField;
+        }
+        // Plain field, not a FlowField - a CalcFormula can't run "divide by a million
+        // and format as text", so this is refreshed in code by
+        // UpdateTotalDisbursedFormatted() instead, the same way Agents."Default Rate"
+        // is a plain field refreshed by UpdatePortfolioFigures().
+        field(21; "Total Disbursed (M)"; Text[20])
+        {
+
+            Caption = 'Total Disbursed';
+            Editable = false;
         }
     }
 
@@ -89,5 +142,18 @@ table 50057 "Members Cues"
     fieldgroups
     {
     }
+
+    // "0.5M", "12.3M" - one decimal place, always in millions, regardless of size.
+    // The tile is for a glance; the exact figure is one click away via the tile's
+    // own DrillDownPageId, so rounding here loses nothing that isn't already
+    // recoverable.
+    procedure UpdateTotalDisbursedFormatted()
+    var
+        MillionsValue: Decimal;
+    begin
+        CalcFields("Agent Total Disbursed");
+        MillionsValue := "Agent Total Disbursed" / 1000000;
+        "Total Disbursed (M)" := Format(MillionsValue, 0, '<Precision,1:1>') + 'M';
+    end;
 }
 

@@ -41,6 +41,7 @@ Page 56042 "MICROFINANCE Cue"
                     Image = none;
                     Style = StandardAccent;
                     StyleExpr = true;
+                    Visible = false;
                     DrillDownPageId = "Agent Lists";
                 }
 
@@ -51,6 +52,7 @@ Page 56042 "MICROFINANCE Cue"
                     Image = none;
                     Caption = 'Members Group';
                     Style = Favorable;
+                    Visible = false;
                     StyleExpr = true;
                     DrillDownPageId = "Member Group List";
                 }

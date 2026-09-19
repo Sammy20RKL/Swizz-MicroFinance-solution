@@ -40,6 +40,10 @@ page 70776 "Agent Cards"
                 {
                     ApplicationArea = All;
                 }
+                field(Status; Rec.Status)
+                {
+                    ApplicationArea = All;
+                }
                 field("Region Code"; Rec."Region Code")
                 {
                     ApplicationArea = All;
@@ -59,6 +63,7 @@ page 70776 "Agent Cards"
                     ApplicationArea = All;
                     StyleExpr = StatusStyleExpr;
                 }
+
             }
 
             part(TargetsSubpage; "Agent Target Subpage")
@@ -184,6 +189,7 @@ page 70776 "Agent Cards"
                 {
                     ApplicationArea = All;
                     Caption = 'Performance Summary';
+                    Image = Percentage;
 
                     trigger OnAction()
                     var
@@ -196,6 +202,7 @@ page 70776 "Agent Cards"
                 action("Target Achievement")
                 {
                     ApplicationArea = All;
+                    Image = Track;
                     Caption = 'Target Achievement';
 
                     trigger OnAction()
@@ -223,6 +230,7 @@ page 70776 "Agent Cards"
                 action("Disbursement Register")
                 {
                     ApplicationArea = All;
+                    Image = DistributionGroup;
                     Caption = 'Disbursement Register';
 
                     trigger OnAction()

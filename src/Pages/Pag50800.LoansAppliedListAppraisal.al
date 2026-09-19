@@ -10,7 +10,7 @@ page 50800 "Loans Applied  List(Appraisal)"
     SourceTable = 51371;
     SourceTableView = where(Posted = filter(false),
                             "Approval Status" = filter(Open),
-                            Source = filter(BOSA),
+                            Source = filter(MICRO),
                             Discard = filter(true),
                             "Loan Status" = const(Appraisal));
 

@@ -10,7 +10,7 @@ page 50384 "Loans Applied  List"
     SourceTable = "Loans Register";
     SourceTableView = where(Posted = filter(false),
                             "Approval Status" = filter(Open),
-                            Source = filter(BOSA),
+                            Source = filter(MICRO),
                             Discard = filter(true));
 
     layout

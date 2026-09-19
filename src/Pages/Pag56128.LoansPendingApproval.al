@@ -8,7 +8,7 @@ Page 56128 "Loans Pending Approval"
     InsertAllowed = false;
     PromotedActionCategories = 'New,Process,Reports,Approval,Budgetary Control,Cancellation,Category7_caption,Category8_caption,Category9_caption,Category10_caption';
     SourceTable = "Loans Register";
-    SourceTableView = where(Source = const(BOSA),
+    SourceTableView = where(Source = const(MICRO),
                             Posted = const(false));
 
     layout
@@ -420,7 +420,7 @@ Page 56128 "Loans Pending Approval"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Rec.Source := Rec.Source::BOSA;
+        Rec.Source := Rec.Source::MICRO;
         Rec."Mode of Disbursement" := Rec."mode of disbursement"::Cheque;
     end;
 

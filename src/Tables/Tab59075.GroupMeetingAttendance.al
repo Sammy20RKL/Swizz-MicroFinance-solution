@@ -10,10 +10,14 @@ table 59075 "Group Meeting Attendance"
             Caption = 'Meeting Entry No.';
             TableRelation = "Group Meeting"."Entry No.";
         }
+        // Filtered to this meeting's own group (via the "Group No." FlowField below) instead
+        // of every Customer, so New > Member No. can only pick a member who actually belongs
+        // to this group - there's no separate Group No. to select on the attendance line, it
+        // is always the meeting's own group.
         field(2; "Member No."; Code[20])
         {
             Caption = 'Member No.';
-            TableRelation = Customer."No.";
+            TableRelation = "Group Member Line"."Member No." where("Group No." = field("Group No."));
 
             trigger OnValidate()
             var
@@ -26,6 +30,13 @@ table 59075 "Group Meeting Attendance"
         field(3; "Member Name"; Text[100])
         {
             Caption = 'Member Name';
+        }
+        field(6; "Group No."; Code[20])
+        {
+            Caption = 'Group No.';
+            CalcFormula = lookup("Group Meeting"."Group No." where("Entry No." = field("Meeting Entry No.")));
+            Editable = false;
+            FieldClass = FlowField;
         }
         field(4; Attended; Boolean)
         {

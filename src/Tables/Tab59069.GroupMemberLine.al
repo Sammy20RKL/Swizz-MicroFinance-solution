@@ -23,6 +23,7 @@ table 59069 "Group Member Line"
             begin
                 if Member.Get("Member No.") then begin
                     "Member Name" := Member.Name;
+                    "Member Picture" := Member.Image;
                     Member."Group No." := "Group No.";
                     Member.Modify();
                 end;
@@ -31,6 +32,13 @@ table 59069 "Group Member Line"
         field(3; "Member Name"; Text[100])
         {
             Caption = 'Member Name';
+        }
+        // Copied from Customer.Image when Member No. is validated (same denormalized-copy
+        // pattern as Member Name) so it renders as a thumbnail in the Members repeater -
+        // a Media field looked up live across tables does not render in a list column.
+        field(9; "Member Picture"; Media)
+        {
+            Caption = 'Picture';
         }
         field(4; Role; Option)
         {

@@ -140,7 +140,7 @@ page 56120 "Membership Application List"
                         if Rec."ID No." <> '' then begin
                             Cust.Reset;
                             Cust.SetRange(Cust."ID No.", Rec."ID No.");
-                            Cust.SetFilter(Cust."Customer Type", '%1|%2', Cust."Customer Type"::Bosa, Cust."Customer Type"::Staff);
+                            Cust.SetFilter(Cust."Customer Type", '%1|%2', Cust."Customer Type"::MicroFinance, Cust."Customer Type"::Staff);
                             //Cust.SetRange(Cust."Customer Type", Cust."customer type"::Member);
                             if Cust.Find('-') then begin
                                 if Cust."No." <> Rec."No." then

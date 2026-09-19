@@ -1007,18 +1007,24 @@ Report 50244 "Loan Appraisal"
                     else
                         Msalary := Psalary;
                 end;
-                if "Deboost Loan Applied" = false then begin
-                    if (Depx < "Loans Register"."Requested Amount") and ("Loans Register"."Requested Amount" <= CollateralGuarantee) then
-                        Recomm := CollateralGuarantee else
-                        If (Depx >= "Loans Register"."Requested Amount") and ("Loans Register"."Requested Amount" <= CollateralGuarantee) then
-                            Recomm := ROUND(Msalary, 100, '<');
-                    if (Recomm > "Loans Register"."Requested Amount") then
-                        Recomm := ROUND("Loans Register"."Requested Amount", 100, '<');
-                    if Recomm < 0 then begin
-                        Recomm := ROUND(Recomm, 100, '<');
-                    end;
-                end else
-                    DepX := "Requested Amount";
+                // Deposit-driven recommendation logic - this system has no member
+                // deposits, so basing the qualifying/recommended amount on
+                // Depx/DEpMultiplier/CollateralGuarantee (all deposit-derived) always
+                // collapsed toward zero for a microfinance applicant. Recomm now just
+                // stays at the clean baseline set below (Requested Amount), the same
+                // way it did before this deposit block silently overwrote it.
+                // if "Deboost Loan Applied" = false then begin
+                //     if (Depx < "Loans Register"."Requested Amount") and ("Loans Register"."Requested Amount" <= CollateralGuarantee) then
+                //         Recomm := CollateralGuarantee else
+                //         If (Depx >= "Loans Register"."Requested Amount") and ("Loans Register"."Requested Amount" <= CollateralGuarantee) then
+                //             Recomm := ROUND(Msalary, 100, '<');
+                //     if (Recomm > "Loans Register"."Requested Amount") then
+                //         Recomm := ROUND("Loans Register"."Requested Amount", 100, '<');
+                //     if Recomm < 0 then begin
+                //         Recomm := ROUND(Recomm, 100, '<');
+                //     end;
+                // end else
+                //     DepX := "Requested Amount";
                 Recomm := "Requested Amount";
 
 
@@ -1027,11 +1033,11 @@ Report 50244 "Loan Appraisal"
                 Riskamount := "Loans Register"."Requested Amount" - MAXAvailable;
 
                 // Adjust DepX if it's larger than the Requested Amount
-                if DepX > "Loans Register"."Requested Amount" then
-                    DepX := "Loans Register"."Requested Amount";
+                // if DepX > "Loans Register"."Requested Amount" then
+                //     DepX := "Loans Register"."Requested Amount";
 
                 // Start with DepX as the default recommendation
-                Recomm := ROUND(DepX, 0.01, '=');
+                // Recomm := ROUND(DepX, 0.01, '=');
 
                 // Compare with Psalary and update Recomm if Psalary is smaller
                 //----But first, check if they did use the Salary to Appraise

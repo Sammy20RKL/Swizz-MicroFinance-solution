@@ -40,6 +40,10 @@ Page 56638 "Loans DrillDown List"
                     Editable = false;
                     Style = StrongAccent;
                 }
+                field("Agent No."; Rec."Agent No.")
+                {
+                    ApplicationArea = Basic;
+                }
 
                 field("Expected Date of Completion"; Rec."Expected Date of Completion")
                 {

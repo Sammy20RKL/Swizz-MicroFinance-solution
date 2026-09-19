@@ -103,7 +103,7 @@ table 50224 "ReceiptsProcessing_L-Checkoff"
         }
         field(25; "Member No"; Code[20])
         {
-            TableRelation = Customer."No." where("Customer Type" = filter(Member));
+            TableRelation = Customer."No." where("Customer Type" = filter(Microfinance));
 
             trigger OnValidate()
             begin

@@ -240,7 +240,7 @@ Table 51360 "Membership Applications"
                 if "E-Mail (Personal)" <> '' then begin
                     Cust.Reset;
                     Cust.SetRange(Cust."E-Mail", "E-Mail (Personal)");
-                    Cust.SetRange(Cust."Customer Type", Cust."customer type"::Member);
+                    Cust.SetRange(Cust."Customer Type", Cust."customer type"::MicroFinance);
                     if Cust.Find('-') then begin
                         if (Cust."ID No." <> "ID No.") and (Cust.Status = Cust.Status::Active) then
                             Error('E-Mail address already exists in the Members List');
@@ -277,7 +277,7 @@ Table 51360 "Membership Applications"
                 if "Payroll No" <> '' then begin
                     Cust.Reset;
                     Cust.SetRange(Cust."Personal No", "Payroll No");
-                    Cust.SetRange(Cust."Customer Type", Cust."customer type"::Member);
+                    Cust.SetRange(Cust."Customer Type", Cust."customer type"::MicroFinance);
                     if Cust.Find('-') then begin
                         Error('Payroll No already exists in the Members List');
                     end;
@@ -1660,9 +1660,9 @@ Table 51360 "Membership Applications"
         "Registration Date" := Today;
         "Customer Posting Group" := GenSetUp."Default Customer Posting Group";
         "Recruited By" := UserId;
-        "Monthly Contribution" := GenSetUp."Min. Contribution";
-        "Global Dimension 1 Code" := 'MICROFINANCE';
-        "Global Dimension 2 Code" := 'Nairobi';
+        // "Monthly Contribution" := GenSetUp."Min. Contribution";
+        "Global Dimension 1 Code" := 'MICRO';
+        "Global Dimension 2 Code" := 'BWS';
         "Captured By" := UserId;
 
 

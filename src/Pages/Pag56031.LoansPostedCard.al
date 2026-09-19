@@ -7,7 +7,7 @@ Page 56031 "Loans Posted Card"
     PageType = Card;
     PromotedActionCategories = 'New,Process,Reports,Approval,Budgetary Control,Cancellation,Category7_caption,Category8_caption,Category9_caption,Category10_caption';
     SourceTable = "Loans Register";
-    SourceTableView = where(Source = filter(BOSA),
+    SourceTableView = where(Source = filter(MICRO),
                             Posted = const(true));
 
     layout
@@ -496,7 +496,7 @@ Page 56031 "Loans Posted Card"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Rec.Source := Rec.Source::BOSA;
+        Rec.Source := Rec.Source::MICRO;
     end;
 
     trigger OnNextRecord(Steps: Integer): Integer

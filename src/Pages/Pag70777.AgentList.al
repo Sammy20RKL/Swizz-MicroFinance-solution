@@ -56,6 +56,20 @@ page 70777 "Agent Lists"
                 }
             }
         }
+        area(factboxes)
+        {
+            part(Control1; "Agent Picture")
+            {
+                ApplicationArea = All;
+                SubPageLink = "No." = field("No.");
+                Enabled = true;
+            }
+            part("Agent Statistics FactBox"; "Agent Statistics FactBox")
+            {
+                ApplicationArea = All;
+                SubPageLink = "No." = field("No.");
+            }
+        }
     }
 
     actions

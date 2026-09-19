@@ -2123,7 +2123,7 @@ Table 51371 "Loans Register"
                         Cust."Global Dimension 1 Code" := Vendor."Global Dimension 1 Code";
                         Cust."Global Dimension 2 Code" := Vendor."Global Dimension 2 Code";
                         Cust.Status := Cust.Status::Applicant;
-                        Cust."Customer Type" := Cust."customer type"::FOSA;
+                        Cust."Customer Type" := Cust."customer type"::MicroFinance;
                         Cust."Customer Posting Group" := 'FOSA';
                         Cust."FOSA Account No." := "Account No";
                         if Cust."Personal No" <> '' then

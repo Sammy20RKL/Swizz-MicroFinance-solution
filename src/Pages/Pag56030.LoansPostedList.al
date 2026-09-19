@@ -10,7 +10,7 @@ Page 56030 "Loans Posted List"
     PageType = List;
     PromotedActionCategories = 'New,Process,Reports,Approval,Budgetary Control,Cancellation,Category7_caption,Category8_caption,Category9_caption,Category10_caption';
     SourceTable = "Loans Register";
-    SourceTableView = where(Source = filter(BOSA), Posted = const(true));
+    SourceTableView = where(Source = filter(MICRO), Posted = const(true));
 
     UsageCategory = Lists;
 
@@ -58,6 +58,16 @@ Page 56030 "Loans Posted List"
                     ApplicationArea = Basic;
                     Visible = false;
                 }
+                field("Agent No."; Rec."Agent No.")
+                {
+                    ApplicationArea = Basic;
+                }
+                field("Agent Name"; Rec."Agent Name")
+                {
+                    ApplicationArea = Basic;
+                }
+                field("Group Code"; Rec."Group Code")
+                { }
                 field("Approved Amount"; Rec."Approved Amount")
                 {
                     ApplicationArea = Basic;

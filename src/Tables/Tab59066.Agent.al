@@ -54,13 +54,27 @@ table 59066 "Agents"
         field(6; "Region Code"; Code[20])
         {
             Caption = 'Region';
-            // TableRelation = "Dimension Value".Code where("Dimension Code" = const('REGION'));
-            TableRelation = "Dimension Value".Code;
+            TableRelation = "Region".Code;
         }
+        // Filtered to branches within the selected Region - same cascading-filter
+        // technique as "Guarantor Group No." on Loans Register, one level up.
         field(7; "Branch Code"; Code[20])
         {
             Caption = 'Branch';
-            TableRelation = "Dimension Value".Code;//where("Dimension Code" = const('BRANCH'));
+            TableRelation = "Branch".Code where("Region Code" = field("Region Code"));
+
+            trigger OnValidate()
+            var
+                BranchRec: Record "Branch";
+            begin
+                if "Branch Code" = '' then
+                    exit;
+                if "Region Code" = '' then
+                    Error('Please select a Region before selecting a Branch.');
+                BranchRec.Get("Branch Code");
+                if BranchRec."Region Code" <> "Region Code" then
+                    Error('Branch %1 does not belong to Region %2.', "Branch Code", "Region Code");
+            end;
         }
         field(8; "Date Joined"; Date)
         {
@@ -129,11 +143,15 @@ table 59066 "Agents"
             Editable = false;
             FieldClass = FlowField;
         }
+        // "Approved Amount", not "Amount Disbursed" - see the matching field on
+        // "Members Cues" for why: it's reliably populated on every loan, including
+        // ones posted before the POST action was fixed to also set "Amount Disbursed",
+        // and identical to it for every loan posted since that fix.
         field(23; "Total Disbursed"; Decimal)
         {
             Caption = 'Total Disbursed';
-            CalcFormula = sum("Loans Register"."Amount Disbursed" where("Agent No." = field("No."),
-                                                                         "Loan Disbursement Date" = field("Date Filter")));
+            CalcFormula = sum("Loans Register"."Approved Amount" where("Agent No." = field("No."),
+                                                                        "Loan Disbursement Date" = field("Date Filter")));
             Editable = false;
             FieldClass = FlowField;
         }
@@ -151,7 +169,7 @@ table 59066 "Agents"
         field(25; "Current Collections"; Decimal)
         {
             Caption = 'Current Collections';
-            CalcFormula = sum("Cust. Ledger Entry"."Amount Posted" where("Agent No." = field("No."),
+            CalcFormula = - sum("Cust. Ledger Entry"."Amount Posted" where("Agent No." = field("No."),
                                                                           "Transaction Type" = filter("Loan Repayment"),
                                                                           "Posting Date" = field("Date Filter"),
                                                                           Reversed = const(false)));

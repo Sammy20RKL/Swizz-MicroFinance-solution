@@ -15,6 +15,24 @@ report 70807 "Group Performance Summary"
             column(CompanyName; CompanyInfo.Name)
             {
             }
+            column(CompanyPic; CompanyInfo.Picture)
+            {
+            }
+            column(CompanyAddress; CompanyInfo.Address)
+            {
+            }
+            column(CompanyAddress2; CompanyInfo."Address 2")
+            {
+            }
+            column(CompanyPhoneNo; CompanyInfo."Phone No.")
+            {
+            }
+            column(CompanyFaxNo; CompanyInfo."Fax No.")
+            {
+            }
+            column(CompanyEmail; CompanyInfo."E-Mail")
+            {
+            }
             column(ReportFilters; ReportFilters)
             {
             }
@@ -104,6 +122,7 @@ report 70807 "Group Performance Summary"
     trigger OnPreReport()
     begin
         CompanyInfo.Get();
+        CompanyInfo.CalcFields(CompanyInfo.Picture);
         ReportFilters := Group.GetFilters();
     end;
 

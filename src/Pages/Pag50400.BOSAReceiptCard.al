@@ -4,6 +4,7 @@ page 50400 "BOSA Receipt Card"
     DeleteAllowed = true;
     InsertAllowed = true;
     Editable = true;
+    Caption = 'Microfinance Receipt Card';
     PageType = Card;
     SourceTable = "Receipts & Payments";
     SourceTableView = where(Posted = filter(false));
@@ -246,7 +247,7 @@ page 50400 "BOSA Receipt Card"
                     GenJournalLine.Validate(GenJournalLine."Account No.");
                     GenJournalLine."Posting Date" := Rec."Cheque Date";
                     //GenJournalLine."Posting Date":="Transaction Date";
-                    GenJournalLine.Description := StrSubstNo('Bosa Receipt for MEMBNo. %1', Rec."Account No.");
+                    GenJournalLine.Description := StrSubstNo('Micro Receipt for MEMBNo. %1', Rec."Account No.");
                     //GenJournalLine.Description := 'Bosa Receipt for %1 ' + LoanApp."Client Name" + ' MEMBNo. ' + '- ' + LoanApp."Client Code";// Rec."Account No." + '-' + Rec.Name;
                     GenJournalLine.Validate(GenJournalLine."Currency Code");
                     ReceiptAllocations."Global Dimension 1 Code" := Rec."Global Dimension 1 Code";
@@ -340,7 +341,7 @@ page 50400 "BOSA Receipt Card"
                                     GenJournalLine."Posting Date" := Rec."Cheque Date";
                                     GenJournalLine.Description := copyStr(Format(ReceiptAllocations."Transaction Type"), 1, 50) + ' ' + ReceiptAllocations.Description;
                                     //GenJournalLine.Description := 'BT-' + '-' + Rec."Account No." + '-' + Rec.Name;
-                                    ReceiptAllocations."Global Dimension 1 Code" := 'BOSA';
+                                    ReceiptAllocations."Global Dimension 1 Code" := 'MICRO';
                                     ReceiptAllocations."Global Dimension 2 Code" := SwizzsoftFactory.FnGetUserBranch();
                                     GenJournalLine.Amount := -ReceiptAllocations.Amount;
                                     GenJournalLine."Shortcut Dimension 1 Code" := ReceiptAllocations."Global Dimension 1 Code";
@@ -389,7 +390,7 @@ page 50400 "BOSA Receipt Card"
                 Caption = 'Reprint Receipt';
                 Promoted = true;
                 PromotedCategory = Process;
-                Visible = false;
+                Visible = true;
 
                 trigger OnAction()
                 begin
@@ -498,7 +499,7 @@ page 50400 "BOSA Receipt Card"
                             ObjReceiptTransactions."Member No" := ObjRcptBuffer."Account No.";
                             ObjReceiptTransactions."Loan No." := LoanApp."Loan  No.";
                             ObjReceiptTransactions."Transaction Type" := ObjReceiptTransactions."transaction type"::"Interest Paid";
-                            ObjReceiptTransactions."Global Dimension 1 Code" := 'BOSA';
+                            ObjReceiptTransactions."Global Dimension 1 Code" := 'MICRO';
                             ObjReceiptTransactions.Description := copyStr(Format(ObjReceiptTransactions."Transaction Type"), 1, 50) + 'for ' + loanapp."Client Name" + ' -' + ReceiptAllocations."Member No";
 
                             ObjReceiptTransactions."Global Dimension 2 Code" := SwizzsoftFactory.FnGetMemberBranch(ObjRcptBuffer."Account No.");
@@ -685,7 +686,7 @@ page 50400 "BOSA Receipt Card"
                         ObjReceiptTransactions."Transaction Type" := ObjReceiptTransactions."transaction type"::"Registration Fee";
                         ObjReceiptTransactions.Description := copyStr(Format(ObjReceiptTransactions."Transaction Type"), 1, 50) + ObjRcptBuffer.Name + '-' + ReceiptAllocations."Member No";
 
-                        ObjReceiptTransactions."Global Dimension 1 Code" := 'BOSA';
+                        ObjReceiptTransactions."Global Dimension 1 Code" := 'MICRO';
                         ObjReceiptTransactions."Global Dimension 2 Code" := SwizzsoftFactory.FnGetMemberBranch(ObjRcptBuffer."Account No.");
                         ObjReceiptTransactions.Amount := AmountToDeduct;
                         if ObjReceiptTransactions.Amount <> 0 then
@@ -735,7 +736,7 @@ page 50400 "BOSA Receipt Card"
                             ObjReceiptTransactions."Document No" := ObjRcptBuffer."Transaction No.";
                             ObjReceiptTransactions."Member No" := ObjRcptBuffer."Account No.";
                             ObjReceiptTransactions."Transaction Type" := ObjReceiptTransactions."Transaction Type"::"Share Capital";
-                            ObjReceiptTransactions."Global Dimension 1 Code" := 'BOSA';
+                            ObjReceiptTransactions."Global Dimension 1 Code" := 'MICRO';
                             ObjReceiptTransactions.Description := copyStr(Format(ObjReceiptTransactions."Transaction Type"), 1, 50) + ObjRcptBuffer.Name + '-' + ReceiptAllocations."Member No";
 
                             ObjReceiptTransactions."Global Dimension 2 Code" := SwizzsoftFactory.FnGetMemberBranch(ObjRcptBuffer."Account No.");
@@ -782,7 +783,7 @@ page 50400 "BOSA Receipt Card"
                 ObjReceiptTransactions."Document No" := ObjRcptBuffer."Transaction No.";
                 ObjReceiptTransactions."Member No" := ObjRcptBuffer."Account No.";
                 ObjReceiptTransactions."Transaction Type" := ObjReceiptTransactions."transaction type"::"Deposit Contribution";
-                ObjReceiptTransactions."Global Dimension 1 Code" := 'BOSA';
+                ObjReceiptTransactions."Global Dimension 1 Code" := 'MICRO';
                 ObjReceiptTransactions.Description := copyStr(Format(ObjReceiptTransactions."Transaction Type"), 1, 50) + ObjRcptBuffer.Name + '-' + ReceiptAllocations."Member No";
 
                 ObjReceiptTransactions."Global Dimension 2 Code" := SwizzsoftFactory.FnGetMemberBranch(ObjRcptBuffer."Account No.");
@@ -822,7 +823,7 @@ page 50400 "BOSA Receipt Card"
 
                 ObjReceiptTransactions."Member No" := ObjRcptBuffer."Account No.";
                 ObjReceiptTransactions."Transaction Type" := ObjReceiptTransactions."transaction type"::"Insurance Contribution";//"transaction type"::"Benevolent Fund";
-                ObjReceiptTransactions."Global Dimension 1 Code" := 'BOSA';
+                ObjReceiptTransactions."Global Dimension 1 Code" := 'MICRO';
                 ObjReceiptTransactions.Description := copyStr(Format(ObjReceiptTransactions."Transaction Type"), 1, 50) + ObjRcptBuffer.Name + '-' + ReceiptAllocations."Member No";
 
                 ObjReceiptTransactions."Global Dimension 2 Code" := SwizzsoftFactory.FnGetMemberBranch(ObjRcptBuffer."Account No.");
@@ -863,7 +864,7 @@ page 50400 "BOSA Receipt Card"
 
                 ObjReceiptTransactions."Member No" := ObjRcptBuffer."Account No.";
                 ObjReceiptTransactions."Transaction Type" := ObjReceiptTransactions."transaction type"::"Benevolent Fund";
-                ObjReceiptTransactions."Global Dimension 1 Code" := 'BOSA';
+                ObjReceiptTransactions."Global Dimension 1 Code" := 'MICRO';
                 ObjReceiptTransactions."Global Dimension 2 Code" := SwizzsoftFactory.FnGetMemberBranch(ObjRcptBuffer."Account No.");
                 ObjReceiptTransactions.Amount := AmountToDeduct;
                 if ObjReceiptTransactions.Amount <> 0 then
@@ -897,7 +898,7 @@ page 50400 "BOSA Receipt Card"
 
                 ObjReceiptTransactions."Member No" := ObjRcptBuffer."Account No.";
                 ObjReceiptTransactions."Transaction Type" := ObjReceiptTransactions."transaction type"::"Unallocated Funds";
-                ObjReceiptTransactions."Global Dimension 1 Code" := 'BOSA';
+                ObjReceiptTransactions."Global Dimension 1 Code" := 'MICRO';
                 ObjReceiptTransactions.Description := copyStr(Format(ObjReceiptTransactions."Transaction Type"), 1, 50) + ObjRcptBuffer.Name + '-' + ReceiptAllocations."Member No";
 
                 ObjReceiptTransactions."Global Dimension 2 Code" := SwizzsoftFactory.FnGetMemberBranch(ObjRcptBuffer."Account No.");
@@ -934,7 +935,7 @@ page 50400 "BOSA Receipt Card"
             //
             ObjReceiptTransactions."Member No" := ObjRcptBuffer."Account No.";
             ObjReceiptTransactions."Transaction Type" := ObjReceiptTransactions."transaction type"::"Deposit Contribution";
-            ObjReceiptTransactions."Global Dimension 1 Code" := 'BOSA';
+            ObjReceiptTransactions."Global Dimension 1 Code" := 'MICRO';
             ObjReceiptTransactions."Global Dimension 2 Code" := SwizzsoftFactory.FnGetMemberBranch(ObjRcptBuffer."Account No.");
             ObjReceiptTransactions.Amount := AmountToDeduct;
             if ObjReceiptTransactions.Amount <> 0 then
@@ -987,7 +988,7 @@ page 50400 "BOSA Receipt Card"
             //     ObjReceiptTransactions."Transaction Type" := ObjReceiptTransactions."transaction type"::"Silver Savings";
             // if "Excess Transaction Type" = "excess transaction type"::"Safari Saving" then
             //     ObjReceiptTransactions."Transaction Type" := ObjReceiptTransactions."transaction type"::"Safari Savings";
-            ObjReceiptTransactions."Global Dimension 1 Code" := 'BOSA';
+            ObjReceiptTransactions."Global Dimension 1 Code" := 'MICRO';
             ObjReceiptTransactions."Global Dimension 2 Code" := SwizzsoftFactory.FnGetMemberBranch(ObjRcptBuffer."Account No.");
             ObjReceiptTransactions.Amount := AmountToDeduct;
             if ObjReceiptTransactions.Amount <> 0 then

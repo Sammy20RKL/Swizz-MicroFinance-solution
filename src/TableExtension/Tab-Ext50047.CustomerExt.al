@@ -1,7 +1,7 @@
 tableextension 50047 "CustomerExt" extends Customer
 {
-    // DrillDownPageId = "Member List";
-    // LookupPageId = "Member List";
+    DrillDownPageId = "Member List";
+    LookupPageId = "Member List";
     fields
     {
 

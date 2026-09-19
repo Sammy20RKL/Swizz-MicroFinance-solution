@@ -187,6 +187,197 @@ Codeunit 51022 SwizzKashMobile
 
     end;
 
+
+    // Occupation / Employer Name / Income Levels / Date Employed are the fields
+    // that actually matter for a CREDIT registration - they feed loan eligibility
+    // assessment. Everything else on "Membership Applications" that this
+    // procedure does not touch (share certificates, dividend fields, FOSA/BOSA
+    // account fields, "Member Two" co-applicant fields, ...) is deposit-product
+    // legacy that does not apply to a credit-only member and is deliberately left alone.
+    // "Income Levels" is an Option - OptionMembers = "0-20000","20001-50000","50001-100000","Over 100000".
+    procedure FnRegisterMemberByAgent("Agent No": Code[20]; "First Name": Code[30]; "Mid Name": Code[30]; "Last Name": Code[30]; "ID Number": Code[30]; "Phone Number": Code[30]; Email: Text; "Date of Birth": Date; Gender: Option; "Marital Status": Option; Town: Code[30]; Address: Text; "Branch Code": Code[30]; "Branch Name": Code[30]; "KRA Pin": Code[20]; Occupation: Text[30]; "Employer Name": Code[20]; "Income Levels": Option; "Date Employed": Date; PhotoBase64: Text) response: Text
+    var
+        Agent: Record Agents;
+        Application: Record "Membership Applications";
+        SaccoSetup: Record "Sacco No. Series";
+        GenSetUp: Record "Sacco General Set-Up";
+        NoSeriesMgt: Codeunit "No. Series";
+        SMS: Text[250];
+        PhotoWarning: Text[250];
+    begin
+
+        if "Agent No" = '' then begin
+            response := 'Agent No. is required.';
+            exit;
+        end;
+        if not Agent.Get("Agent No") then begin
+            response := 'Unknown Agent No. ' + "Agent No" + '.';
+            exit;
+        end;
+        if Agent.Status <> Agent.Status::Active then begin
+            response := 'Agent ' + "Agent No" + ' is not Active.';
+            exit;
+        end;
+
+
+        if "ID Number" = '' then begin
+            response := 'ID Number is required.';
+            exit;
+        end;
+        Application.Reset();
+        Application.SetRange("ID No.", "ID Number");
+        if not Application.IsEmpty() then begin
+            response := 'A membership application for ID No. ' + "ID Number" + ' already exists.';
+            exit;
+        end;
+
+
+        SaccoSetup.Get();
+        Application.Init();
+        Application."No." := NoSeriesMgt.GetNextNo(SaccoSetup."Member Application Nos", Today, true);
+        Application."First Name" := "First Name";
+        Application."Middle Name" := "Mid Name";
+        Application."Last Name" := "Last Name";
+        Application.Name := "First Name" + ' ' + "Mid Name" + ' ' + "Last Name";
+        Application."Mobile Phone No" := "Phone Number";
+        Application."E-Mail (Personal)" := Email;
+        Application."Date of Birth" := "Date of Birth";
+        Application."ID No." := "ID Number";
+        Application.Gender := Gender;
+        Application."Marital Status" := "Marital Status";
+        Application.Town := Town;
+        Application.Location := Town;
+        Application.Address := Address;
+        Application."Bank Code" := "Branch Code";
+        Application."Bank Name" := "Branch Name";
+        Application."KRA PIN" := "KRA Pin";
+        Application.Occupation := Occupation;
+        Application."Employer Name" := "Employer Name";
+        Application."Income Levels" := "Income Levels";
+        Application."Date Employed" := "Date Employed";
+        Application."Agent No." := "Agent No";
+        Application."Created By" := UserId;
+        // "MICRO", not "BOSA" - this system is credit-only, not deposit-taking.
+        Application."Global Dimension 1 Code" := 'MICRO';
+        Application."Customer Posting Group" := 'MICRO';
+        Application."Date of Registration" := Today;
+        Application.Status := Application.Status::Open;
+        Application."Application Category" := Application."Application Category"::"New Application";
+        Application."Account Category" := Application."Account Category"::Individual;
+        Application.Insert();
+
+
+        // Photo is optional and agent-supplied, so a malformed value (not valid
+        // Base64) must not be able to crash the whole registration - TryImportPhoto
+        // swallows that failure and the application is still saved either way.
+        if PhotoBase64 <> '' then begin
+            if TryImportPhoto(PhotoBase64, Application) then
+                Application.Modify()
+            else
+                PhotoWarning := ' (Note: the photo could not be read and was not saved - please retry it separately.)';
+        end;
+
+
+        if GenSetUp.Get() then
+            if GenSetUp."Customer Care No" <> '' then begin
+                SMS := 'New membership application ' + Application."No." + ' (' + Application.Name +
+                       ') submitted in the field by Agent ' + "Agent No" + ' - ' + Agent."Full Name" +
+                       '. Please review in the Membership Application List.';
+                SMSMessage(Application."No.", "Agent No", GenSetUp."Customer Care No", SMS);
+            end;
+
+        response := 'Success. Membership application ' + Application."No." + ' created for ' + Application.Name + '.' + PhotoWarning;
+    end;
+
+    // Isolates the Base64 decode + Media import behind [TryFunction] so a malformed
+    // photo (bad Base64, wrong padding, not actually image data) raises a catchable
+    // failure here instead of an unhandled .NET exception that would fault the whole
+    // SOAP call and lose an otherwise-valid registration.
+    [TryFunction]
+    local procedure TryImportPhoto(PhotoBase64: Text; var Application: Record "Membership Applications")
+    var
+        TempBlob: Codeunit "Temp Blob";
+        Base64Convert: Codeunit "Base64 Convert";
+        InStr: InStream;
+        OutStr: OutStream;
+    begin
+        TempBlob.CreateOutStream(OutStr);
+        Base64Convert.FromBase64(PhotoBase64, OutStr);
+        TempBlob.CreateInStream(InStr);
+        Application.Picture.ImportStream(InStr, Application."No." + '.jpg');
+    end;
+
+    // Next of Kin and Nominee are separate people, and a member can have more than
+    // one nominee (with a % allocation each), so - matching the existing pattern in
+    // Cod51120 PORTALIntegration's FnRegisterKin/FnRegisterNominee - these are their
+    // own calls, made after FnRegisterMemberByAgent, passing back the Membership
+    // Application No. it returned. Relationship must be a value from the
+    // "Relationship Types" setup table (e.g. Spouse, Parent, Child, Sibling) - the
+    // app should offer it as a picklist, not free text.
+    procedure FnRegisterMemberNextOfKin("Application No": Code[20]; "Full Name": Text[50]; Relationship: Text[30]; "ID Number": Code[20]; "Date of Birth": Date; Address: Text[150]; "Phone Contact": Code[20]; Email: Text[30]) response: Text
+    var
+        Application: Record "Membership Applications";
+        NextOfKin: Record "Member App Next Of kin";
+    begin
+        if not Application.Get("Application No") then begin
+            response := 'Unknown membership application ' + "Application No" + '.';
+            exit;
+        end;
+        if "Full Name" = '' then begin
+            response := 'Full Name is required.';
+            exit;
+        end;
+
+        NextOfKin.Init();
+        NextOfKin."Account No" := "Application No";
+        NextOfKin.Name := "Full Name";
+        NextOfKin.Relationship := Relationship;
+        NextOfKin."ID No." := "ID Number";
+        NextOfKin."Date of Birth" := "Date of Birth";
+        NextOfKin.Address := Address;
+        NextOfKin.Telephone := "Phone Contact";
+        NextOfKin.Email := Email;
+        NextOfKin.Type := NextOfKin.Type::"Next of Kin";
+        NextOfKin.Insert();
+
+        response := 'Success. Next of Kin ' + "Full Name" + ' added to application ' + "Application No" + '.';
+    end;
+
+    // "% Allocation" is how much of the death-benefit payout this nominee gets;
+    // all of a member's nominees together cannot exceed 100% - the table itself
+    // enforces that on insert, so a second nominee that pushes the total over
+    // will fail here with that error rather than silently over-allocating.
+    procedure FnRegisterMemberNominee("Application No": Code[20]; "Full Name": Text[150]; Relationship: Text[30]; "ID Number": Code[50]; "Date of Birth": Date; Address: Text[80]; "Phone Contact": Code[50]; Email: Text[30]; Beneficiary: Boolean; "% Allocation": Decimal) response: Text
+    var
+        Application: Record "Membership Applications";
+        Nominee: Record "Member App Nominee";
+    begin
+        if not Application.Get("Application No") then begin
+            response := 'Unknown membership application ' + "Application No" + '.';
+            exit;
+        end;
+        if "Full Name" = '' then begin
+            response := 'Full Name is required.';
+            exit;
+        end;
+
+        Nominee.Init();
+        Nominee."Account No" := "Application No";
+        Nominee.Name := "Full Name";
+        Nominee.Relationship := Relationship;
+        Nominee."ID No." := "ID Number";
+        Nominee."Date of Birth" := "Date of Birth";
+        Nominee.Address := Address;
+        Nominee.Telephone := "Phone Contact";
+        Nominee.Email := Email;
+        Nominee.Beneficiary := Beneficiary;
+        Nominee.Insert(true);
+        Nominee.Validate("%Allocation", "% Allocation");
+        Nominee.Modify(true);
+
+        response := 'Success. Nominee ' + "Full Name" + ' added to application ' + "Application No" + '.';
+    end;
+
     procedure GetRegistrationRequests(recCount: Integer) response: Text
     var
         activationsList: Text;
@@ -9423,7 +9614,8 @@ Codeunit 51022 SwizzKashMobile
         GenJournalLine.Amount := transactionamount;
         GenJournalLine.Validate(GenJournalLine.Amount);
         if GenJournalLine.Amount <> 0 then
-            GenJournalLine.Insert;
+            GenJournalLine.Insert();
+
     end;
 
     LOCAL PROCEDURE SplitString(sText: Text; separator: Text) Token: Text;

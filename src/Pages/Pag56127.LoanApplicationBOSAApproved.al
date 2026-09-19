@@ -1,7 +1,7 @@
 Page 56127 "Loan Application BOSA-Approved"
 {
     ApplicationArea = All;
-    Caption = 'Loan List-Approved Applications BOSA';
+    Caption = 'Loan List-Approved Applications MICRO';
     CardPageID = "BOSA Loans Disbursement Card";
     PageType = List;
     SourceTable = "Loans Register";
@@ -11,7 +11,7 @@ Page 56127 "Loan Application BOSA-Approved"
     InsertAllowed = TRUE;
     ModifyAllowed = true;
     SourceTableView = where(Posted = const(false),
-                            Source = filter(BOSA), "Approval Status" = const(Approved));
+                            Source = filter(MICRO), "Approval Status" = const(Approved));
 
     layout
     {

@@ -10,7 +10,7 @@ Page 56028 "Loan List"
     PageType = List;
     SourceTable = "Loans Register";
     SourceTableView = where(Posted = const(false),
-                            Source = filter(BOSA), "Loan Status" = const(Application), "Approval Status" = const(Open));
+                            Source = filter(MICRO), "Loan Status" = const(Application), "Approval Status" = const(Open));
     UsageCategory = Tasks;
 
     layout

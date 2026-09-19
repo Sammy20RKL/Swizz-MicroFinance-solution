@@ -15,6 +15,24 @@ report 70809 "Group Contribution Register"
             column(CompanyName; CompanyInfo.Name)
             {
             }
+            column(CompanyPic; CompanyInfo.Picture)
+            {
+            }
+            column(CompanyAddress; CompanyInfo.Address)
+            {
+            }
+            column(CompanyAddress2; CompanyInfo."Address 2")
+            {
+            }
+            column(CompanyPhoneNo; CompanyInfo."Phone No.")
+            {
+            }
+            column(CompanyFaxNo; CompanyInfo."Fax No.")
+            {
+            }
+            column(CompanyEmail; CompanyInfo."E-Mail")
+            {
+            }
             column(ReportFilters; ReportFilters)
             {
             }
@@ -72,6 +90,7 @@ report 70809 "Group Contribution Register"
     trigger OnPreReport()
     begin
         CompanyInfo.Get();
+        CompanyInfo.CalcFields(CompanyInfo.Picture);
         ReportFilters := Contribution.GetFilters();
     end;
 

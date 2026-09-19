@@ -1,7 +1,7 @@
 Page 56126 "LoanList-Pending Approval BOSA"
 {
     ApplicationArea = All;
-    Caption = 'Loan List-Pending Approval BOSA';
+    Caption = 'Loan List-Pending Approval MICRO';
     CardPageID = "Loans Pending Approval";
     PageType = List;
     SourceTable = "Loans Register";
@@ -11,7 +11,7 @@ Page 56126 "LoanList-Pending Approval BOSA"
     InsertAllowed = false;
     ModifyAllowed = false;
     SourceTableView = where(Posted = const(false),
-                            Source = filter(BOSA), "Loan Status" = const(Appraisal), "Approval Status" = const(Pending));
+                            Source = filter(MICRO), "Loan Status" = const(Appraisal), "Approval Status" = const(Pending));
 
     layout
     {

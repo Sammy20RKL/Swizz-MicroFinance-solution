@@ -68,7 +68,7 @@ table 59068 "Member Group"
         field(11; "Branch Code"; Code[20])
         {
             Caption = 'Branch';
-            TableRelation = "Dimension Value".Code;
+            TableRelation = Branch.Code;
         }
         field(12; Status; Option)
         {

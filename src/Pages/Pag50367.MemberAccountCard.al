@@ -41,10 +41,17 @@ page 50367 "Member Account Card"
                 {
                     ApplicationArea = Basic;
                 }
+                // Read-only here on purpose - "Group Member Line" (via the Member Group
+                // Card's own Members list, or the membership-application approval flow)
+                // is the only place enrollment should happen, since that's what actually
+                // records Role, Date Joined and Status. Editing this bare field used to
+                // let a member's Group No. get set here with no Group Member Line record
+                // ever created, so the group's own Members list would never show them.
                 field("Group No."; Rec."Group No.")
                 {
                     ApplicationArea = Basic;
                     Caption = 'Group';
+                    Editable = false;
                 }
                 field("Group Name"; Rec."Group Name")
                 {
@@ -662,25 +669,25 @@ page 50367 "Member Account Card"
             group("Bank Details")
             {
                 Editable = true;
-
-                field("Bank Account No."; Rec."Bank Account No.")
-                {
-                    ApplicationArea = Basic;
-                }
                 field("Bank Code"; Rec."Bank Code")
                 {
                     ApplicationArea = Basic;
-                    Caption = ' Bank Name';
+                    Caption = ' Bank Code';
                 }
                 field("Bank Name"; Rec."Bank Name")
                 {
                     ApplicationArea = Basic;
-                    Visible = false;
+                    Visible = true;
                 }
                 field("Bank Branch"; Rec."Bank Branch Name")
                 {
                     ApplicationArea = Basic;
                 }
+                field("Bank Account No."; Rec."Bank Account No.")
+                {
+                    ApplicationArea = Basic;
+                }
+
             }
             group("File Movement Tracker")
             {

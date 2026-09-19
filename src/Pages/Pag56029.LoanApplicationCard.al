@@ -522,6 +522,7 @@ Page 56029 "Loan Application Card"
                             Report.Run(50244, true, false, LoanApp);
                             // Report.Run(52002, true, false, LoanApp);
                         end;
+
                     end;
                 }
                 action("Notify Guarantors")
@@ -571,6 +572,25 @@ Page 56029 "Loan Application Card"
                     RunPageLink = "Loan No." = field("Loan  No."),
                                   "Client Code" = field("Client Code");
                 }
+                // action("Quick Send For Approval")
+                // {
+                //     ApplicationArea = Basic;
+                //     Caption = 'Send For Approval';
+                //     Image = SendApprovalRequest;
+                //     Promoted = true;
+                //     PromotedCategory = Process;
+                //     PromotedIsBig = true;
+                //     Visible = true;
+
+                //     trigger OnAction()
+                //     begin
+                //         if (checkGuarantorCount() < 1) and (Rec."Guarantor Group No." = '') then
+                //             Error('Loan Applications must have at least one Guarantor or a Guaranteeing Group');
+
+                //         SrestepApprovalsCodeUnit.SendLoanApplicationsRequestForApproval(Rec."Loan  No.", Rec);
+                //         Message('Loan Application sent for approval.');
+                //     end;
+                // }
 
                 action("Send Approvals")
                 {
@@ -579,6 +599,8 @@ Page 56029 "Loan Application Card"
 
                     Image = SendApprovalRequest;
                     Promoted = true;
+                    Visible = true;
+                    ApplicationArea = Basic;
                     PromotedCategory = Process;
                     PromotedIsBig = true;
                     trigger OnAction()
@@ -600,7 +622,7 @@ Page 56029 "Loan Application Card"
                             Error('Loan Applications must have at least one Guarantor or a Guaranteeing Group');
                         end;
 
-                        FnCheckForTestFields();
+                        // FnCheckForTestFields();
                         if Confirm('Send Approval Request For Loan Application of Ksh. ' + Format(Rec."Approved Amount") + ' applied by ' + Format(Rec."Client Name") + ' ?', false) = false then begin
                             exit;
                         end else begin
@@ -618,8 +640,10 @@ Page 56029 "Loan Application Card"
                 {
                     Caption = 'Cancel For Approval';
                     Enabled = CanCancelApprovalForRecord;
+                    ApplicationArea = Basic;
                     Image = CancelApprovalRequest;
                     Promoted = true;
+                    Visible = CanCancelApprovalForRecord;
                     PromotedCategory = Process;
                     InFooterBar = true;
                     trigger OnAction()
@@ -1121,8 +1145,11 @@ Page 56029 "Loan Application Card"
         if Rec."Approval Status" <> Rec."Approval Status"::Open then begin
             Error('Approval status MUST be Open');
         end;
-        if Rec.Appraised = false then
-            Error('Please Appraise the Loan');
+        // Temporarily relaxed: Send Approval no longer hard-requires Appraisal to
+        // have run first. Re-enable once the appraisal step is ready to be enforced
+        // again for the microfinance flow.
+        // if Rec.Appraised = false then
+        //     Error('Please Appraise the Loan');
         Rec.TestField("Requested Amount");
         // Rec.TestField("Main-Sector");
         //  Rec.TestField("Sub-Sector");
@@ -1154,8 +1181,11 @@ Page 56029 "Loan Application Card"
         if Rec."Is Top Up" = true then
             exit;
 
-        if Rec."Notify Guarantor SMS" = false then
-            Error('Please notify guarantors first before you proceed.');
+        // Temporarily relaxed: Send Approval no longer hard-requires Notify
+        // Guarantors to have run first. Re-enable once that's ready to be enforced
+        // again for the microfinance flow.
+        // if Rec."Notify Guarantor SMS" = false then
+        //     Error('Please notify guarantors first before you proceed.');
     end;
 
 

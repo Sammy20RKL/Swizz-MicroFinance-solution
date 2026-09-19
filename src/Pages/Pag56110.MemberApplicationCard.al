@@ -1407,7 +1407,7 @@ page 56110 "Member Application Card"
                         end;
                         Cust.Reset;
                         Cust.SetRange(Cust."ID No.", Rec."ID No.");
-                        Cust.SetRange(Cust."Customer Type", Cust."customer type"::Member);
+                        Cust.SetRange(Cust."Customer Type", Cust."customer type"::MicroFinance);
                         if Cust.Find('-') then begin
                             if (Cust."No." <> Rec."No.") then
                                 Error('Member has already been created');
@@ -2451,8 +2451,9 @@ page 56110 "Member Application Card"
         Cust.Occupation := Rec.Occupation;
         Cust.Designation := Rec.Designation;
         Cust."Bank Code" := Rec."Bank Code";
-        Cust."Bank Branch Code" := Rec."Bank Branch";
+        // Cust."Bank Branch Code" := Rec."Bank Branch";
         Cust."Bank Name" := Rec."Bank Name";
+        Cust."Bank Branch Name" := Rec."Bank Branch";
         Cust."Bank Account No." := Rec."Bank Account No";
         //**
         //Joint
@@ -2482,7 +2483,7 @@ page 56110 "Member Application Card"
         Cust."ID No." := Rec."ID No.";
         Cust."Mobile Phone No" := Rec."Mobile Phone No";
         Cust."Marital Status" := Rec."Marital Status";
-        Cust."Customer Type" := Cust."customer type"::Member;
+        Cust."Customer Type" := Cust."customer type"::MicroFinance;
         Cust.Gender := Rec.Gender;
         Cust."Sms Notification" := Rec."Sms Notification";
         Cust.Age := Rec.Age;

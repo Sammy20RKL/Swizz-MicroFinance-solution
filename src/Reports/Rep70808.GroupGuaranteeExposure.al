@@ -15,6 +15,24 @@ report 70808 "Group Guarantee Exposure"
             column(CompanyName; CompanyInfo.Name)
             {
             }
+            column(CompanyPic; CompanyInfo.Picture)
+            {
+            }
+            column(CompanyAddress; CompanyInfo.Address)
+            {
+            }
+            column(CompanyAddress2; CompanyInfo."Address 2")
+            {
+            }
+            column(CompanyPhoneNo; CompanyInfo."Phone No.")
+            {
+            }
+            column(CompanyFaxNo; CompanyInfo."Fax No.")
+            {
+            }
+            column(CompanyEmail; CompanyInfo."E-Mail")
+            {
+            }
             column(ReportFilters; ReportFilters)
             {
             }
@@ -86,6 +104,7 @@ report 70808 "Group Guarantee Exposure"
     trigger OnPreReport()
     begin
         CompanyInfo.Get();
+        CompanyInfo.CalcFields(CompanyInfo.Picture);
         ReportFilters := Loan.GetFilters();
     end;
 

@@ -15,6 +15,25 @@ report 70796 "Agent Performance Summary"
             column(CompanyName; CompanyInfo.Name)
             {
             }
+            column(CompanyPic; CompanyInfo.Picture)
+            {
+
+            }
+            column(CompanyAddress; CompanyInfo.Address)
+            {
+            }
+            column(CompanyAddress2; CompanyInfo."Address 2")
+            {
+            }
+            column(CompanyPhoneNo; CompanyInfo."Phone No.")
+            {
+            }
+            column(CompanyFaxNo; CompanyInfo."Fax No.")
+            {
+            }
+            column(CompanyEmail; CompanyInfo."E-Mail")
+            {
+            }
             column(ReportFilters; ReportFilters)
             {
             }
@@ -33,7 +52,7 @@ report 70796 "Agent Performance Summary"
             column(AgentFullName; Agent."Full Name")
             {
             }
-            column(BranchCode; Agent."Branch Code")
+            column(BranchCode; Agent."Full Name")
             {
             }
             column(CustomersOnboarded; Agent."Customers Onboarded")
@@ -119,6 +138,7 @@ report 70796 "Agent Performance Summary"
     trigger OnPreReport()
     begin
         CompanyInfo.Get();
+        CompanyInfo.CalcFields(CompanyInfo.Picture);
         ReportFilters := Agent.GetFilters();
     end;
 

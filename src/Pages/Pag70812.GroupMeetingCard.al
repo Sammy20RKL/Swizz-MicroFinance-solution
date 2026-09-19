@@ -21,6 +21,7 @@ page 70812 "Group Meeting Card"
                 field("Group No."; Rec."Group No.")
                 {
                     ApplicationArea = All;
+                    Editable = true;
                     ShowMandatory = true;
                 }
                 field("Meeting Date"; Rec."Meeting Date")

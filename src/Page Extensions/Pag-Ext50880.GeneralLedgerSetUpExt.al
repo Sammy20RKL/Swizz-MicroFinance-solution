@@ -2,6 +2,7 @@ pageextension 50880 "GeneralLedgerSetUpExt" extends "General Ledger Setup"
 {
     layout
     {
+
         addafter("Shortcut Dimension 8 Code")
         {
             group(MOBILESETUPS)
@@ -52,6 +53,7 @@ pageextension 50880 "GeneralLedgerSetUpExt" extends "General Ledger Setup"
                     ApplicationArea = Basic;
                 }
             }
+
         }
     }
 }
