@@ -16,6 +16,11 @@ page 70778 "Agent Target Subpage"
                     Editable = false;
                     ApplicationArea = Basic;
                 }
+                field("Period"; Rec."Period")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+                }
                 field("Target Type"; Rec."Target Type")
                 {
                     ApplicationArea = All;
@@ -23,6 +28,11 @@ page 70778 "Agent Target Subpage"
                 field("Target Amount"; Rec."Target Amount")
                 {
                     ApplicationArea = All;
+                    trigger OnValidate()
+                    begin
+                        Rec.UpdateActual();
+                        CurrPage.Update(true);
+                    end;
                 }
                 field("Actual Amount"; Rec."Actual Amount")
                 {

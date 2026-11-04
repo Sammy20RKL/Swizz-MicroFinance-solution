@@ -32,7 +32,7 @@ page 70803 "Agent Targets Setup"
                 {
                     ApplicationArea = All;
                 }
-                field("Actual Amount"; Rec."Actual Amount")
+                field("Actual Amount"; Rec."Actual Amount1")
                 {
                     ApplicationArea = All;
                     Editable = false;

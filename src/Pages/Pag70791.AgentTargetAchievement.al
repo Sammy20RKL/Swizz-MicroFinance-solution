@@ -33,7 +33,7 @@ page 70791 "Agent Target Achievement"
                 {
                     ApplicationArea = All;
                 }
-                field("Actual Amount"; Rec."Actual Amount")
+                field("Actual Amount"; Rec."Actual Amount1")
                 {
                     ApplicationArea = All;
                 }

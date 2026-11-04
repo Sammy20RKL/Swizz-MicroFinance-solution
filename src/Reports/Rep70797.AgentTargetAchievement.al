@@ -58,7 +58,7 @@ report 70797 "Agent Target Achievement"
             column(TargetAmount; AgentTarget."Target Amount")
             {
             }
-            column(ActualAmount; AgentTarget."Actual Amount")
+            column(ActualAmount; AgentTarget."Actual Amount1")
             {
             }
             column(AchievementPct; AgentTarget."Achievement %")

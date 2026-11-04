@@ -73,6 +73,11 @@ report 70796 "Agent Performance Summary"
             column(CurrentCollections; Agent."Current Collections")
             {
             }
+            column(Interest_Paid; "Interest Paid")
+            {
+
+            }
+
             column(PortfolioAtRisk; Agent."Portfolio at Risk (>30 Days)")
             {
             }
@@ -97,6 +102,10 @@ report 70796 "Agent Performance Summary"
             column(TotalCurrentCollections; TotalCurrentCollections)
             {
             }
+            column(TotalInterestPaid; TotalInterestPaid)
+            {
+
+            }
             column(TotalPortfolioAtRisk; TotalPortfolioAtRisk)
             {
             }
@@ -117,6 +126,7 @@ report 70796 "Agent Performance Summary"
                 TotalDisbursedSum += Agent."Total Disbursed";
                 TotalOutstandingPortfolio += Agent."Outstanding Portfolio";
                 TotalCurrentCollections += Agent."Current Collections";
+                TotalInterestPaid += Agent."Interest Paid";
                 TotalPortfolioAtRisk += Agent."Portfolio at Risk (>30 Days)";
             end;
         }
@@ -151,5 +161,6 @@ report 70796 "Agent Performance Summary"
         TotalDisbursedSum: Decimal;
         TotalOutstandingPortfolio: Decimal;
         TotalCurrentCollections: Decimal;
+        TotalInterestPaid: Decimal;
         TotalPortfolioAtRisk: Decimal;
 }

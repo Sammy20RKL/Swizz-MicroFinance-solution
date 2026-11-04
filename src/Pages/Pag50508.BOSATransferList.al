@@ -3,6 +3,7 @@ page 50508 "BOSA Transfer List"
 {
     // CardPageID = "BOSA Transfer";
     PageType = List;
+    Caption = 'Micro Transfer List';
     SourceTable = "BOSA Transfers";
     SourceTableView = where(Posted = const(false));
 

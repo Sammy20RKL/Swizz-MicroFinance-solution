@@ -50,6 +50,8 @@ page 70815 "Agent Management Cue"
             cuegroup(AgentBook)
             {
                 Caption = 'Book, All Time';
+                // Wide layout shows the full amounts, same as the Procurement cue totals.
+                CuegroupLayout = Wide;
                 // Back to the raw figure for the meantime - the "M" formatted text
                 // version ("Total Disbursed (M)" on Members Cues) is still there,
                 // just not bound here, in case it's worth revisiting later.
@@ -59,7 +61,7 @@ page 70815 "Agent Management Cue"
                     Image = none;
                     Style = Favorable;
                     StyleExpr = true;
-                    DrillDownPageId = "Agent Lists";
+                    DrillDownPageId = "Loans DrillDown List";
                 }
                 field("Agent Outstanding Portfolio"; Rec."Agent Outstanding Portfolio")
                 {
@@ -67,7 +69,7 @@ page 70815 "Agent Management Cue"
                     Image = none;
                     Style = StandardAccent;
                     StyleExpr = true;
-                    DrillDownPageId = "Agent Lists";
+                    DrillDownPageId = "Customer Ledger Entries";
                 }
             }
         }

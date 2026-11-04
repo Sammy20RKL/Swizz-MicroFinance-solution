@@ -65,6 +65,10 @@ page 70790 "Agent Performance Summary"
                 {
                     ApplicationArea = All;
                 }
+                field("Interest Paid"; Rec."Interest Paid")
+                {
+                    ApplicationArea = All;
+                }
                 field("Portfolio at Risk (>30 Days)"; Rec."Portfolio at Risk (>30 Days)")
                 {
                     ApplicationArea = All;

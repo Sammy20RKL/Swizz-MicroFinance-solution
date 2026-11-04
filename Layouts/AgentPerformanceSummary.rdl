@@ -11,7 +11,7 @@
       <am:Name>PBIRB</am:Name>
       <am:Version>15.7.1813.16</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2026-09-14T07:55:15.9469244Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2026-09-30T07:42:10.8952084Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -80,7 +80,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Agent No</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -110,7 +112,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Agent Full Name</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -140,7 +144,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Branch </Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -170,7 +176,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Customers Onboarded</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -200,7 +208,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Groups Onboarded</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -230,7 +240,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Loans Originated</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -260,7 +272,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Total Disbursed</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -290,7 +304,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Outstanding Portfolio</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -320,7 +336,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Current Collections</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -350,7 +368,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Portfolio At Risk</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -380,7 +400,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Default Rate Pct</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -415,7 +437,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!AgentNo.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -445,7 +469,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!AgentFullName.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -475,7 +501,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!BranchCode.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -505,7 +533,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!CustomersOnboarded.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -535,7 +565,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!GroupsOnboarded.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -565,7 +597,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!LoansOriginated.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -596,6 +630,7 @@
                                 <TextRun>
                                   <Value>=Fields!TotalDisbursed.Value</Value>
                                   <Style>
+                                    <FontSize>9pt</FontSize>
                                     <Format>#,0.00;-#,0.00;''</Format>
                                   </Style>
                                 </TextRun>
@@ -628,6 +663,7 @@
                                 <TextRun>
                                   <Value>=Fields!OutstandingPortfolio.Value</Value>
                                   <Style>
+                                    <FontSize>9pt</FontSize>
                                     <Format> #,0.00;-#,0.00;''</Format>
                                   </Style>
                                 </TextRun>
@@ -660,6 +696,7 @@
                                 <TextRun>
                                   <Value>=Fields!CurrentCollections.Value</Value>
                                   <Style>
+                                    <FontSize>9pt</FontSize>
                                     <Format>#,0.00;-#,0.00;''</Format>
                                   </Style>
                                 </TextRun>
@@ -691,7 +728,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!PortfolioAtRisk.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -721,7 +760,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!DefaultRatePct.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -770,7 +811,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>1.05778in</Top>
+            <Top>0.43278in</Top>
             <Left>0.46056in</Left>
             <Height>0.5in</Height>
             <Width>11in</Width>
@@ -790,7 +831,6 @@
                   <TextRun>
                     <Value>Agent Performance Summary</Value>
                     <Style>
-                      <FontSize>12pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -798,7 +838,7 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>0.55778in</Top>
+            <Top>0.11333in</Top>
             <Left>4.46056in</Left>
             <Height>0.25in</Height>
             <Width>2.63889in</Width>
@@ -814,11 +854,257 @@
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>2in</Height>
+        <Height>2.75in</Height>
         <Style />
       </Body>
       <Width>12.13417in</Width>
       <Page>
+        <PageHeader>
+          <Height>1.20833in</Height>
+          <PrintOnFirstPage>true</PrintOnFirstPage>
+          <PrintOnLastPage>true</PrintOnLastPage>
+          <ReportItems>
+            <Image Name="Image1">
+              <Source>Database</Source>
+              <Value>=First(Fields!CompanyPic.Value, "DataSet_Result")</Value>
+              <MIMEType>image/png</MIMEType>
+              <Sizing>FitProportional</Sizing>
+              <Top>0in</Top>
+              <Left>1.27306in</Left>
+              <Height>1.15278in</Height>
+              <Width>2.1875in</Width>
+              <ToolTip>=First(Fields!CompanyPic.Value, "DataSet_Result")</ToolTip>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+              </Style>
+            </Image>
+            <Textbox Name="Textbox2">
+              <rd:DefaultName>Textbox2</rd:DefaultName>
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!CompanyName.Value, "DataSet_Result")</Value>
+                      <Style>
+                        <FontSize>14pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>0in</Top>
+              <Left>4.46056in</Left>
+              <Height>0.25in</Height>
+              <Width>2.63889in</Width>
+              <ZIndex>1</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox4">
+              <rd:DefaultName>Textbox4</rd:DefaultName>
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!CompanyAddress.Value, "DataSet_Result")</Value>
+                      <Style>
+                        <FontSize>14pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>0.25in</Top>
+              <Left>4.46056in</Left>
+              <Height>0.25in</Height>
+              <Width>2.63889in</Width>
+              <ZIndex>2</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox6">
+              <rd:DefaultName>Textbox6</rd:DefaultName>
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!CompanyEmail.Value, "DataSet_Result")</Value>
+                      <Style>
+                        <FontSize>14pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>0.5in</Top>
+              <Left>4.46056in</Left>
+              <Height>0.25in</Height>
+              <Width>2.63889in</Width>
+              <ZIndex>3</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox8">
+              <rd:DefaultName>Textbox8</rd:DefaultName>
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!CompanyPhoneNo.Value, "DataSet_Result")</Value>
+                      <Style>
+                        <FontSize>14pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>0.75in</Top>
+              <Left>4.46056in</Left>
+              <Height>0.25in</Height>
+              <Width>2.63889in</Width>
+              <ZIndex>4</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox10">
+              <rd:DefaultName>Textbox10</rd:DefaultName>
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=Globals!ExecutionTime</Value>
+                      <Style>
+                        <FontStyle>Italic</FontStyle>
+                        <FontSize>8pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                        <Format>dd/MM/yyyy HH:mm:ss</Format>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Right</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>0in</Top>
+              <Left>9.14806in</Left>
+              <Height>0.25in</Height>
+              <Width>2.3125in</Width>
+              <ZIndex>5</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+          </ReportItems>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </PageHeader>
+        <PageFooter>
+          <Height>1in</Height>
+          <PrintOnFirstPage>true</PrintOnFirstPage>
+          <PrintOnLastPage>true</PrintOnLastPage>
+          <ReportItems>
+            <Textbox Name="Textbox12">
+              <rd:DefaultName>Textbox12</rd:DefaultName>
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>="Page " &amp; Globals!OverallPageNumber &amp; " of " &amp; Globals!OverallTotalPages</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <Top>0.23139in</Top>
+              <Left>5.55778in</Left>
+              <Height>0.25in</Height>
+              <Width>1in</Width>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+          </ReportItems>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </PageFooter>
         <PageWidth>12.7in</PageWidth>
         <InteractiveHeight>11in</InteractiveHeight>
         <InteractiveWidth>12.7in</InteractiveWidth>
@@ -935,6 +1221,12 @@ End Function
         <Field Name="CurrentCollectionsFormat">
           <DataField>CurrentCollectionsFormat</DataField>
         </Field>
+        <Field Name="Interest_Paid">
+          <DataField>Interest_Paid</DataField>
+        </Field>
+        <Field Name="Interest_PaidFormat">
+          <DataField>Interest_PaidFormat</DataField>
+        </Field>
         <Field Name="PortfolioAtRisk">
           <DataField>PortfolioAtRisk</DataField>
         </Field>
@@ -973,6 +1265,12 @@ End Function
         </Field>
         <Field Name="TotalCurrentCollectionsFormat">
           <DataField>TotalCurrentCollectionsFormat</DataField>
+        </Field>
+        <Field Name="TotalInterestPaid">
+          <DataField>TotalInterestPaid</DataField>
+        </Field>
+        <Field Name="TotalInterestPaidFormat">
+          <DataField>TotalInterestPaidFormat</DataField>
         </Field>
         <Field Name="TotalPortfolioAtRisk">
           <DataField>TotalPortfolioAtRisk</DataField>

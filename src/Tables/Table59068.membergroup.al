@@ -85,12 +85,6 @@ table 59068 "Member Group"
             end;
         }
 
-        // ---------- Guarantee fund (committed vs. available) ----------
-        // The group's guarantee fund is bookkeeping internal to this system, not a
-        // licensed deposit account: it exists purely so a member's loan can be
-        // guaranteed against the group's pooled contributions. "Committed" is the
-        // portion currently locked against an active guarantee; "Available" is the
-        // remainder still free to guarantee a new application.
         field(20; "Total Contributions"; Decimal)
         {
             Caption = 'Total Contributions';
@@ -98,13 +92,7 @@ table 59068 "Member Group"
             Editable = false;
             FieldClass = FlowField;
         }
-        // "Committed Amount" and "Outstanding Group Loans" cannot be FlowFields:
-        // "Outstanding Balance" on Loans Register is itself a FlowField (computed
-        // from Cust. Ledger Entry), and SQL Server has no physical column to
-        // aggregate or filter on for a FlowField-of-a-FlowField - both a sum() and a
-        // count()-with-filter over it compile but throw "Invalid column name
-        // 'Outstanding Balance'" at runtime. These are plain fields instead,
-        // refreshed by UpdateGuaranteeFundFigures().
+
         field(21; "Committed Amount"; Decimal)
         {
             Caption = 'Committed Amount';
@@ -122,6 +110,7 @@ table 59068 "Member Group"
             Caption = 'Outstanding Group Loans';
             Editable = false;
         }
+
     }
 
     keys

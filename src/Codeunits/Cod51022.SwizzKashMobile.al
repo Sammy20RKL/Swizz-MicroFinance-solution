@@ -188,13 +188,6 @@ Codeunit 51022 SwizzKashMobile
     end;
 
 
-    // Occupation / Employer Name / Income Levels / Date Employed are the fields
-    // that actually matter for a CREDIT registration - they feed loan eligibility
-    // assessment. Everything else on "Membership Applications" that this
-    // procedure does not touch (share certificates, dividend fields, FOSA/BOSA
-    // account fields, "Member Two" co-applicant fields, ...) is deposit-product
-    // legacy that does not apply to a credit-only member and is deliberately left alone.
-    // "Income Levels" is an Option - OptionMembers = "0-20000","20001-50000","50001-100000","Over 100000".
     procedure FnRegisterMemberByAgent("Agent No": Code[20]; "First Name": Code[30]; "Mid Name": Code[30]; "Last Name": Code[30]; "ID Number": Code[30]; "Phone Number": Code[30]; Email: Text; "Date of Birth": Date; Gender: Option; "Marital Status": Option; Town: Code[30]; Address: Text; "Branch Code": Code[30]; "Branch Name": Code[30]; "KRA Pin": Code[20]; Occupation: Text[30]; "Employer Name": Code[20]; "Income Levels": Option; "Date Employed": Date; PhotoBase64: Text) response: Text
     var
         Agent: Record Agents;
@@ -267,9 +260,7 @@ Codeunit 51022 SwizzKashMobile
         Application.Insert();
 
 
-        // Photo is optional and agent-supplied, so a malformed value (not valid
-        // Base64) must not be able to crash the whole registration - TryImportPhoto
-        // swallows that failure and the application is still saved either way.
+
         if PhotoBase64 <> '' then begin
             if TryImportPhoto(PhotoBase64, Application) then
                 Application.Modify()
@@ -289,10 +280,7 @@ Codeunit 51022 SwizzKashMobile
         response := 'Success. Membership application ' + Application."No." + ' created for ' + Application.Name + '.' + PhotoWarning;
     end;
 
-    // Isolates the Base64 decode + Media import behind [TryFunction] so a malformed
-    // photo (bad Base64, wrong padding, not actually image data) raises a catchable
-    // failure here instead of an unhandled .NET exception that would fault the whole
-    // SOAP call and lose an otherwise-valid registration.
+
     [TryFunction]
     local procedure TryImportPhoto(PhotoBase64: Text; var Application: Record "Membership Applications")
     var
@@ -307,13 +295,7 @@ Codeunit 51022 SwizzKashMobile
         Application.Picture.ImportStream(InStr, Application."No." + '.jpg');
     end;
 
-    // Next of Kin and Nominee are separate people, and a member can have more than
-    // one nominee (with a % allocation each), so - matching the existing pattern in
-    // Cod51120 PORTALIntegration's FnRegisterKin/FnRegisterNominee - these are their
-    // own calls, made after FnRegisterMemberByAgent, passing back the Membership
-    // Application No. it returned. Relationship must be a value from the
-    // "Relationship Types" setup table (e.g. Spouse, Parent, Child, Sibling) - the
-    // app should offer it as a picklist, not free text.
+
     procedure FnRegisterMemberNextOfKin("Application No": Code[20]; "Full Name": Text[50]; Relationship: Text[30]; "ID Number": Code[20]; "Date of Birth": Date; Address: Text[150]; "Phone Contact": Code[20]; Email: Text[30]) response: Text
     var
         Application: Record "Membership Applications";
@@ -341,12 +323,9 @@ Codeunit 51022 SwizzKashMobile
         NextOfKin.Insert();
 
         response := 'Success. Next of Kin ' + "Full Name" + ' added to application ' + "Application No" + '.';
+
     end;
 
-    // "% Allocation" is how much of the death-benefit payout this nominee gets;
-    // all of a member's nominees together cannot exceed 100% - the table itself
-    // enforces that on insert, so a second nominee that pushes the total over
-    // will fail here with that error rather than silently over-allocating.
     procedure FnRegisterMemberNominee("Application No": Code[20]; "Full Name": Text[150]; Relationship: Text[30]; "ID Number": Code[50]; "Date of Birth": Date; Address: Text[80]; "Phone Contact": Code[50]; Email: Text[30]; Beneficiary: Boolean; "% Allocation": Decimal) response: Text
     var
         Application: Record "Membership Applications";

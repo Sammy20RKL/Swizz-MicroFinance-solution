@@ -13,6 +13,7 @@ table 59067 "Agent Target"
         field(2; "Period"; Date)
         {
             Caption = 'Period';
+            NotBlank = true;
             // store as first day of month, e.g. 01/06/2026 = June 2026 target
         }
         field(3; "Target Type"; Option)
@@ -26,12 +27,18 @@ table 59067 "Agent Target"
         {
             Caption = 'Actual Amount';
             Editable = false;
-            // Not a FlowField: which underlying figure counts as "actual" depends on
-            // this record's own Target Type (Disbursements/Collections/New Customers),
-            // and a single CalcFormula can't branch per record on another field's
-            // value. GetActualAmount() below computes it and should be called
-            // (e.g. from the card/list page's OnAfterGetRecord) to refresh this field
-            // before display.
+
+
+        }
+        field(8; "Actual Amount1"; Decimal)
+        {
+            Caption = 'Actual Amount';
+            Editable = false;
+            CalcFormula = sum("Loans Register"."Approved Amount"
+        where("Agent No." = field("Agent No."),
+              "Loan Disbursement Date" = field("Date Filter")));
+            FieldClass = FlowField;
+
         }
         field(6; "Achievement %"; Decimal)
         {
@@ -44,6 +51,11 @@ table 59067 "Agent Target"
             CalcFormula = lookup(Agents."Full Name" where("No." = field("Agent No.")));
             Editable = false;
             FieldClass = FlowField;
+        }
+        field(9; "Date Filter"; Date)
+        {
+            Caption = 'Date Filter';
+            FieldClass = FlowFilter;
         }
     }
 
@@ -58,24 +70,18 @@ table 59067 "Agent Target"
     procedure GetActualAmount(): Decimal
     var
         Agent: Record Agents;
-        PeriodStart: Date;
-        PeriodEnd: Date;
+        Loan: Record "Loans Register";
     begin
         if not Agent.Get("Agent No.") then
             exit(0);
 
-        if "Period" = 0D then
-            exit(0);
-
-        PeriodStart := CalcDate('<-CM>', "Period");
-        PeriodEnd := CalcDate('<CM>', "Period");
-        Agent.SetRange("Date Filter", PeriodStart, PeriodEnd);
-
         case "Target Type" of
             "Target Type"::Disbursements:
                 begin
-                    Agent.CalcFields("Total Disbursed");
-                    exit(Agent."Total Disbursed");
+                    Loan.SetRange("Agent No.", "Agent No.");
+                    Loan.SetFilter("Loan Disbursement Date", '<>%1', 0D);
+                    Loan.CalcSums("Approved Amount");
+                    exit(Loan."Approved Amount");
                 end;
             "Target Type"::Collections:
                 begin
@@ -92,6 +98,7 @@ table 59067 "Agent Target"
 
     procedure UpdateActual()
     begin
+   
         "Actual Amount" := GetActualAmount();
         if "Target Amount" <> 0 then
             "Achievement %" := Round("Actual Amount" / "Target Amount" * 100, 0.01)
@@ -99,11 +106,7 @@ table 59067 "Agent Target"
             "Achievement %" := 0;
     end;
 
-    // Carries every target from the latest period on file forward to the next
-    // calendar month, at the same Target Amount, for whichever (Agent, Target
-    // Type) combinations don't already have a target in that next period. Saves
-    // re-entering targets for every agent by hand each month; existing targets
-    // for the next period are left untouched.
+
     procedure CopyTargetsToNextPeriod(): Integer
     var
         LatestTarget: Record "Agent Target";

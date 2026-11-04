@@ -3,6 +3,7 @@ Page 56003 "Sacco Transfer Card"
 {
     DeleteAllowed = false;
     PageType = Card;
+    Caption = 'Micro Transfer Card';
     SourceTable = "Sacco Transfers";
 
     layout
@@ -89,6 +90,7 @@ Page 56003 "Sacco Transfer Card"
             part(Control1102760014; "Sacco Transfer Schedule")
             {
                 SubPageLink = "No." = field(No);
+                Caption = 'Micro Transfer Schedule';
             }
         }
     }
@@ -214,7 +216,7 @@ Page 56003 "Sacco Transfer Card"
                                 if Rec."Source Account Type" = Rec."source account type"::MEMBER then begin
                                     GenJournalLine."Account Type" := GenJournalLine."account type"::Customer;
                                     GenJournalLine."Transaction Type" := Rec."Source Transaction Type";
-                                    GenJournalLine."Shortcut Dimension 1 Code" := 'BOSA';
+                                    GenJournalLine."Shortcut Dimension 1 Code" := 'MICRO';
                                     GenJournalLine."Shortcut Dimension 2 Code" := BTRANS."Global Dimension 2 Code";
                                     GenJournalLine."Account No." := Rec."Source Account No";
                                     GenJournalLine."Loan No" := Rec."Source Loan No";
@@ -235,7 +237,7 @@ Page 56003 "Sacco Transfer Card"
                                         end else
                                             if Rec."Source Account Type" = Rec."source account type"::Bank then begin
                                                 GenJournalLine."Account Type" := GenJournalLine."account type"::"Bank Account";
-                                                GenJournalLine."Shortcut Dimension 1 Code" := 'BOSA';
+                                                GenJournalLine."Shortcut Dimension 1 Code" := 'MICRO';
                                                 GenJournalLine."Shortcut Dimension 2 Code" := BTRANS."Global Dimension 2 Code";
                                                 GenJournalLine."Account No." := Rec."Source Account No";
                                             end;
@@ -365,7 +367,7 @@ Page 56003 "Sacco Transfer Card"
                                     GenJournalLine."Account Type" := GenJournalLine."Account Type"::Customer;
                                     GenJournalLine."Transaction Type" := Rec."Source Transaction Type";
                                     GenJournalLine.Description := BSched."Description" + ' ' + Rec."Source Account No";
-                                    GenJournalLine."Shortcut Dimension 1 Code" := 'BOSA';
+                                    GenJournalLine."Shortcut Dimension 1 Code" := 'MICRO';
                                     GenJournalLine."Shortcut Dimension 2 Code" := BTRANS."Global Dimension 2 Code";
                                     GenJournalLine."Account No." := Rec."Source Account No";
                                     GenJournalLine."Loan No" := Rec."Source Loan No";
@@ -385,7 +387,7 @@ Page 56003 "Sacco Transfer Card"
                                     END ELSE
                                         IF Rec."Source Account Type" = Rec."Source Account Type"::Bank THEN BEGIN
                                             GenJournalLine."Account Type" := GenJournalLine."Account Type"::"Bank Account";
-                                            GenJournalLine."Shortcut Dimension 1 Code" := 'BOSA';
+                                            GenJournalLine."Shortcut Dimension 1 Code" := 'MICRO';
                                             GenJournalLine."Shortcut Dimension 2 Code" := BTRANS."Global Dimension 2 Code";
                                             GenJournalLine."Account No." := Rec."Source Account No";
                                         END;

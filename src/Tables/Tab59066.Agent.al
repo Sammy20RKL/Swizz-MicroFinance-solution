@@ -107,15 +107,6 @@ table 59066 "Agents"
 
         }
 
-        // ---------- Performance (YTD) ----------
-        // All figures are derived, live aggregations off the same Loans Register /
-        // Cust. Ledger Entry data every other module reads - nothing here is a
-        // separately maintained snapshot, so it can never drift out of sync.
-        // Date-ranged views (e.g. "this month") are obtained by setting a filter
-        // on the standard "Date Filter" FlowFilter before calling CalcFields.
-        // "Outstanding Portfolio" and "Portfolio at Risk" are the exception: see the
-        // note above field 24 for why those two are plain fields refreshed in code.
-
         field(15; "Date Filter"; Date)
         {
             Caption = 'Date Filter';
@@ -143,10 +134,6 @@ table 59066 "Agents"
             Editable = false;
             FieldClass = FlowField;
         }
-        // "Approved Amount", not "Amount Disbursed" - see the matching field on
-        // "Members Cues" for why: it's reliably populated on every loan, including
-        // ones posted before the POST action was fixed to also set "Amount Disbursed",
-        // and identical to it for every loan posted since that fix.
         field(23; "Total Disbursed"; Decimal)
         {
             Caption = 'Total Disbursed';
@@ -155,12 +142,7 @@ table 59066 "Agents"
             Editable = false;
             FieldClass = FlowField;
         }
-        // "Outstanding Portfolio" and "Portfolio at Risk (>30 Days)" cannot be
-        // FlowFields: "Outstanding Balance" on Loans Register is itself a FlowField
-        // (computed from Cust. Ledger Entry), and SQL Server has no physical column
-        // to aggregate for a FlowField-of-a-FlowField - summing it as a CalcFormula
-        // compiles but throws "Invalid column name 'Outstanding Balance'" at runtime.
-        // These are plain fields instead, refreshed by UpdatePortfolioFigures().
+
         field(24; "Outstanding Portfolio"; Decimal)
         {
             Caption = 'Outstanding Portfolio';
@@ -185,15 +167,20 @@ table 59066 "Agents"
         {
             TableRelation = "No. Series";
         }
-        // "Default Rate" = "Portfolio at Risk (>30 Days)" ÷ "Outstanding Portfolio" × 100.
-        // Stored (not a FlowField) so it can be filtered on directly - e.g. by the
-        // "Agents at Risk" list and the risk notification on the Agent Card - without
-        // every caller re-deriving the ratio itself. Refreshed by UpdatePortfolioFigures().
         field(31; "Default Rate"; Decimal)
         {
             Caption = 'Default Rate %';
             Editable = false;
             DecimalPlaces = 2 : 2;
+        }
+        field(32; "Interest Paid"; Decimal)
+        {
+            CalcFormula = - sum("Cust. Ledger Entry"."Amount Posted" where("Agent No." = field("No."),
+                                                                          "Transaction Type" = filter("Interest Paid"),
+                                                                          "Posting Date" = field("Date Filter"),
+                                                                          Reversed = const(false)));
+            Editable = false;
+            FieldClass = FlowField;
         }
     }
 

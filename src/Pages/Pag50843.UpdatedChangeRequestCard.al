@@ -35,7 +35,7 @@ page 50843 "Updated Change Request Card"
                         //     AtmVisible := true;
                         // end;
 
-                        if Rec.Type = Rec.Type::"BOSA Change" then begin
+                        if Rec.Type = Rec.Type::"Micro Change" then begin
                             AccountVisible := true;
                             nxkinvisible := true;
                         end;
@@ -428,7 +428,7 @@ page 50843 "Updated Change Request Card"
         //     AtmVisible := true;
         // end;
 
-        if Rec.Type = Rec.Type::"BOSA Change" then begin
+        if Rec.Type = Rec.Type::"Micro Change" then begin
             AccountVisible := true;
             nxkinvisible := true;
         end;
@@ -456,7 +456,7 @@ page 50843 "Updated Change Request Card"
         //     AtmVisible := true;
         // end;
 
-        if Rec.Type = Rec.Type::"BOSA Change" then begin
+        if Rec.Type = Rec.Type::"Micro Change" then begin
             AccountVisible := true;
             nxkinvisible := true;
         end;

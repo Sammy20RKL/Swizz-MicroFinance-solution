@@ -36,7 +36,7 @@ page 50841 "Change Request Card"
                         //     nxkinvisible := true;
                         // end;
 
-                        if Rec.Type = Rec.Type::"BOSA Change" then begin
+                        if Rec.Type = Rec.Type::"Micro Change" then begin
                             AccountVisible := true;
                             nxkinvisible := true;
                         end;
@@ -498,7 +498,7 @@ page 50841 "Change Request Card"
                     // end;
 
 
-                    if Rec.Type = Rec.Type::"BOSA Change" then begin
+                    if Rec.Type = Rec.Type::"Micro Change" then begin
                         Memb.Reset;
                         Memb.SetRange(Memb."No.", Rec."Account No");
                         if Memb.Find('-') then begin
@@ -777,7 +777,7 @@ page 50841 "Change Request Card"
         //     nxkinvisible := true;
         // end;
 
-        if Rec.Type = Rec.Type::"BOSA Change" then begin
+        if Rec.Type = Rec.Type::"Micro Change" then begin
             AccountVisible := true;
             nxkinvisible := true;
         end;
@@ -801,7 +801,7 @@ page 50841 "Change Request Card"
         //     nxkinvisible := false;
         // end;
 
-        if Rec.Type = Rec.Type::"BOSA Change" then begin
+        if Rec.Type = Rec.Type::"Micro Change" then begin
             AccountVisible := true;
             nxkinvisible := true;
         end;

@@ -117,8 +117,8 @@ page 70788 "Agent Picture"
     trigger OnAfterGetCurrRecord()
     begin
         SetEditableOnPictureActions();
-        if Rec."Approval Status" = Rec."Approval Status"::Open then
-            RecordIsOpen := true;
+        // if Rec."Approval Status" = Rec."Approval Status"::Open  then
+        //     RecordIsOpen := true;
     end;
 
     trigger OnOpenPage()

@@ -98,31 +98,24 @@ table 50057 "Members Cues"
             CalcFormula = count(Agents where("Default Rate" = filter(> 10)));
             FieldClass = FlowField;
         }
-        // "Approved Amount" (not "Amount Disbursed") on purpose: it's set at approval
-        // time, so it's reliably populated on every loan, including ones posted before
-        // the POST action was fixed to also set "Amount Disbursed" - that fix makes the
-        // two identical for every loan going forward anyway, so this is correct for both
-        // old and new loans without needing to backfill the older ones. Still a plain
-        // field on Loans Register, so still safe to sum directly (not a FlowField-of-a-
-        // FlowField, which is what crashes "Outstanding Balance" elsewhere).
         field(19; "Agent Total Disbursed"; Decimal)
         {
-            Caption = 'Total Disbursed (All Agents)';
+            Caption = 'Total Disbursed';
             CalcFormula = sum("Loans Register"."Approved Amount" where(Posted = const(true), "Agent No." = filter(<> '')));
             FieldClass = FlowField;
         }
-        // Agents."Outstanding Portfolio" is a plain field (refreshed by
-        // UpdatePortfolioFigures()), not a FlowField, so summing it here is safe.
+        // Total loan repayments collected across all agents. Same filters as
+        // Agents."Current Collections", minus the per-agent link - that field is itself
+        // a FlowField, so it can't be summed here; the ledger entries are summed directly.
         field(20; "Agent Outstanding Portfolio"; Decimal)
         {
-            Caption = 'Outstanding Portfolio (All Agents)';
-            CalcFormula = sum(Agents."Outstanding Portfolio");
+            Caption = 'Current Collection';
+            CalcFormula = - sum("Cust. Ledger Entry"."Amount Posted" where("Agent No." = filter(<> ''),
+                                                                          "Transaction Type" = filter("Loan Repayment"),
+                                                                          Reversed = const(false)));
             FieldClass = FlowField;
         }
-        // Plain field, not a FlowField - a CalcFormula can't run "divide by a million
-        // and format as text", so this is refreshed in code by
-        // UpdateTotalDisbursedFormatted() instead, the same way Agents."Default Rate"
-        // is a plain field refreshed by UpdatePortfolioFigures().
+
         field(21; "Total Disbursed (M)"; Text[20])
         {
 

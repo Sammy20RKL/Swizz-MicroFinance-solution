@@ -2,6 +2,14 @@ pageextension 50880 "GeneralLedgerSetUpExt" extends "General Ledger Setup"
 {
     layout
     {
+        modify("Global Dimension 1 Code")
+        {
+            Editable = true;
+        }
+        modify("Global Dimension 2 Code")
+        {
+            Editable = true;
+        }
 
         addafter("Shortcut Dimension 8 Code")
         {

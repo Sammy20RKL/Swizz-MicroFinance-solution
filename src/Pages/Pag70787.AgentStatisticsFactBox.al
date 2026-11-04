@@ -54,6 +54,12 @@ page 70787 "Agent Statistics FactBox"
                     Editable = false;
                     DrillDown = true;
                 }
+                field("Interest Paid"; Rec."Interest Paid")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    DrillDown = true;
+                }
                 field("Portfolio at Risk (>30 Days)"; Rec."Portfolio at Risk (>30 Days)")
                 {
                     ApplicationArea = All;

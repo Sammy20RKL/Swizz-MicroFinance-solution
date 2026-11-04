@@ -24,8 +24,8 @@ Table 51552 "Change Request"
         field(2; Type; Option)
         {
             // OptionCaption = ',BOSA Change';
-            OptionMembers = "BOSA Change";
-            InitValue = "BOSA Change";
+            OptionMembers = "Micro Change";
+            InitValue = "Micro Change";
             trigger OnValidate()
             begin
                 "Account No" := '';
@@ -33,7 +33,7 @@ Table 51552 "Change Request"
         }
         field(3; "Account No"; Code[50])
         {
-            TableRelation = Customer."No." where("Customer Posting Group" = filter('MEMBER'));
+            TableRelation = Customer."No." where("Customer Posting Group" = filter('MICRO'));
             trigger OnValidate()
             begin
                 Clear(Picture);
@@ -73,7 +73,7 @@ Table 51552 "Change Request"
 
 
                 // end;
-                if Type = Type::"BOSA Change" then begin
+                if Type = Type::"Micro Change" then begin
                     Memb.Reset;
                     Memb.SetRange(Memb."No.", "Account No");
                     if Memb.Find('-') then begin
